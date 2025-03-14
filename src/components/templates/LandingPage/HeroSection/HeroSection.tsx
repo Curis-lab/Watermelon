@@ -1,5 +1,6 @@
 import { styled, TextField, Typography } from "@mui/material";
 import MUIModel from "../../../atoms/Models";
+import { OpenInNew } from "@mui/icons-material";
 
 const HeroSectionWrapper = styled("div")({
   display: "flex",
@@ -50,6 +51,8 @@ const HeroSection = () => {
     </StyledModalBody>
   </StyledModalContainer>;
 
+
+
   return (
     <>
       <MUIModel children={<Login />} />
@@ -61,7 +64,10 @@ const HeroSection = () => {
             </Typography>
             <Typography>Join our community of over 1000+ members</Typography>
           </div>
-          <div>Containue with email -</div>
+          <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '5px'}}>
+            <OpenInNew/>
+            Containue with email -
+          </div>
         </ContentWrapper>
         <ImageWrapper>
           <StyledImageFrame

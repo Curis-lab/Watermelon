@@ -40,7 +40,7 @@ export const theme = {
     },
     h4: {
       fontSize: "1rem",
-      fontWeight: "400",
+      fontWeight: "600",
     },
     caption: {
       fontSize: `${12 / 16}rem`,
@@ -139,8 +139,8 @@ export const theme = {
     },
 
     background: {
-      paper: colors.pink[900],
-      default: '#fff',
+      paper: colors.grey[50],
+      default: colors.grey[200],
       application: colors.pink[900],
       sidebar: colors.pink[900],
       alternative: colors.pink[800], // used on the dark theme to switch primary main to a darker shade
