@@ -19,6 +19,10 @@ import React, { useState } from "react";
 
 const StyledContainerWrapper = styled("div")({
   display: "flex",
+  width: '80%',
+  marginLeft: '10%',
+  marginRight: '10%',
+  gap: '20px'
 });
 
 const UserDashboardPage = () => {

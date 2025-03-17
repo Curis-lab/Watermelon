@@ -13,13 +13,15 @@ const EventCard = ({ props }: { props: Event }) => {
     <StyledCardWrapper>
       <Link to={`/event/${_id}`}>
         <CardContainer>
-          <img src={imageUrl} alt="card" style={{ width: "200px" }} />
+          <img src={imageUrl} alt="card" style={{ width: "200px", borderRadius: '5px', border: '1px solid #000' }} />
           <StyeldDecription>
             <Typography color="secondary">
               {new Date(date).toLocaleDateString()}
             </Typography>
             <Typography variant="h3">{name}</Typography>
-            <Typography variant="h4">{description}</Typography>
+            <Typography variant="h4">
+              {description.length > 200 ? `${description.substring(0, 80)}...` : description}
+            </Typography>
             <Typography variant="caption">{location}</Typography>
           </StyeldDecription>
         </CardContainer>

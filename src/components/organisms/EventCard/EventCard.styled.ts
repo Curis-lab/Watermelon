@@ -1,11 +1,13 @@
 import { Box, styled } from "@mui/material";
 export const CardContainer = styled(Box)({
   display: "flex",
+  gap: '20px'
 });
 
 export const StyeldDecription = styled(Box)({
   display: "flex",
   flexDirection: "column",
+  justifyContent: 'center'
 });
 
 export const StyledCardWrapper = styled("div")(({ theme }) => ({

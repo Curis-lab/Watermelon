@@ -1,53 +1,39 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import io from "socket.io-client";
+import UserList from "../../organisms/ChatAndNetwork/UserList";
+import { ChatWrapper, LayoutWrapper, ListOfUserWrapper } from "./ChatAndNetwork.styled";
 
 
-const socket = io("http://localhost:5001", {
-  transports: ["websocket"],
-});
+const socket = io("http://localhost:3000");
 
 const ChatAndNetwork = () => {
-  const [score, setScore] = useState({ value: 0 });
-  const [data, setData] = useState();
-  function connectSocket() {
-    socket.on("connect", () => {
-      console.log("connected to server");
-    });
-    socket.on("message", (data) => {
-      console.log(data);
-    });
-    socket.emit("message", "hello there");
-    socket.on('scores',(data)=>{
-        setData(data)
-    })
-  }
   useEffect(() => {
+    const connectSocket = () => {
+      socket.on("connect", () => {
+        console.log("Connected to server");
+      });
+    };
     connectSocket();
+
+    return () => {
+      socket.off("connect");
+    };
   }, []);
 
-  const onSubmit = () => {
-    console.log(score);
-    socket.emit('score', score);
-  };
-  const inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setScore((prev) => ({ ...prev, ["value"]: Number(e.target.value) }));
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const message = e.currentTarget.elements[0].value;
+    socket.emit("message", 'hello');
+    console.log("Message sent:", message);
   };
 
-  
   return (
-    <div>
-      <h1>chat And network</h1>
-      {
-        JSON.stringify(data)
-      }
-      <input
-        onChange={inputHandler}
-        type="text"
-        placeholder="Enter your name"
-      />
-      <input type="text" placeholder="Enter your score" />
-      <button onClick={onSubmit}>Submit</button>
-    </div>
+    <LayoutWrapper>
+      <ListOfUserWrapper>
+        <UserList/>
+      </ListOfUserWrapper>
+      <ChatWrapper>Chat</ChatWrapper>
+    </LayoutWrapper>
   );
 };
 

@@ -29,7 +29,7 @@ const MainLayout = ({ children }: Props) => {
 
   return (
     <div>
-      {["/", "/homepage", "/start"].includes(currentRoute) ? (
+      {["/", "/homepage", "/start",'/chat'].includes(currentRoute) ? (
         <LandingPage>{children}</LandingPage>
       ) : (
         <GridPage>{children}</GridPage>

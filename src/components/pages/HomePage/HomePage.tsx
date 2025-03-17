@@ -1,9 +1,10 @@
 import { Box, Typography, Button, TextField } from "@mui/material";
 import { StyledBox } from "./HomePage.styled";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { loginUser, registerUser } from "../../../lib/api";
 import { useNavigate } from "react-router-dom";
-import HeroSection from "../../templates/LandingPage/HeroSection";
+import { AuthContext } from "../../../providers/AuthProvider";
+// import HeroSection from "../../templates/LandingPage/HeroSection";
 
 const HomePage = () => {
   const [isRegister, setIsRegister] = useState(true);
@@ -17,6 +18,9 @@ const HomePage = () => {
     role: "attendee",
   });
 
+  //this is use context for the auth
+  const { registerInfo, updateRegisterInfo } = useContext(AuthContext);
+
   const handleChange = (
     event: React.ChangeEvent<HTMLInputElement>,
     field: string
@@ -25,6 +29,7 @@ const HomePage = () => {
       ...prevData,
       [field]: event.target.value,
     }));
+    updateRegisterInfo({[field]:event.target.value})
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -50,9 +55,12 @@ const HomePage = () => {
     }
   };
 
-  const RegisterForm = ()=>(
-<StyledBox>
+  const RegisterForm = () => (
+    <StyledBox>
       <Box component="form" sx={{ mt: 3 }} onSubmit={handleSubmit}>
+        {
+          JSON.stringify(registerInfo)
+        }
         <Typography variant="h6">Subscribe to our newsletter</Typography>
         {isRegister ? (
           <Button
@@ -75,7 +83,9 @@ const HomePage = () => {
                 type="text"
                 variant="outlined"
                 value={roleFormData.username}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e, "username")}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  handleChange(e, "username")
+                }
               />
             </>
           )}
@@ -87,7 +97,9 @@ const HomePage = () => {
             type="email"
             variant="outlined"
             value={roleFormData.email}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e, "email")}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              handleChange(e, "email")
+            }
           />
           <TextField
             size="small"
@@ -97,7 +109,9 @@ const HomePage = () => {
             type="password"
             variant="outlined"
             value={roleFormData.password}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e, "password")}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              handleChange(e, "password")
+            }
           />
           <Button type="submit" variant="contained" color="primary">
             Submit
@@ -113,10 +127,11 @@ const HomePage = () => {
         </Button>
       </Box>
     </StyledBox>
-  )
+  );
   return (
     <>
-    <HeroSection/>
+      {/* <HeroSection/> */}
+      <RegisterForm />
     </>
   );
 };
