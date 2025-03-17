@@ -1,0 +1,64 @@
+openapi: "3.0.0"
+
+info:
+  title: EventGo API
+  description: API documentation for EventGo application
+  version: 1.0.0
+
+servers:
+  - url: https://api.eventgo.com/v1
+    description: Main (production) server
+  - url: https://staging.api.eventgo.com/v1
+    description: Staging server
+    
+paths:
+  /events:
+    get:
+      summary: Get all events
+      operationId: getAllEvents
+      tags:
+        - Events
+      responses:
+        "200":
+          description: A list of events
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Event"
+  /events/{id}:
+    get:
+      summary: Get event by ID
+      operationId: getEventById
+      tags:
+        - Events
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Event details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Event"
+components:
+  schemas:
+    Event:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        date:
+          type: string
+          format: date-time
+        location:
+          type: string
+        description:
+          type: string
