@@ -1,2 +1,3 @@
-export * from './src/openapi/events';
-export * from './src/openapi/index.schemas';
+export * from './apis/events';
+export * from './apis/eventGoAPI.schemas';
+export * from './models';
