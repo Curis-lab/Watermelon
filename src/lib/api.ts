@@ -36,7 +36,7 @@ interface RegisterProps {
 
 export const registerUser = async (userData: RegisterProps) => {
   try {
-    const response = await axios.post("/auth/register", userData);
+    const response = await axios.post("/authentication/register", userData);
     return response?.data;
   } catch (error) {
     if (error instanceof Error) {

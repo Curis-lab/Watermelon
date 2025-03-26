@@ -8,6 +8,9 @@ import {
   EventDiscoveryPage,
   Profile,
   CreateEvent,
+  Onboarding,
+  ProfileSetup,
+  Events,
 } from "./components/pages";
 import MainLayout from "./components/templates/Layout";
 import MUIThemeProvider from "./theme/MUIThemeProvider";
@@ -28,10 +31,29 @@ function App() {
               <MainLayout>
                 <Routes>
                   <Route path="/" element={<Home />} />
+                  <Route
+                    path="/events"
+                    element={<Events/>}
+                  />
+                  <Route path="/mentors" element={<div>on the mentors</div>} />
+                  <Route path="/onboarding" element={<Onboarding />} />
                   <Route path="/dashboard" element={<UserDashboard />} />
-                  <Route path="/chat" element={<ChatAndNetwork />} />
+                  <Route path="/inbox" element={<ChatAndNetwork />} />
+                  <Route path="/profile-setup" element={<ProfileSetup />} />
                   <Route path="/admin-dashboard" element={<AdminDashboard />} />
                   <Route path="/event/:id" element={<EventDiscoveryPage />} />
+                  <Route
+                    path="/mentor/:id"
+                    element={<div>Mentor Details</div>}
+                  />
+                  <Route
+                    path="/mentor/schedule"
+                    element={<div>Mentor Schedule</div>}
+                  />
+                  <Route
+                    path="/mentor/edit"
+                    element={<div>Mentor Profile Edit</div>}
+                  />
                   <Route path="/profile" element={<Profile />} />
                   <Route path="/start" element={<CreateEvent />} />
                   <Route path="*" element={<NotFoundPage />} />

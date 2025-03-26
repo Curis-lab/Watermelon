@@ -29,7 +29,7 @@ const HomePage = () => {
       ...prevData,
       [field]: event.target.value,
     }));
-    updateRegisterInfo({[field]:event.target.value})
+    updateRegisterInfo({ [field]: event.target.value });
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -58,9 +58,7 @@ const HomePage = () => {
   const RegisterForm = () => (
     <StyledBox>
       <Box component="form" sx={{ mt: 3 }} onSubmit={handleSubmit}>
-        {
-          JSON.stringify(registerInfo)
-        }
+        {JSON.stringify(registerInfo)}
         <Typography variant="h6">Subscribe to our newsletter</Typography>
         {isRegister ? (
           <Button
@@ -130,8 +128,32 @@ const HomePage = () => {
   );
   return (
     <>
-      {/* <HeroSection/> */}
-      <RegisterForm />
+    <RegisterForm/>
+      <div>
+        <div>Network at Events or Find 1:1 Mentor_All in One Place</div>
+        <div>Join 10,000+ professionals learning and connecting daily.</div>
+        <div style={{ display: "flex", gap: "10px" }}>
+          <Button
+            component="a"
+            href="/mentors"
+            variant="contained"
+            color="primary"
+            style={{ textDecoration: "none" }}
+          >
+            Find Mentors
+          </Button>
+          <Button
+            component="a"
+            href="/events"
+            variant="contained"
+            color="primary"
+            style={{ textDecoration: "none" }}
+          >
+            Find Events
+          </Button>
+        </div>
+        <Button variant="contained" href="/onboarding" color="primary" component="a" style={{textDecoration: 'none'}}>Login</Button>
+      </div>
     </>
   );
 };
