@@ -1,13 +1,44 @@
 import { Modal } from "@mui/material";
 import React from "react";
 
-interface MUIModelProps{
-    children: React.ReactNode
+/**
+ * title, body, footer
+ */
+interface MUIModelProps {
+  body: React.ReactNode;
+
+  open: boolean;
+  onClose: () => void;
+  title?: React.ReactNode;
+  footer?: React.ReactNode;
 }
-const MUIModel = ({children}:MUIModelProps) => {
+const MUIModel = ({ body, footer, open, onClose, title }: MUIModelProps) => {
   return (
-    <Modal open={false} onClose={() => {}}>
-      {children}
+    <Modal
+      open={open}
+      onClose={onClose}
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <div
+        style={{
+          display: "flex",
+          padding: "20px",
+          flexDirection: "column",
+          alignItems: "center",
+          height: "500px",
+          backgroundColor: "white",
+          width: "400px",
+        }}
+      >
+        {title}
+        <div style={{ flex: 1 }}>{body}</div>
+        {footer}
+      </div>
     </Modal>
   );
 };

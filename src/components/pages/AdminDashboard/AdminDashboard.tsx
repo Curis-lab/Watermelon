@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 
 const AdminDashboard = () => {
-  const [users, setUsers] = useState<any[]>();
+  const [users, setUsers] = useState();
 
   useEffect(() => {
     let isMounted = true;

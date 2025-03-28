@@ -1,5 +1,4 @@
-import { styled, TextField, Typography } from "@mui/material";
-import MUIModel from "../../../atoms/Models";
+import { styled, Typography } from "@mui/material";
 import { OpenInNew } from "@mui/icons-material";
 
 const HeroSectionWrapper = styled("div")({
@@ -27,35 +26,34 @@ const StyledImageFrame = styled("img")(({ theme }) => ({
 }));
 
 
-const StyledModalContainer = styled('div')(({theme})=>({
-    backgroundColor: '#fff',
-    padding: theme.spacing(2),
-    display: 'flex',
-    flexDirection: 'column',
-    gap: theme.spacing(2),
-    alignItems: 'center',
-    width: '500px',
-}));
-const StyledModalBody = styled('div')(({theme})=>({
-    display: 'flex',
-    flexDirection: 'column',
-    gap: theme.spacing(2),
-}))
+// const StyledModalContainer = styled('div')(({theme})=>({
+//     backgroundColor: '#fff',
+//     padding: theme.spacing(2),
+//     display: 'flex',
+//     flexDirection: 'column',
+//     gap: theme.spacing(2),
+//     alignItems: 'center',
+//     width: '500px',
+// }));
+// const StyledModalBody = styled('div')(({theme})=>({
+//     display: 'flex',
+//     flexDirection: 'column',
+//     gap: theme.spacing(2),
+// }))
 const HeroSection = () => {
-  const Login = () => <StyledModalContainer>
-    <Typography variant="h5">Finish signing up</Typography>
-    <StyledModalBody>
-        <TextField label="name" placeholder="Enter your name"/>
-        <TextField label="email" placeholder="Enter your email"/>
-        <TextField label="email" placeholder="Enter your email"/>
-    </StyledModalBody>
-  </StyledModalContainer>;
+  // const Login = () => <StyledModalContainer>
+  //   <Typography variant="h5">Finish signing up</Typography>
+  //   <StyledModalBody>
+  //       <TextField label="name" placeholder="Enter your name"/>
+  //       <TextField label="email" placeholder="Enter your email"/>
+  //       <TextField label="email" placeholder="Enter your email"/>
+  //   </StyledModalBody>
+  // </StyledModalContainer>;
 
 
 
   return (
     <>
-      <MUIModel children={<Login />} />
       <HeroSectionWrapper>
         <ContentWrapper>
           <div>

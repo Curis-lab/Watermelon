@@ -1,7 +1,7 @@
 import { createContext, useCallback, useState } from "react";
-import { baseUrl, postRequest } from "../utils/services";
+// import { baseUrl, postRequest } from "../utils/services";
 
-export const AuthContext = createContext();
+export const AuthContext  = createContext();
 
 export const AuthContextProvider = ({
   children,
@@ -9,8 +9,8 @@ export const AuthContextProvider = ({
   children: React.ReactNode;
 }) => {
   const [user, setUser] = useState(null);
-  const [registerError, setRegisterError] = useState(null);
-  const [isRegisterLoading, setIsRegisterLoading] = useState(null);
+  // const [registerError, setRegisterError] = useState(null);
+  // const [isRegisterLoading, setIsRegisterLoading] = useState(null);
 
   const [registerInfo, setRegitsterInfo] = useState({
     name: "",
@@ -25,21 +25,21 @@ export const AuthContextProvider = ({
     [setRegitsterInfo]
   );
 
-  const registerUser = useCallback(async () => {
-    const response = await postRequest(
-      `${baseUrl}/auth/register`,
-      JSON.stringify(registerInfo)
-    );
-    if (response.error) {
-      setRegisterError(response.message);
-      return;
-    }
-    localStorage.setItem("User", JSON.stringify(response))
-    setUser(response);
-  }, [registerInfo]);
+  // const registerUser = useCallback(async () => {
+  //   const response = await postRequest(
+  //     `${baseUrl}/auth/register`,
+  //     JSON.stringify(registerInfo)
+  //   );
+  //   if (response.error) {
+  //     setRegisterError(response.message);
+  //     return;
+  //   }
+  //   localStorage.setItem("User", JSON.stringify(response))
+  //   setUser(response);
+  // }, [registerInfo]);
 
   return (
-    <AuthContext.Provider value={{ user, registerInfo, updateRegisterInfo }}>
+    <AuthContext.Provider value={{ user, registerInfo, updateRegisterInfo, setUser }}>
       {children}
     </AuthContext.Provider>
   );

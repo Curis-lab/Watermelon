@@ -38,3 +38,8 @@ Contains TypeScript type definitions.
 Contains utility functions.
 - `stringUtils.ts`
 - `mathUtils.ts`
+
+
+# color palette
+
+https://colorhunt.co/palette/3f7d58efefefef9651ec5228

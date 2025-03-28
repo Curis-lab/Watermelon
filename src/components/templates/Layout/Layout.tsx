@@ -2,6 +2,8 @@ import { ReactNode } from "react";
 import Navbar from "../Navbar";
 import Sidebar from "../Sidebar";
 import { useLocation } from "react-router-dom";
+// import MUIModel from "../../atoms/Models";
+import RegisterModal from "../../molecules/RegisterModal";
 
 interface Props {
   children: ReactNode;
@@ -29,7 +31,8 @@ const MainLayout = ({ children }: Props) => {
 
   return (
     <div>
-      {["/", "/homepage", "/start",'/chat'].includes(currentRoute) ? (
+      <RegisterModal/>
+      {["/", "/homepage", "/start", "/chat"].includes(currentRoute) ? (
         <LandingPage>{children}</LandingPage>
       ) : (
         <GridPage>{children}</GridPage>

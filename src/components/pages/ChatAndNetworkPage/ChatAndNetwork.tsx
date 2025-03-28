@@ -20,12 +20,12 @@ const ChatAndNetwork = () => {
     };
   }, []);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const message = e.currentTarget.elements[0].value;
-    socket.emit("message", 'hello');
-    console.log("Message sent:", message);
-  };
+  // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault();
+  //   const message = e.currentTarget.elements[0].value;
+  //   socket.emit("message", 'hello');
+  //   console.log("Message sent:", message);
+  // };
 
   return (
     <LayoutWrapper>

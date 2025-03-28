@@ -5,7 +5,7 @@ export const NavbarWrapper = styled("div")(({ theme }) => ({
   flexDirection: "row",
   justifyContent: "space-between",
   alignItems: "center",
-  padding: theme.spacing(2),
+  padding: theme.spacing(0.1),
   borderBottom: `2px solid ${theme.palette.divider}`,
   top: 0,
   left: 0,

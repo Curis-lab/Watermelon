@@ -1,8 +1,8 @@
-import EventList from "../../templates/EventList";
-import { DataFetcher } from "../../../lib/axios";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { Paper, styled, Typography } from "@mui/material";
-import { Calendar } from "react-date-range";
+// import EventList from "../../templates/EventList";
+// import { DataFetcher } from "../../../lib/axios";
+// import { useQuery, useQueryClient } from "@tanstack/react-query";
+// import {  styled } from "@mui/material";
+// import { Calendar } from "react-date-range";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import React from "react";
@@ -17,13 +17,13 @@ import React from "react";
  *
  */
 
-const StyledContainerWrapper = styled("div")({
-  display: "flex",
-  width: "80%",
-  marginLeft: "10%",
-  marginRight: "10%",
-  gap: "20px",
-});
+// const StyledContainerWrapper = styled("div")({
+//   display: "flex",
+//   width: "80%",
+//   marginLeft: "10%",
+//   marginRight: "10%",
+//   gap: "20px",
+// });
 
 const UserDashboardPage = () => {
 

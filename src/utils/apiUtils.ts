@@ -10,3 +10,8 @@ export class ResponseError extends Error{
         this.body = body;
     }
 }
+
+export const headers = {
+    Accept: 'application/json',
+    'Content-Type': 'application/json'
+}
