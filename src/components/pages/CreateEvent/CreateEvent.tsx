@@ -131,7 +131,7 @@ const CreateEvent = () => {
             }}
           >
             <input
-                id="file-input"
+              id="file-input"
               type="file"
               accept="image/*"
               onChange={(e) => {
@@ -140,7 +140,7 @@ const CreateEvent = () => {
                   setImageFile(file);
                 }
               }}
-              style={{display: 'none'}}
+              style={{ display: "none" }}
             />
             <label htmlFor="file-input">Drag drop some file</label>
           </Box>

@@ -5,7 +5,9 @@
 // import { Calendar } from "react-date-range";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
-import React from "react";
+import React, { useEffect } from "react";
+import { useApi } from "../../../hooks/api";
+import { useAuth } from "../../../providers/AuthProvider";
 
 /**
  *
@@ -26,7 +28,24 @@ import React from "react";
 // });
 
 const UserDashboardPage = () => {
-
+  const {request} = useApi();
+  const {isAuthenticated} = useAuth();
+  
+  const fetchData = async()=>{
+    try{
+      const response = await request('http://localhost:3000/api/auth/me');
+      const result = await response.json();
+      setData(result);
+    }catch(err){
+      console.log(err)
+    }
+  }
+  useEffect(()=>{
+    if(isAuthenticated()){
+      console.log('this is authcated')
+      fetchData();
+    }
+  },[]);
 
   return (
     <>

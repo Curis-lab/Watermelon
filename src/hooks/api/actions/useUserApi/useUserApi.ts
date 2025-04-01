@@ -1,4 +1,3 @@
-import { formatPath } from "../../../../utils/formatPath";
 import useApi from "../useApi/useApi";
 
 interface IUser {
@@ -9,7 +8,7 @@ interface IUser {
 
 export const useUserApi = () => {
   const PATH = "/authentication/register";
-  const { createRequest, makeRequest } = useApi();
+  const { createRequest, makeRequest, loading } = useApi();
   const addUser = async(user: IUser) => {
     const requestId = "addUser";
     const req = createRequest(
@@ -38,5 +37,6 @@ export const useUserApi = () => {
     addUser,
     updateUser,
     deleteUser,
+    loading
   };
 };

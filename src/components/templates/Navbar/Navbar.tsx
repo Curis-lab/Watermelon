@@ -9,7 +9,7 @@ const Navbar = () => {
     <NavbarWrapper>
       <div style={{display: 'flex', flexDirection: 'row', gap: '10px', justifyContent: 'center', alignItems: 'center'
       }}>
-        <Link to="/dashboard" style={{ textDecoration: "none" }}>
+        <Link to="/" style={{ textDecoration: "none" }}>
           <img src={logo} alt="logo" style={{ width: "50px" }} />
         </Link>
         <input placeholder="Search.." style={{width: '300px', height: '30px', borderRadius: '5px', border: '1px solid #000', padding: '15px'}}/>

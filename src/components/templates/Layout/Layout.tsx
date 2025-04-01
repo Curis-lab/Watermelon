@@ -20,7 +20,7 @@ const GridPage = ({ children }: Props) => (
   <div style={{ display: "grid" }}>
     <Navbar />
     <div>
-      <Sidebar />
+      {/* <Sidebar /> */}
       {children}
     </div>
   </div>
@@ -31,7 +31,7 @@ const MainLayout = ({ children }: Props) => {
 
   return (
     <div>
-      <RegisterModal/>
+      <RegisterModal />
       {["/", "/homepage", "/start", "/chat"].includes(currentRoute) ? (
         <LandingPage>{children}</LandingPage>
       ) : (

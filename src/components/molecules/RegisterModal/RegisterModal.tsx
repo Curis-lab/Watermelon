@@ -5,31 +5,46 @@ import { Button, TextField, Typography } from "@mui/material";
 import logo from "../../../static/images/logo.svg";
 import { useState } from "react";
 import { useUserApi } from "../../../hooks/api/actions/useUserApi/useUserApi";
+import { useNavigate } from "react-router-dom";
+import { useApi } from "../../../hooks/api";
 
-const Body = () => {
-  const { addUser } = useUserApi();
+const Body = ({ isLogin }: { isLogin: boolean }) => {
+  const { loading } = useUserApi();
+  const { login } = useApi();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
   });
 
+  const registerModal = useRegisterModal();
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // submit form data to api
-    console.log(formData);
     setFormData({
       email: "",
       name: "",
       password: "",
     });
 
-    addUser(formData);
+    try {
+      const response = await login({
+        email: formData.email,
+        password: formData.password,
+      });
+      if (response.token) {
+        registerModal.onClose();
+
+        navigate("/onboarding");
+      }
+    } catch (error) {
+      console.error("Error: Failed to fetch", error);
+    }
   };
 
   return (
@@ -43,14 +58,16 @@ const Body = () => {
         marginTop: "20px",
       }}
     >
-      <TextField
-        name="name"
-        value={formData.name}
-        onChange={handleChange}
-        size="small"
-        placeholder="Name"
-        variant="outlined"
-      />
+      {isLogin && (
+        <TextField
+          name="name"
+          value={formData.name}
+          onChange={handleChange}
+          size="small"
+          placeholder="Name"
+          variant="outlined"
+        />
+      )}
       <TextField
         name="email"
         value={formData.email}
@@ -68,14 +85,15 @@ const Body = () => {
         variant="outlined"
       />
       <Button type="submit" variant="contained">
-        Register
+        {loading ? "loading..." : "register"}
       </Button>
     </form>
   );
 };
+
 const RegisterModal = () => {
   const registerModal = useRegisterModal();
-
+  const [isLogin, setIsLogin] = useState<boolean>(true);
   const title = (
     <>
       <div
@@ -113,13 +131,18 @@ const RegisterModal = () => {
     <div>
       {/* Not a member yet? <span style={{color: 'blue', cursor:'pointer'}}>Sign Up</span> */}
       Don't you have an account?{" "}
-      <span style={{ color: "blue", cursor: "pointer" }}>Create one</span>
+      <span
+        style={{ color: "blue", cursor: "pointer" }}
+        onClick={() => setIsLogin((e) => !e)}
+      >
+        {isLogin ? "Login" : "Create one"}
+      </span>
     </div>
   );
   return (
     <MUIModel
       title={title}
-      body={<Body />}
+      body={<Body isLogin={isLogin} />}
       footer={footer}
       open={registerModal.isOpen}
       onClose={() => {}}

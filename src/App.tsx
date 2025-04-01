@@ -11,6 +11,8 @@ import {
   Onboarding,
   ProfileSetup,
   Events,
+  Mentors,
+  MentorProfile,
 } from "./components/pages";
 import MainLayout from "./components/templates/Layout";
 import MUIThemeProvider from "./theme/MUIThemeProvider";
@@ -35,7 +37,7 @@ function App() {
                     path="/events"
                     element={<Events/>}
                   />
-                  <Route path="/mentors" element={<div>on the mentors</div>} />
+                  <Route path="/mentors" element={<Mentors/>} />
                   <Route path="/onboarding" element={<Onboarding />} />
                   <Route path="/dashboard" element={<UserDashboard />} />
                   <Route path="/inbox" element={<ChatAndNetwork />} />
@@ -44,7 +46,7 @@ function App() {
                   <Route path="/event/:id" element={<EventDiscoveryPage />} />
                   <Route
                     path="/mentor/:id"
-                    element={<div>Mentor Details</div>}
+                    element={<MentorProfile/>}
                   />
                   <Route
                     path="/mentor/schedule"

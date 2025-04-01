@@ -13,3 +13,5 @@ export const CreateEvent = lazy(()=>import('./CreateEvent'))
 export const Onboarding = lazy(()=>import('./Onboarding'));
 export const ProfileSetup = lazy(()=>import('./ProfileSetup'));
 export const Events = lazy(()=>import('./Events'));
+export const Mentors = lazy(()=>import('./Mentors'));
+export const MentorProfile = lazy(()=>import('./MentorProfile'));

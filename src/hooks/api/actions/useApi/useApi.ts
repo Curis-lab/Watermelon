@@ -16,10 +16,9 @@ interface IUseAPI {
   propagateErrors?: boolean;
 }
 
-
-//complicated sound 
+//complicated sound
 const useApi = () => {
-  const [errors, setErrors] = useState <Record<string, stringl>>({});
+  const [errors, setErrors] = useState<Record<string, stringl>>({});
   const [loading, setLoading] = useState<boolean>(false);
 
   const makeRequest = useCallback(
@@ -28,15 +27,15 @@ const useApi = () => {
       requestId: string,
       loadingOn: boolean = true
     ): Promise<Response> => {
+      
       if (loadingOn) {
         setLoading(true);
       }
-      try{
+      try {
         const res = await apiCaller();
-        console.log('this is comming from make request',res);
         setLoading(false);
         return res;
-      }catch(e:Error){
+      } catch (e: Error) {
         throw new Error(e);
       }
     },
@@ -48,7 +47,7 @@ const useApi = () => {
       credentials: "include",
     };
     return {
-      caller:  () => {
+      caller: () => {
         return fetch(formatPath(path), {
           ...defaultOptions,
           ...options,
@@ -56,7 +55,13 @@ const useApi = () => {
       },
     };
   }, []);
-  return { createRequest, makeRequest };
+
+  return {
+    createRequest,
+    makeRequest,
+    errors,
+    loading,
+  };
 };
 
 export default useApi;
