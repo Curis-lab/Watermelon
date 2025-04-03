@@ -67,17 +67,14 @@ export const AuthContextProvider = ({
         user,
         registerInfo,
         updateRegisterInfo,
+        authState,
         setUser,
         setToken,
         clearToken,
         isAuthenticated,
       }}
     >
-      <>
-      did not store auth state
-      {JSON.stringify(authState)}
       {children}
-      </>
     </AuthContext.Provider>
   );
 };

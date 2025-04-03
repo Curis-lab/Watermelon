@@ -2,13 +2,13 @@ import { useAuth } from "../providers/AuthProvider";
 
 export function useApi() {
   const { authState, setToken, clearToken } = useAuth();
+
   async function request(url: string, options = {}) {
     const headers = {
-      "Content-Type": "application/json",
-      ...options.headers,
+      ...options,
     };
 
-    console.log('this is auth state', authState)
+    console.log("auth state ", authState);
     if (authState.token) {
       headers.Authorization = `Bearer ${authState.token}`;
     }
@@ -20,24 +20,31 @@ export function useApi() {
     }
     return response;
   }
-  async function login(credentials: { email: string; password: string }):Promise<any> {
-    console.log('this is credential', setToken)
+
+  async function login(credentials: {
+    email: string;
+    password: string;
+  }): Promise<any> {
+    clearToken();
+
     const response = await fetch("http://localhost:3000/api/auth/login", {
       method: "POST",
       body: JSON.stringify(credentials),
-      headers:{
-        "Content-Type": "application/json"
-      }
+      headers: {
+        "Content-Type": "application/json",
+      },
     });
-    const data = await response.json();
-    console.log('this is authentication data on login',data);
+
+    const { body } = await response.json();
+
     setToken({
-      token: data.token,
+      token: body.token,
       expiresIn: 12,
     });
-    
-    return data;
+
+    return body;
   }
+
   return {
     request,
     login,

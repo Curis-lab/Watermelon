@@ -3,8 +3,10 @@ import logo from "../../../static/images/logo.svg";
 // import NavbarAvatar from "../../atoms/ProfileAvatar";
 import { Link } from "react-router-dom";
 import RoundedButton from "../../atoms/Bottom/RoundedBottom";
+import { useAuth } from "../../../providers/AuthProvider";
 
 const Navbar = () => {
+  const { clearToken } = useAuth();
   return (
     <NavbarWrapper>
       <div style={{display: 'flex', flexDirection: 'row', gap: '10px', justifyContent: 'center', alignItems: 'center'
@@ -18,6 +20,9 @@ const Navbar = () => {
       <div style={{ display: "flex", flexDirection: "row", gap: "10px" }}>
         <RoundedButton label="Login" />
         <RoundedButton label="Sign Up" />
+        <div onClick={()=>{clearToken()}}>
+          Logout
+        </div>
       </div>
     </NavbarWrapper>
   );

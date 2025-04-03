@@ -5,10 +5,11 @@ import { Link } from "react-router-dom";
 const Mentors = () => {
   //fetch all mentors
   const [mentors, setMentors] = useState([]);
+
   useEffect(() => {
     const fetchMentors = async () => {
       try {
-        const response = await fetch("http://localhost:3000/api/user");
+        const response = await fetch("http://localhost:3000/api/mentors");
         const data = await response.json();
         setMentors(data);
       } catch (error) {
@@ -18,7 +19,7 @@ const Mentors = () => {
 
     fetchMentors();
   }, []);
-
+  
   return (
     <div>
       <div>
@@ -30,8 +31,8 @@ const Mentors = () => {
             gap: "20px",
           }}
         >
-          {mentors.users &&
-            mentors.users.map((user, idx) => (
+          {mentors &&
+            mentors.map((user, idx) => (
               <Link
 
               to={`/mentor/${user._id}`}

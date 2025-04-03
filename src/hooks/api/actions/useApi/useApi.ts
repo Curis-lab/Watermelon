@@ -7,7 +7,8 @@ type ApiErrorHandler = (
   res: Response,
   requestId: string
 ) => void;
-interface IUseAPI {
+
+export interface IUseAPI {
   handleBadRequest?: ApiErrorHandler;
   handleNotFound?: ApiErrorHandler;
   handleUnauthorized?: ApiErrorHandler;

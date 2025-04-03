@@ -1,6 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
 import React, { useState } from "react";
-import axios from "axios";
 import {
   styled,
   TextField,
@@ -11,6 +9,7 @@ import {
   Divider,
 } from "@mui/material";
 import { OpenInNew } from "@mui/icons-material";
+import { useApi } from "../../../hooks/api";
 
 const StyledForm = styled("form")({
   display: "flex",
@@ -42,52 +41,38 @@ const StyledPaper = styled(Paper)({
 
 const CreateEvent = () => {
   const [imageFile, setImageFile] = useState<File | null>(null);
+
+  const { request } = useApi();
+
   const [collectData, setCollectData] = useState({
     name: "",
     description: "",
     date: "",
     location: "",
-    hostedId: "67cbf0f7a9a9b1e660780438",
-  });
-  const mutation = useMutation({
-    mutationFn: async (newEvent: FormData) => {
-      const response = await axios.post(
-        "http://localhost:3000/api/events",
-        newEvent,
-        {
-          headers: { "Content-Type": "multipart/form-data" },
-        }
-      );
-      return response.data;
-    },
-    onSuccess: () => {
-      // Handle success (e.g., show a success message, redirect, etc.)
-    },
-    onError: (error: Error) => {
-      console.error(
-        "An error occurred while creating the event:",
-        error.message
-      );
-      // Handle error (e.g., show an error message)
-    },
   });
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!imageFile) {
       console.log("Image file is required");
       return;
     }
     const formData = new FormData();
-    const { name, description, date, location, hostedId } = collectData;
+    const { name, description, date, location } = collectData;
+
     formData.append("name", name);
     formData.append("description", description);
     formData.append("date", date);
     formData.append("location", location);
-    formData.append("hostedId", hostedId);
-    formData.append("image", imageFile);
+    formData.append("image", imageFile as Blob);
 
-    mutation.mutate(formData);
+    await request("http://localhost:3000/api/events", {
+      method: "POST",
+      body: formData,
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
   };
 
   const handleInputChange = (

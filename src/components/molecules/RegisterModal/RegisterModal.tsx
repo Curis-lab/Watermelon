@@ -37,6 +37,7 @@ const Body = ({ isLogin }: { isLogin: boolean }) => {
         email: formData.email,
         password: formData.password,
       });
+      console.log('this is response token', response)
       if (response.token) {
         registerModal.onClose();
 
