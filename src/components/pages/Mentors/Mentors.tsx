@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 const Mentors = () => {
-  //fetch all mentors
   const [mentors, setMentors] = useState([]);
 
   useEffect(() => {
@@ -19,50 +18,68 @@ const Mentors = () => {
 
     fetchMentors();
   }, []);
-  
-  return (
-    <div>
-      <div>
-        <h1>Mentors</h1>
+
+  const renderMentorCard = (user) => (
+    <Link
+      to={`/mentor/${user._id}`}
+      key={user._id}
+      style={{
+        padding: "10px",
+        textDecoration: "none",
+        display: "flex",
+        justifyContent: "center",
+      }}
+    >
+      <div
+        style={{
+          backgroundColor: "rgba(255, 255, 255, 0.2)",
+          padding: "20px",
+          // textAlign: "center",
+        }}
+      >
+        <img
+          style={{
+            width: "100%",
+            height: "200px",
+            objectFit: "cover",
+          }}
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMh3TSq7RzA1ioI7Sj-43Sen_tDnhnftN7Lg&s"
+          alt="mentor"
+        />
         <div
           style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(5, 1fr)",
-            gap: "20px",
+            color: "#fff",
+            display: "flex",
+            flexDirection: "column",
+            gap: "10px",
           }}
         >
-          {mentors &&
-            mentors.map((user, idx) => (
-              <Link
-
-              to={`/mentor/${user._id}`}
-                key={idx}
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  border: "1px solid #000",
-                  borderRadius: "20px",
-                  padding: "10px",
-                }}
-              >
-                <img
-                  style={{
-                    width: "100%",
-                    height: "200px",
-                    borderRadius: "20px",
-                    objectFit: "cover",
-                  }}
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMh3TSq7RzA1ioI7Sj-43Sen_tDnhnftN7Lg&s"
-                  alt="mentor"
-                />
-                <div>
-                  <Typography variant="h5">{user.name}</Typography>
-                </div>
-              </Link>
-            ))}
+          <Typography variant="h3">
+            {user.name}
+          </Typography>
+          <div>
+            <Typography style={{fontSize: '14px'}}>Program Manager, Product Manger at google</Typography>
+            <Typography style={{fontSize: '12px', color: '#999'}}>41 sessions,(5 reviews)</Typography>
+          </div>
+          <div>
+            <Typography variant="caption">Experience</Typography>
+            <Typography variant="h4">4 years</Typography>
+          </div>
         </div>
+      </div>
+    </Link>
+  );
+
+  return (
+    <div style={{ height: "100vh", backgroundColor: "#03032B" }}>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(5, 1fr)",
+          gap: "20px",
+        }}
+      >
+        {mentors.map(renderMentorCard)}
       </div>
     </div>
   );
