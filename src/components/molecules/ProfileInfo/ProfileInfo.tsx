@@ -1,5 +1,6 @@
-import { Typography ,Box, styled} from "@mui/material";
+import { Typography ,Box, styled, IconButton} from "@mui/material";
 import ProfileAvatar from "../../atoms/avatars/Avatar";
+import { Edit } from "@mui/icons-material";
 
 const StyledBox = styled(Box)(({theme})=>({
     display: 'flex',
@@ -14,6 +15,9 @@ const ProfileInfo = () => {
             <Typography variant="h6">Min Nyan Lin</Typography>
             <Typography >Software Engineer</Typography>
         </Box>
+        <IconButton>
+            <Edit/>
+        </IconButton>
     </StyledBox> );
 }
  

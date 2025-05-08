@@ -8,7 +8,6 @@ export function useApi() {
       ...options,
     };
 
-    console.log("auth state ", authState);
     if (authState.token) {
       headers.Authorization = `Bearer ${authState.token}`;
     }

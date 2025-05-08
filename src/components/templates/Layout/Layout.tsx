@@ -11,14 +11,14 @@ interface Props {
 
 const LandingPage = ({ children }: Props) => (
   <div>
-    <Navbar />
+    {/* <Navbar /> */}
 
     {children}
   </div>
 );
 const GridPage = ({ children }: Props) => (
   <div style={{ display: "grid" }}>
-    <Navbar />
+    {/* <Navbar /> */}
     <div>
       {/* <Sidebar /> */}
       {children}

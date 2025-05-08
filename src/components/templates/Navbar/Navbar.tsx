@@ -21,74 +21,92 @@ const StyledProfileContainer = styled("div")({
   marginLeft: "10px",
   cursor: "pointer",
 });
+
 const StyledPaper = styled(Paper)({
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  padding: '10px',
-  borderRadius: '5px',
-  boxShadow: '0px 0px 10px 0px rgba(0, 0, 0, 0.1)',
-  position: 'absolute',
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  padding: "10px",
+  borderRadius: "5px",
+  boxShadow: "0px 0px 10px 0px rgba(0, 0, 0, 0.1)",
+  position: "absolute",
   zIndex: 5000,
-  minWidth: '200px',
-  right: '0px',
-  marginTop: '10px',
+  minWidth: "200px",
+  right: "0px",
+  marginTop: "10px",
 });
 
 const StyledLink = styled(Link)({
-  display: 'flex',
-  alignItems: 'center',
-  gap: '10px',
-  padding: '10px',
-  color: 'black',
-  fontWeight: '500px',
+  display: "flex",
+  alignItems: "center",
+  gap: "10px",
+  padding: "10px",
+  color: "black",
+  fontWeight: "500px",
 });
 
 const StyledLogoutButton = styled(Button)({
-  width: '100%',
-  height: '30px',
-  background: 'red'
+  width: "100%",
+  height: "30px",
+  background: "red",
 });
 const StyledDivider = styled(Divider)({
-  width: '100%',
-  height: '2px',
-  backgroundColor: 'black',
-  margin: '10px 0px'
+  width: "100%",
+  height: "2px",
+  backgroundColor: "black",
+  margin: "10px 0px",
 });
 
 const UserProfile = () => {
-  const {clearToken} = useAuth();
+  const { clearToken } = useAuth();
   const [showProfile, setShowProfile] = useState(false);
 
   return (
     <ClickAwayListener onClickAway={() => setShowProfile(false)}>
       <StyledProfileContainer>
         <Button
-        sx={{
-          display: 'flex',
-          alignItems:'center'
-        }}
-        onClick={()=>setShowProfile(prev=>!prev)}>
+          sx={{
+            display: "flex",
+            alignItems: "center",
+          }}
+          onClick={() => setShowProfile((prev) => !prev)}
+        >
           <Avatar alt="name" />
           <Box>
             <Typography>Jone Doe</Typography>
           </Box>
-          {showProfile ? <ExpandLess/> : <ExpandMore/>}
+          {showProfile ? <ExpandLess /> : <ExpandMore />}
         </Button>
         <ConditionallyRender
-        condition={showProfile}
-        show={<StyledPaper>
-          <StyledLink to='/profile'>View profile settings</StyledLink>
-          <StyledDivider/>
-          <StyledLogoutButton onClick={()=>{clearToken()}}>Logout</StyledLogoutButton>
-        </StyledPaper>}
+          condition={showProfile}
+          show={
+            <StyledPaper>
+              <StyledLink to="/profile">View profile settings</StyledLink>
+              <StyledDivider />
+              <StyledLogoutButton
+                onClick={() => {
+                  clearToken();
+                }}
+              >
+                Logout
+              </StyledLogoutButton>
+            </StyledPaper>
+          }
         />
       </StyledProfileContainer>
     </ClickAwayListener>
   );
 };
+const StyledShowProfileContainer = styled("div")(({ theme }) => ({
+  display: "flex",
+  flexDirection: "row",
+  gap: "10px",
+  [theme.breakpoints.down("sm")]: {
+    display: "none",
+  },
+}));
 const Navbar = () => {
-  const {isAuthenticated} = useAuth();
+  const { isAuthenticated } = useAuth();
   return (
     <NavbarWrapper>
       <div
@@ -106,7 +124,7 @@ const Navbar = () => {
         <input
           placeholder="Search.."
           style={{
-            width: "300px",
+            width: "200px",
             height: "30px",
             borderRadius: "5px",
             border: "1px solid #000",
@@ -115,13 +133,9 @@ const Navbar = () => {
         />
       </div>
 
-      <div style={{ display: "flex", flexDirection: "row", gap: "10px" }}>
-        {
-          isAuthenticated() ? (<UserProfile/>):(<div>
-            login
-          </div>)
-        }
-      </div>
+      <StyledShowProfileContainer>
+        {isAuthenticated() ? <UserProfile /> : <div>login</div>}
+      </StyledShowProfileContainer>
     </NavbarWrapper>
   );
 };

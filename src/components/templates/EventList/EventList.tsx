@@ -7,7 +7,6 @@ const StyledEventList = styled('div')({
   flexDirection: 'column',
   gap: '10px',
   maxHeight: '80vh',
-  overflowY: 'auto'
 })
 
 

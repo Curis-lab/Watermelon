@@ -5,8 +5,8 @@ export const theme = {
     values: {
       xs: 0,
       sm: 600,
-      md: 960,
-      lg: 1280,
+      md: 810,
+      lg: 1200,
       xl: 1536,
     },
   },

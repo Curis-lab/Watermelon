@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import { OpenInNew } from "@mui/icons-material";
 import { useApi } from "../../../hooks/api";
+import { createFormData } from "../../../utils/formUtils";
 
 const StyledForm = styled("form")({
   display: "flex",
@@ -57,14 +58,16 @@ const CreateEvent = () => {
       console.log("Image file is required");
       return;
     }
-    const formData = new FormData();
-    const { name, description, date, location } = collectData;
+    //! I do not guarantee this will work, but it should
+    const formData = createFormData(collectData, imageFile);
+    // const formData = new FormData();
+    // const { name, description, date, location } = collectData;
 
-    formData.append("name", name);
-    formData.append("description", description);
-    formData.append("date", date);
-    formData.append("location", location);
-    formData.append("image", imageFile as Blob);
+    // formData.append("name", name);
+    // formData.append("description", description);
+    // formData.append("date", date);
+    // formData.append("location", location);
+    // formData.append("image", imageFile as Blob);
 
     await request("http://localhost:3000/api/events", {
       method: "POST",

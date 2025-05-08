@@ -1,145 +1,162 @@
-import { Button, styled, TextField, Typography } from "@mui/material";
+import { Button, styled } from "@mui/material";
 import { useState } from "react";
-import logo from "../../../static/images/logo.svg";
-import { Event, Person } from "@mui/icons-material";
+import { createFormData } from "../../../utils/formUtils";
+import { useAuth } from "../../../providers/AuthProvider";
 
+const StyledContainer = styled("div")({
+  width: "100%",
+  alignItems: "center",
+  justifyContent: "center",
+  alignContent: "center",
+  display: "flex",
+  flexDirection: "column",
+  marginTop: "100px",
+});
 
 const Onboarding = () => {
-  const [step, setStep] = useState<
-    "role" | "profile" | "role-specific" | "personal-hook" | "complete"
-  >("role");
+  const { setToken } = useAuth();
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    role: "mentor",
+    bio: "",
+    availability: true,
+    expertise: "",
+  });
 
-  const [role, setRole] = useState<"attendee" | "mentor" | "organizer">(
-    "attendee"
-  );
+  const handleInputChange = (e) => {
+    const { name, type, value, checked } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+  };
 
-  const Template = (
-    step: "role" | "profile" | "role-specific" | "personal-hook" | "complete"
-  ) => {
-    if (step === "role") {
-      const CardContainerStyled = styled("div")({
-        display: "flex",
-        flexDirection: "column",
-        gap: "5px",
-        width: "200px",
-        height: "140px",
-        padding: "10px",
-        border: "1.5px solid #e0e0e0",
-        borderRadius: "5px",
-        cursor: "pointer",
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!imageFile) {
+      console.log("Image file is required");
+      return;
+    }
+
+    const data = createFormData(formData, imageFile);
+
+    try {
+      const response = await fetch("http://localhost:3000/api/auth/register", {
+        method: "POST",
+        body: data,
+        headers: {
+          "Accept": "multipart/form-data",
+        },
       });
-      return (
-        <div style={{marginTop: '20px'}}>
-          <div style={{display: 'flex', gap: '14px'}}>
-          <CardContainerStyled
-           onClick={() => {
-            setRole("attendee");
-            setStep("profile");
-          }}
-          
-          >
-            <Person />
-            <Typography variant="h4">Attendee</Typography>
-            <Typography variant="caption">
-              Attend events, connect with mentors, and build your network.
-            </Typography>
-          </CardContainerStyled>
-          <CardContainerStyled
-          
-          onClick={() => {
-            setRole("mentor");
-            setStep("profile");
-          }}
-          >
-            <Event />
-            <Typography variant="h4">Mentor</Typography>
-            <Typography variant="caption">
-              Share your expertise, mentor students, and make a difference.
-            </Typography>
-          </CardContainerStyled>
-          <CardContainerStyled
-          onClick={() => {
-            setRole("organizer");
-            setStep("profile");
-          }}
-          >
-            <Event />
-            <Typography variant="h4">Organizer</Typography>
-            <Typography variant="caption">
-              Create and manage events, connect with attendees, and build your
-              community.
-            </Typography>
-          </CardContainerStyled>
-          </div>
-        </div>
-      );
-    } else if (step === "profile") {
-      return (
-        <div style={{display: 'flex', flexDirection: 'column', gap: '20px', width: '500px', margin: '20px'}}>
-          <TextField label="Bio" multiline rows={4} />
-          <div style={{
-            border: '2px solid #ccd',
-            padding: '20px',
-            textAlign: 'center',
-            cursor: 'pointer'
-          }}>
-            <input type="file" id="file-input" accept="image/*" style={{display: 'none'}} onChange={() => {}} />
-            <label htmlFor="file-input">Drag drop some file</label>
-          </div>
-          <Button onClick={() => setStep("role-specific")}>Save</Button>
-        </div>
-      );
-    } else if (step === "role-specific") {
-      return (
-        <div>
-          role specific
-          <Button onClick={() => setStep("personal-hook")}>
-            Personal Hook
-          </Button>
-        </div>
-      );
-    } else {
-      return (
-        <div>
-          <Button
-            href={`${role === "attendee" ? "/dashboard" : "/profile-setup"}`}
-          >
-            Finished
-          </Button>
-        </div>
-      );
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      const result = await response.json();
+      console.log("Registration successful:", result);
+      setToken({
+        token: result.token,
+        expiresIn: 12,
+      });
+    } catch (error) {
+      console.error("Registration failed:", error);
     }
   };
-  const StyledContainer = styled("div")({
-    width: "100%",
-    alignItems: "center",
-    justifyContent: "center",
-    alignContent: "center",
-    display: "flex",
-    flexDirection: "column",
-    marginTop: '100px'
-  });
+
   return (
     <StyledContainer>
-      <div
+      <form
+        onSubmit={handleSubmit}
         style={{
+          width: "300px",
           display: "flex",
           flexDirection: "column",
-          alignItems: "center",
+          gap: "10px",
         }}
       >
+        <input
+          type="text"
+          name="name"
+          placeholder="Name"
+          value={formData.name}
+          onChange={handleInputChange}
+          required
+        />
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          value={formData.email}
+          onChange={handleInputChange}
+          required
+        />
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          value={formData.password}
+          onChange={handleInputChange}
+          required
+        />
+        <select name="role" value={formData.role} onChange={handleInputChange}>
+          <option value="mentor">Mentor</option>
+          <option value="attendee">Attendee</option>
+          <option value="organizer">Organizer</option>
+          <option value="mentee">Mentee</option>
+        </select>
         <div>
-          <img src={logo} alt="logo" style={{ width: "50px" }} />
+          <select
+            name="expertise"
+            value={formData.expertise}
+            onChange={handleInputChange}
+          >
+            <option value="">Select Expertise</option>
+            <option value="web-development">Web Development</option>
+            <option value="data-science">Data Science</option>
+            <option value="design">Design</option>
+            <option value="marketing">Marketing</option>
+            <option value="business">Business</option>
+          </select>
+          <div>
+            <input
+              id="file-input"
+              type="file"
+              accept="image/*"
+              onChange={(e) => {
+                const file = e.target.files?.[0];
+                if (file) {
+                  setImageFile(file);
+                }
+              }}
+            />
+          </div>
+          <textarea
+            name="bio"
+            placeholder="Short Bio"
+            value={formData.bio}
+            onChange={handleInputChange}
+            style={{ width: "100%", height: "100px", resize: "none" }}
+          />
         </div>
-        <div>Bar</div>
-        <Typography variant="h6">How will you use eventGo?</Typography>
-        <Typography>
-          Please select your role to proceed with the onboarding process. Your
-          role will determine the specific information we need to collect from
-          you.
-        </Typography>
-        {Template(step)}
-      </div>
+        <div>
+          <label>
+            <input
+              type="checkbox"
+              name="availability"
+              checked={formData.availability}
+              onChange={handleInputChange}
+            />
+            Available for Mentorship
+          </label>
+        </div>
+        <Button type="submit" variant="contained">
+          Register
+        </Button>
+      </form>
     </StyledContainer>
   );
 };
