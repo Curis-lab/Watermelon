@@ -114,6 +114,10 @@ const StyledLoginBtn = styled("div")(({ theme }) => ({
   borderRadius: theme.shape.borderRadiusMedium,
   fontSize: theme.typography.h1.fontSize,
   cursor: "pointer",
+  "&:hover": {
+    backgroundColor: theme.palette.secondary.main,
+    color: theme.palette.common.white,
+  },
 }));
 
 const Navbar = () => {
@@ -149,7 +153,7 @@ const Navbar = () => {
         {isAuthenticated() ? (
           <UserProfile />
         ) : (
-          <StyledLoginBtn onClick={() => navigate("/login")}>
+          <StyledLoginBtn onClick={() => navigate("/register")}>
             login
           </StyledLoginBtn>
         )}

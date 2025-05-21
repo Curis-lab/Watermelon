@@ -4,6 +4,7 @@ import Navbar from "../Navbar";
 import { useLocation } from "react-router-dom";
 // import MUIModel from "../../atoms/Models";
 import RegisterModal from "../../molecules/RegisterModal";
+import Footer from "../Footer/Footer";
 
 interface Props {
   children: ReactNode;
@@ -14,6 +15,7 @@ const LandingPage = ({ children }: Props) => (
     <Navbar />
 
     {children}
+    <Footer />
   </div>
 );
 const GridPage = ({ children }: Props) => (
@@ -23,6 +25,7 @@ const GridPage = ({ children }: Props) => (
       {/* <Sidebar /> */}
       {children}
     </div>
+    <Footer />
   </div>
 );
 const MainLayout = ({ children }: Props) => {
