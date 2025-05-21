@@ -1,6 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import { OutboundOutlined } from "@mui/icons-material";
 import { Link } from "react-router-dom";
+import { StyledNavigatorContainer } from "./HomePage.styled";
 
 const navigatorCard = [
   {
@@ -79,7 +80,6 @@ const NavigatorComponent = ({
 };
 
 const HomePage = () => {
-
   return (
     <div
       style={{
@@ -154,7 +154,9 @@ const HomePage = () => {
       {/** end for button */}
 
       {/** should know the size the div that can change grid of the row */}
-      <div style={{ display: "flex", gap: "20px", minWidth: "940px" }}>
+      <StyledNavigatorContainer
+      
+      >
         {navigatorCard.map((item, idx) => (
           <NavigatorComponent
             key={idx}
@@ -163,7 +165,7 @@ const HomePage = () => {
             fn={() => {}}
           />
         ))}
-      </div>
+      </StyledNavigatorContainer>
     </div>
   );
 };
