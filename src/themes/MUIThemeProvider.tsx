@@ -9,7 +9,7 @@ interface MUIThemeProviderProps {
 const MUIThemeProvider = ({ children }: MUIThemeProviderProps) => {
   const { zIndex, ...restTheme } = theme;
   const mainTheme = createTheme({ ...restTheme });
-console.log(zIndex);
+  console.log(zIndex);
   return (
     <ThemeProvider theme={mainTheme}>
       <CssBaseline />

@@ -9,5 +9,6 @@ export const StyledBox = styled(Container)(({ theme }) => ({
 export const StyledDescriptionBox = styled(Box)(({ theme }) => ({
   width: "50%",
   height: theme.spacing(100),
-  backgroundColor: "red",
+  backgroundColor: theme.palette.secondary.light,
+  borderRadius: theme.palette.action.active
 }));

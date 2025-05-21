@@ -22,3 +22,10 @@ button {
   font-family: "Sen", sans-serif;
   font-variant-ligatures: none;
 }
+:root{
+  --h1-size: 1.35rem;
+  --p-size: 1rem;
+  --caption-size: 0.9rem;
+  
+
+}

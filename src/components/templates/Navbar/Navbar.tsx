@@ -1,6 +1,6 @@
 import { NavbarWrapper } from "./Navbar.styled";
 import logo from "../../../static/images/logo.svg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../../providers/AuthProvider";
 import {
   Button,
@@ -105,8 +105,20 @@ const StyledShowProfileContainer = styled("div")(({ theme }) => ({
     display: "none",
   },
 }));
+
+const StyledLoginBtn = styled("div")(({ theme }) => ({
+  border: `1px solid ${theme.palette.background.paper}`,
+  paddingBlock: theme.spacing(1),
+  paddingInline: theme.spacing(2),
+  backgroundColor: theme.palette.secondary.light,
+  borderRadius: theme.shape.borderRadiusMedium,
+  fontSize: theme.typography.h1.fontSize,
+  cursor: "pointer",
+}));
+
 const Navbar = () => {
   const { isAuthenticated } = useAuth();
+  const navigate = useNavigate();
   return (
     <NavbarWrapper>
       <div
@@ -134,7 +146,13 @@ const Navbar = () => {
       </div>
 
       <StyledShowProfileContainer>
-        {isAuthenticated() ? <UserProfile /> : <div>login</div>}
+        {isAuthenticated() ? (
+          <UserProfile />
+        ) : (
+          <StyledLoginBtn onClick={() => navigate("/login")}>
+            login
+          </StyledLoginBtn>
+        )}
       </StyledShowProfileContainer>
     </NavbarWrapper>
   );

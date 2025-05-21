@@ -7,13 +7,18 @@ const StyledBox = styled(Box)(({theme})=>({
     alignItems: 'center',
     gap: theme.spacing(2)
 }))
-
-const ProfileInfo = () => {
+interface IProfileInfo{
+    name:string;
+    expertise: string;
+    imageUrl:string;
+}
+const ProfileInfo = ({info}:{info: IProfileInfo}) => {
     return ( <StyledBox>
-        <ProfileAvatar imageurl="https://plus.unsplash.com/premium_photo-1689977968861-9c91dbb16049?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZmlsZSUyMHBpY3R1cmV8ZW58MHx8MHx8fDA%3D"/>
+        
+        <ProfileAvatar imageurl={info.imageUrl}/>
         <Box>
-            <Typography variant="h6">Min Nyan Lin</Typography>
-            <Typography >Software Engineer</Typography>
+            <Typography variant="h6">{info.name}</Typography>
+            <Typography >{info.expertise}</Typography>
         </Box>
         <IconButton>
             <Edit/>

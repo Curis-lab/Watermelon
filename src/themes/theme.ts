@@ -1,6 +1,8 @@
 import { colors } from "./colors";
+import { createTheme } from "@mui/material/styles";
 
-export const theme = {
+// I want to take care for fontsize when screen size is changed.
+export const theme = createTheme({
   breakpoints: {
     values: {
       xs: 0,
@@ -47,13 +49,13 @@ export const theme = {
     },
   },
   fontSizes: {
-    extraLargeHeader: "2.5rem",
-    largeHeader: "2rem",
-    mediumHeader: "1.5rem",
-    mainHeader: "1.1rem",
-    bodySize: "1rem",
-    smallBody: `${14 / 16}rem`,
-    smallerBody: `${12 / 16}rem`,
+    extraLargeHeader: "clamp(2rem, 2.5vw, 2.5rem)",
+    largeHeader: "clamp(1.5rem, 2vw, 2rem)",
+    mediumHeader: "clamp(1.2rem, 1.5vw, 1.5rem)",
+    mainHeader: "clamp(1rem, 1.1vw, 1.1rem)",
+    bodySize: "clamp(0.9rem, 1vw, 1rem)",
+    smallBody: "clamp(0.8rem, 0.875vw, 0.875rem)",
+    smallerBody: "clamp(0.75rem, 0.75vw, 0.75rem)",
   },
   fontWeight: {
     thin: 300,
@@ -92,14 +94,14 @@ export const theme = {
     secondary: {
       // Used for purple badges and purple light elements
       main: colors.pink[800],
-      light: colors.pink[50],
+      light: colors.pink[500],
       dark: colors.pink[900], // Color used for text
       border: colors.pink[300],
       contrastText: colors.pink[900], // Color used for text inside badge
     },
     info: {
       main: colors.violet[500],
-      light: colors.violet[50],
+      light: colors.violet[500],
       dark: colors.violet[800], // Color used for text
       border: colors.violet[200],
       contrastText: colors.violet[800], // Color used for text inside alert
@@ -129,7 +131,6 @@ export const theme = {
       main: "#1A4049", // used on sales-related elements
       contrastText: colors.grey[50], // Color used for inner text
     },
-
     neutral: {
       main: colors.grey[700],
       light: colors.grey[100],
@@ -137,7 +138,6 @@ export const theme = {
       border: colors.grey[500],
       contrastText: colors.grey[800], // Color used for text inside badge
     },
-
     background: {
       paper: colors.grey[50],
       default: colors.grey[200],
@@ -147,32 +147,25 @@ export const theme = {
       elevation1: colors.pink[100],
       elevation2: colors.pink[200],
     },
-
     divider: colors.grey[400],
-
     table: {
       headerBackground: colors.grey[200],
       headerHover: colors.grey[300],
       divider: colors.grey[300],
       rowHover: colors.grey[100],
     },
-
     highlight: colors.orange[200],
-
     spotlight: {
       border: "#463cfb",
       outline: "#6058f5",
       pulse: "#463cfb",
     },
-
     links: colors.pink[900],
-
     eventLog: {
       diffAdd: colors.green[800],
       diffSub: colors.red[800],
       edited: colors.grey[900],
     },
-
     seen: {
       unknown: colors.grey[100],
       recent: colors.green[100],
@@ -180,16 +173,14 @@ export const theme = {
       abandoned: colors.red[200],
       primary: colors.pink[100],
     },
-
     envAccordion: {
       disabled: colors.grey[100],
       expanded: colors.grey[200],
     },
-
     grey: {
       100: colors.grey[100], // Disabled Switch base (OFF)
       600: colors.grey[800], // slider tooltip background
       700: colors.grey[800], // Dark tooltip background
     },
   },
-};
+});

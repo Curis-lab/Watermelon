@@ -1,10 +1,14 @@
-import ProfileHeader from "../../organisms/ProfileHeader/ProfileHeader";
+import ProfileHeader, { IProfileHeader } from "../../organisms/ProfileHeader/ProfileHeader";
 
-const ProfilePageLayout = () => {
+interface IProfilePageLayout{
+  header: IProfileHeader
+}
+
+const ProfilePageLayout = ({header}:IProfilePageLayout) => {
   return (
     <div>
       ProfilePageLayout
-      <ProfileHeader />
+      <ProfileHeader header={header} />
     </div>
   );
 };

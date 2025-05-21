@@ -1,14 +1,6 @@
 import { Box, Typography } from "@mui/material";
-// import { StyledBox } from "./HomePage.styled";
-// import { useContext, useState } from "react";
-// import { loginUser, registerUser } from "../../../lib/api";
-// import { useNavigate } from "react-router-dom";
-// import { AuthContext } from "../../../providers/AuthProvider";
-import RoundedButton from "../../atoms/Bottom/RoundedBottom";
-import useRegisterModal from "../../../hooks/ModalController/useRegisterModal/useRegisterModal";
-import { ArrowCircleUp, OutboundOutlined } from "@mui/icons-material";
+import { OutboundOutlined } from "@mui/icons-material";
 import { Link } from "react-router-dom";
-// import HeroSection from "../../templates/LandingPage/HeroSection";
 
 const navigatorCard = [
   {
@@ -45,6 +37,7 @@ const NavigatorComponent = ({
   bgColor: string;
   fn: () => void;
 }) => {
+  console.log(bgColor);
   return (
     <div>
       <h1
@@ -58,7 +51,7 @@ const NavigatorComponent = ({
       </h1>
       <div
         style={{
-          background: 'red',
+          background: "red",
           height: "300px",
           width: "300px",
           borderTopLeftRadius: "150px",
@@ -85,149 +78,7 @@ const NavigatorComponent = ({
   );
 };
 
-
 const HomePage = () => {
-  // const [isRegister, setIsRegister] = useState(true);
-  // const [isMentee, setIsMentee] = useState(false);
-  // const navigate = useNavigate();
-  const registerModal = useRegisterModal();
-  //this is for the register form
-  // const [roleFormData, setRoleFormData] = useState({
-  //   username: "",
-  //   email: "",
-  //   password: "",
-  //   role: "attendee",
-  // });
-
-  //this is use context for the auth
-  // const { registerInfo, updateRegisterInfo } = useContext(AuthContext);
-
-  // const handleChange = (
-  //   event: React.ChangeEvent<HTMLInputElement>,
-  //   field: string
-  // ) => {
-  //   setRoleFormData((prevData) => ({
-  //     ...prevData,
-  //     [field]: event.target.value,
-  //   }));
-  //   updateRegisterInfo({ [field]: event.target.value });
-  // };
-
-  // const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-  //   event.preventDefault();
-  //   try {
-  //     let response;
-  //     if (isRegister) {
-  //       response = await registerUser({
-  //         ...roleFormData,
-  //         role: isMentee ? "mentor" : "attendee",
-  //       });
-  //     } else {
-  //       response = await loginUser({
-  //         email: roleFormData.email,
-  //         password: roleFormData.password,
-  //       });
-  //     }
-
-  //     console.log("Success:", response);
-  //     navigate("/dashboard");
-  //   } catch (error) {
-  //     console.error("Error:", error);
-  //   }
-  // };
-
-  // const RegisterForm = () => (
-  //   <StyledBox>
-  //     <Box component="form" sx={{ mt: 3 }} onSubmit={handleSubmit}>
-  //       {JSON.stringify(registerInfo)}
-  //       <Typography variant="h6">Subscribe to our newsletter</Typography>
-  //       {isRegister ? (
-  //         <Button
-  //           onClick={() => setIsMentee((prev) => !prev)}
-  //           variant="outlined"
-  //         >
-  //           Become a {isMentee ? "attendee" : "mentee"}
-  //         </Button>
-  //       ) : (
-  //         <></>
-  //       )}
-  //       <Box sx={{ display: "flex", flexDirection: "column", gap: 2, mt: 2 }}>
-  //         {isRegister && (
-  //           <>
-  //             <TextField
-  //               size="small"
-  //               required
-  //               id="username"
-  //               label="Enter your username"
-  //               type="text"
-  //               variant="outlined"
-  //               value={roleFormData.username}
-  //               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-  //                 handleChange(e, "username")
-  //               }
-  //             />
-  //           </>
-  //         )}
-  //         <TextField
-  //           size="small"
-  //           required
-  //           id="email"
-  //           label="Email Address"
-  //           type="email"
-  //           variant="outlined"
-  //           value={roleFormData.email}
-  //           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-  //             handleChange(e, "email")
-  //           }
-  //         />
-  //         <TextField
-  //           size="small"
-  //           required
-  //           id="password"
-  //           label="Password"
-  //           type="password"
-  //           variant="outlined"
-  //           value={roleFormData.password}
-  //           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-  //             handleChange(e, "password")
-  //           }
-  //         />
-  //         <Button type="submit" variant="contained" color="primary">
-  //           Submit
-  //         </Button>
-  //       </Box>
-
-  //       <Button
-  //         onClick={() => setIsRegister((prev) => !prev)}
-  //         variant="outlined"
-  //         color="secondary"
-  //       >
-  //         {isRegister ? "Login" : "Register"}
-  //       </Button>
-  //     </Box>
-  //   </StyledBox>
-  // );
-  // return (
-  //   <div style={{width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginTop: '200px'}}>
-  //     {/* <RegisterForm /> */}
-  //     <div style={{display: 'flex', flexDirection: 'column', gap: '10px', alignItems: 'center'}}>
-  //       <Typography variant="h2">
-  //         Network at Events or Find 1:1 Mentor_All in One Place
-  //       </Typography>
-  //       <Typography variant="h5">
-  //         Join 10,000+ professionals learning and connecting daily.
-  //       </Typography>
-
-  //       <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
-  //         <RoundedButton  href="/mentors" label="Find Mentors" />
-  //         <RoundedButton href="/events" label="Find Events" />
-  //         <div>
-  //           <div onClick={()=> registerModal.onOpen()} style={{cursor: 'pointer'}}>Login</div>
-  //         </div>
-  //       </div>
-  //     </div>
-  //   </div>
-  // );
 
   return (
     <div
@@ -238,7 +89,6 @@ const HomePage = () => {
         background: "#03032B",
       }}
     >
-      {/** start for header */}
       <div
         style={{
           display: "flex",
@@ -264,9 +114,6 @@ const HomePage = () => {
           </span>
         </h1>
       </div>
-      {/** end for headers*/}
-
-      {/** start for button */}
       <div
         style={{
           width: "100%",
@@ -289,25 +136,25 @@ const HomePage = () => {
             width: "fit-content",
           }}
         >
-          <Link to='/onboarding'>
-          <Typography
-            sx={{
-              background: "linear-gradient(135deg, #FF5733, #FFC300)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              fontWeight: "bold",
-            }}
+          <Link to="/onboarding">
+            <Typography
+              sx={{
+                background: "linear-gradient(135deg, #FF5733, #FFC300)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                fontWeight: "bold",
+              }}
             >
-            Let's get start
-          </Typography>
-            </Link>
+              Let's get start
+            </Typography>
+          </Link>
         </Box>
       </div>
 
       {/** end for button */}
 
-{/** should know the size the div that can change grid of the row */}
-      <div style={{ display: "flex", gap: "20px", minWidth: '940px'}}>
+      {/** should know the size the div that can change grid of the row */}
+      <div style={{ display: "flex", gap: "20px", minWidth: "940px" }}>
         {navigatorCard.map((item, idx) => (
           <NavigatorComponent
             key={idx}

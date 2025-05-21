@@ -60,8 +60,9 @@ export const loginUser = async (credentials: {email:string, password:string}) =>
 };
 export const getSingleUser = async () => {
   try {
-    const response = await axios.get("/auth/me");
-    return response?.data;
+    const response = await axios.get("/api/user");
+    console.log('this is reponse for',response)
+    return response?.data.user;
   } catch (error) {
     if (error instanceof Error) {
       console.log(error);

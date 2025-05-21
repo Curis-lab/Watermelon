@@ -2,13 +2,17 @@ import ProfileInfo from "../../molecules/ProfileInfo";
 import SocialLink from "../../molecules/SocialLinks";
 import MUITabs from "../../atoms/Tap/Tap";
 
-
-const ProfileHeader = () => {
+export interface IProfileHeader{
+  name:string;
+  imageUrl:string;
+  expertise: string;
+}
+const ProfileHeader = ({header}:{header: IProfileHeader}) => {
 
 
   return (
     <div>
-      <ProfileInfo />
+      <ProfileInfo info={header} />
       <SocialLink />
       <MUITabs/>
     </div>

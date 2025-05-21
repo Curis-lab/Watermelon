@@ -2,6 +2,7 @@ import { Button, styled } from "@mui/material";
 import { useState } from "react";
 import { createFormData } from "../../../utils/formUtils";
 import { useAuth } from "../../../providers/AuthProvider";
+import ProfileImageUpload from "../../atoms/Imageuploader/ProfileImage";
 
 const StyledContainer = styled("div")({
   width: "100%",
@@ -41,23 +42,31 @@ const Onboarding = () => {
       return;
     }
 
+    //this is should be in submit event
+    //if I see image file I should use multipart/form-data
     const data = createFormData(formData, imageFile);
 
-    try {
-      const response = await fetch("http://localhost:3000/api/auth/register", {
-        method: "POST",
-        body: data,
-        headers: {
-          "Accept": "multipart/form-data",
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error(`Error: ${response.statusText}`);
+    const fetcher = async (url:string) => {
+      try {
+        const response = await fetch(
+          url,
+          {
+            method: "POST",
+            body: data,
+            headers: {
+              Accept: "multipart/form-data",
+            },
+          }
+        );
+        return response.json();
+      } catch (error) {
+        throw new Error(`Error: ${error.statusText}`);
       }
+    };
 
-      const result = await response.json();
-      console.log("Registration successful:", result);
+    //response data to to emit it
+    try {
+      const result = await fetcher("http://localhost:3000/api/auth/register");
       setToken({
         token: result.token,
         expiresIn: 12,
@@ -67,6 +76,12 @@ const Onboarding = () => {
     }
   };
 
+  const handleImageUpload = (e) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setImageFile(file);
+    }
+  };
   return (
     <StyledContainer>
       <form
@@ -122,16 +137,9 @@ const Onboarding = () => {
             <option value="business">Business</option>
           </select>
           <div>
-            <input
-              id="file-input"
-              type="file"
-              accept="image/*"
-              onChange={(e) => {
-                const file = e.target.files?.[0];
-                if (file) {
-                  setImageFile(file);
-                }
-              }}
+            <ProfileImageUpload
+              handleImageUpload={handleImageUpload}
+              imageUrl={imageFile}
             />
           </div>
           <textarea

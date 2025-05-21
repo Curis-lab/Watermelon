@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import Navbar from "../Navbar";
-import Sidebar from "../Sidebar";
+// import Sidebar from "../Sidebar";
 import { useLocation } from "react-router-dom";
 // import MUIModel from "../../atoms/Models";
 import RegisterModal from "../../molecules/RegisterModal";
@@ -11,14 +11,14 @@ interface Props {
 
 const LandingPage = ({ children }: Props) => (
   <div>
-    {/* <Navbar /> */}
+    <Navbar />
 
     {children}
   </div>
 );
 const GridPage = ({ children }: Props) => (
   <div style={{ display: "grid" }}>
-    {/* <Navbar /> */}
+    <Navbar />
     <div>
       {/* <Sidebar /> */}
       {children}

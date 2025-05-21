@@ -16,7 +16,7 @@ import {
 } from "./components/pages";
 import Register from "./components/pages/Register/Register";
 import MainLayout from "./components/templates/Layout";
-import MUIThemeProvider from "./theme/MUIThemeProvider";
+import MUIThemeProvider from "./themes/MUIThemeProvider";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AuthContextProvider } from "./providers/AuthProvider";
