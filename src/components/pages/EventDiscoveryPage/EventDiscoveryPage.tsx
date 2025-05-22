@@ -33,7 +33,7 @@ const EventDiscoveryPage = () => {
     }
   };
   return (
-    <div>
+    <div style={{paddingBlock:"20px", paddingInline: '100px'}}>
       <div style={{ borderBottom: "1px solid #000", padding: "20px" }}>
         <Typography variant="h2">
           Kolkatha - free online Guide mediation-beginner and intermediate

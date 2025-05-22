@@ -4,6 +4,8 @@ import { fetcher, useApiGetter } from "../useApiGetter/useApiGetter";
 
 //! this any type is comming form openapi-ts
 export const useEvent = () => {
+  
+  //what I should do
   const PATH = "/events";
   const { data, refetch, loading, error } = useApiGetter<Event[]>(
     formatPath(PATH),

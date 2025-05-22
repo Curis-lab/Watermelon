@@ -14,7 +14,7 @@ export const StyledDescriptionBox = styled(Box)(({ theme }) => ({
 }));
 export const StyledNavigatorContainer = styled("div")(({ theme }) => ({
   display: "grid",
-  gap:theme.spacing(2),
+  gap: theme.spacing(2),
   [theme.breakpoints.up("sm")]: {
     gridTemplateColumns: "repeat(3, 1fr)",
   },
