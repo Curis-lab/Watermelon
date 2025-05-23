@@ -1,8 +1,8 @@
-import { Box, Typography, Button, Paper } from "@mui/material";
+import { Typography, Paper } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { AccessTime, LockClock, VideocamOutlined } from "@mui/icons-material";
+import { AccessTime, VideocamOutlined } from "@mui/icons-material";
 
 const EventDiscoveryPage = () => {
   //todo: add event details by the page
@@ -16,7 +16,6 @@ const EventDiscoveryPage = () => {
       return response;
     },
   });
-
   //todo: add join event button
   const handleJoinEvent = async () => {
     try {
@@ -32,11 +31,13 @@ const EventDiscoveryPage = () => {
       }
     }
   };
+  
   return (
-    <div style={{paddingBlock:"20px", paddingInline: '100px'}}>
+    <div style={{ paddingBlock: "20px", paddingInline: "100px" }}>
+    {JSON.stringify(eventInfo)}
       <div style={{ borderBottom: "1px solid #000", padding: "20px" }}>
         <Typography variant="h2">
-          Kolkatha - free online Guide mediation-beginner and intermediate
+          {eventInfo?.data?.name}
         </Typography>
         <div
           style={{
@@ -54,12 +55,14 @@ const EventDiscoveryPage = () => {
               objectFit: "cover",
               borderRadius: "50%",
             }}
-            src="https://plus.unsplash.com/premium_photo-1689568126014-06fea9d5d341?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D"
+            src={eventInfo?.data?.hostedBy?.profileImage || "https://plus.unsplash.com/premium_photo-1689568126014-06fea9d5d341?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D"}
             alt="image"
           />
           <div style={{ display: "flex", flexDirection: "column" }}>
             <Typography>Hosted by</Typography>
-            <Typography variant="h4">Tun tun</Typography>
+            <Typography variant="h4">
+              {eventInfo?.data?.hostedBy.name || 'Unknown'}
+            </Typography>
           </div>
         </div>
       </div>
@@ -74,7 +77,7 @@ const EventDiscoveryPage = () => {
               objectFit: "cover",
             }}
           />
-          <div>Description</div>
+          <div>{eventInfo?.data.description}</div>
           <div></div>
         </div>
         <div style={{ width: "30%" }}>
@@ -83,8 +86,7 @@ const EventDiscoveryPage = () => {
               <AccessTime />
               <div>
                 <Typography>
-                  Sunday, March 30, 2025, 8:15 to 10:15PM MMT every week on
-                  Sunday
+                  {`${eventInfo?.data?.date} Sunday, March 30, 2025, 8:15 to 10:15PM MMT every week on Sunday`}
                 </Typography>
                 <Typography>Add to calendar</Typography>
               </div>

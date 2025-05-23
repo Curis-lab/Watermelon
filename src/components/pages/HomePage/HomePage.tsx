@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import { OutboundOutlined } from "@mui/icons-material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { StyledNavigatorContainer } from "./HomePage.styled";
 
 const navigatorCard = [
@@ -10,6 +10,7 @@ const navigatorCard = [
     description: "Live Events &",
     label: "Live Events",
     bgColor: "#iefie2",
+    links: "/events",
   },
   {
     title: "Mentor",
@@ -17,6 +18,7 @@ const navigatorCard = [
     description: "Live Events &",
     label: "Live Events",
     bgColor: "#929fff",
+    links: "/mentors",
   },
   {
     title: "Share Experties",
@@ -24,6 +26,7 @@ const navigatorCard = [
     description: "Live Events &",
     label: "Live Events",
     bgColor: "#94994",
+    links: "",
   },
 ];
 
@@ -31,13 +34,16 @@ const NavigatorComponent = ({
   title,
   number,
   bgColor,
+  links,
   fn,
 }: {
   title: string;
   number: string;
   bgColor: string;
+  links: string;
   fn: () => void;
 }) => {
+  const navigate = useNavigate();
   console.log(bgColor);
   return (
     <div>
@@ -47,6 +53,7 @@ const NavigatorComponent = ({
           color: "transparent",
           fontSize: "60px",
         }}
+        onClick={fn}
       >
         {number}
       </h1>
@@ -66,8 +73,9 @@ const NavigatorComponent = ({
         <h2>{title}</h2>
         <p>Live Events & Workshops – Learn with the Community</p>
         <div
-          style={{ display: "flex", alignItems: "center", gap: "10px" }}
-          onClick={fn}
+          style={{ display: "flex", alignItems: "center", gap: "10px" ,cursor: 'pointer'}}
+          onClick={()=>navigate(links)}
+
         >
           <p>Live Workshops & Events</p>
           <div>
@@ -151,17 +159,13 @@ const HomePage = () => {
         </Box>
       </div>
 
-      {/** end for button */}
-
-      {/** should know the size the div that can change grid of the row */}
-      <StyledNavigatorContainer
-      
-      >
+      <StyledNavigatorContainer>
         {navigatorCard.map((item, idx) => (
           <NavigatorComponent
             key={idx}
             title={item.title}
             number={item.number}
+            links={item.links}
             fn={() => {}}
           />
         ))}
