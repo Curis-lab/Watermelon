@@ -1,12 +1,19 @@
-import { Typography} from "@mui/material";
-import { useParams } from "react-router-dom";
+import { Typography } from "@mui/material";
+import { useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { AccessTime, VideocamOutlined } from "@mui/icons-material";
-import { StyledEventDescriptionAndTime, StyledEventDiscoveryLayout, StyledEventTimeAndCalender, StyledEventTimeDescription } from "./EventDiscovery.styled";
+import {
+  StyledEventDescriptionAndTime,
+  StyledEventDiscoveryLayout,
+  StyledEventTimeAndCalender,
+  StyledEventTimeDescription,
+  StyledLinProfile,
+} from "./EventDiscovery.styled";
 
 const EventDiscoveryPage = () => {
   //todo: add event details by the page
+  const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
   const { data: eventInfo } = useQuery({
     queryKey: ["event", id],
@@ -32,13 +39,11 @@ const EventDiscoveryPage = () => {
       }
     }
   };
-  
+
   return (
     <StyledEventDiscoveryLayout>
-      <div style={{ borderBottom: "1px solid #000", paddingBlock:'20px' }}>
-        <Typography variant="h2">
-          {eventInfo?.data?.name}
-        </Typography>
+      <div style={{ borderBottom: "1px solid #000", paddingBlock: "20px" }}>
+        <Typography variant="h1">{eventInfo?.data?.name}</Typography>
         <div
           style={{
             display: "flex",
@@ -55,14 +60,21 @@ const EventDiscoveryPage = () => {
               objectFit: "cover",
               borderRadius: "50%",
             }}
-            src={eventInfo?.data?.hostedBy?.profileImage || "https://plus.unsplash.com/premium_photo-1689568126014-06fea9d5d341?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D"}
+            src={
+              eventInfo?.data?.hostedBy?.profileImage ||
+              "https://plus.unsplash.com/premium_photo-1689568126014-06fea9d5d341?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D"
+            }
             alt="image"
           />
           <div style={{ display: "flex", flexDirection: "column" }}>
             <Typography>Hosted by</Typography>
-            <Typography variant="h4">
-              {eventInfo?.data?.hostedBy.name || 'Unknown'}
-            </Typography>
+            <StyledLinProfile
+              onClick={() =>
+                navigate(`/mentor/${eventInfo?.data?.hostedBy.id}`)
+              }
+            >
+              {eventInfo?.data?.hostedBy.name || "Unknown"}
+            </StyledLinProfile>
           </div>
         </div>
       </div>

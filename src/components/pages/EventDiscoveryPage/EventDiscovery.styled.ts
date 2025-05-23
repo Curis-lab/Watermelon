@@ -32,3 +32,7 @@ export const StyledEventTimeDescription = styled('div')({
     gap: '10px',
     paddingBlock:'0.31em'
 })
+
+export const StyledLinProfile = styled('div')({
+    cursor: 'pointer'
+})
