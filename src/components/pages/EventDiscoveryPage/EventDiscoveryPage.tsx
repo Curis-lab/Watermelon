@@ -34,7 +34,6 @@ const EventDiscoveryPage = () => {
   
   return (
     <div style={{ paddingBlock: "20px", paddingInline: "100px" }}>
-    {JSON.stringify(eventInfo)}
       <div style={{ borderBottom: "1px solid #000", padding: "20px" }}>
         <Typography variant="h2">
           {eventInfo?.data?.name}
