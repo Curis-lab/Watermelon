@@ -1,4 +1,4 @@
-import { Divider, Typography } from "@mui/material";
+import { Divider, styled, Typography } from "@mui/material";
 import EventList from "../../templates/EventList";
 import { useEffect, useState } from "react";
 import { Calendar } from "react-date-range";
@@ -40,7 +40,7 @@ const Events = () => {
     });
 
     const url = `${base_route}?${queryParams.toString()}`;
-console.log(url);
+    console.log(url);
     fetch(url)
       .then((data) => data.json())
       .then((data) => setEvents(data.results))
@@ -53,8 +53,17 @@ console.log(url);
    * . name, description (input)
    * . location (dropdown)
    */
+  const StyledEventsLayout = styled("div")(({ theme }) => ({
+    paddingInline: "20px",
+    [theme.breakpoints.up("md")]: {
+      paddingInline: "100px",
+    },
+    [theme.breakpoints.up("lg")]: {
+      paddingInline: "100px",
+    },
+  }));
   return (
-    <div style={{ paddingInline: "100px", paddingBlock: '10px' }}>
+    <StyledEventsLayout>
       <Typography variant="h1">Welcome 'Nyan Lin</Typography>
       <Typography variant="h3">Events from your groups</Typography>
       <div style={{ display: "flex", gap: "10px" }}>
@@ -90,7 +99,7 @@ console.log(url);
           </div>
         </div>
       </div>
-    </div>
+    </StyledEventsLayout>
   );
 };
 

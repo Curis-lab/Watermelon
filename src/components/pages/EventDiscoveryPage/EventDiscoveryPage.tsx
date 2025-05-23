@@ -1,8 +1,9 @@
-import { Typography, Paper } from "@mui/material";
+import { Typography} from "@mui/material";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { AccessTime, VideocamOutlined } from "@mui/icons-material";
+import { StyledEventDescriptionAndTime, StyledEventDiscoveryLayout, StyledEventTimeAndCalender, StyledEventTimeDescription } from "./EventDiscovery.styled";
 
 const EventDiscoveryPage = () => {
   //todo: add event details by the page
@@ -33,8 +34,8 @@ const EventDiscoveryPage = () => {
   };
   
   return (
-    <div style={{ paddingBlock: "20px", paddingInline: "100px" }}>
-      <div style={{ borderBottom: "1px solid #000", padding: "20px" }}>
+    <StyledEventDiscoveryLayout>
+      <div style={{ borderBottom: "1px solid #000", paddingBlock:'20px' }}>
         <Typography variant="h2">
           {eventInfo?.data?.name}
         </Typography>
@@ -65,8 +66,9 @@ const EventDiscoveryPage = () => {
           </div>
         </div>
       </div>
-      <div style={{ display: "flex", flexDirection: "row", width: "100%" }}>
-        <div style={{ width: "70%" }}>
+      {/* I want to implement layout for this */}
+      <StyledEventDescriptionAndTime>
+        <div>
           <img
             src={eventInfo?.data?.imageUrl}
             alt="image"
@@ -79,9 +81,9 @@ const EventDiscoveryPage = () => {
           <div>{eventInfo?.data.description}</div>
           <div></div>
         </div>
-        <div style={{ width: "30%" }}>
-          <Paper>
-            <div style={{ display: "flex", flexDirection: "row" }}>
+        <div>
+          <StyledEventTimeAndCalender>
+            <StyledEventTimeDescription>
               <AccessTime />
               <div>
                 <Typography>
@@ -89,18 +91,18 @@ const EventDiscoveryPage = () => {
                 </Typography>
                 <Typography>Add to calendar</Typography>
               </div>
-            </div>
-            <div style={{ display: "flex", flexDirection: "row" }}>
+            </StyledEventTimeDescription>
+            <StyledEventTimeDescription>
               <VideocamOutlined />
               <div>
                 <Typography>Online event</Typography>
                 <Typography>Link visiable for attendees</Typography>
               </div>
-            </div>
-          </Paper>
+            </StyledEventTimeDescription>
+          </StyledEventTimeAndCalender>
         </div>
-      </div>
-    </div>
+      </StyledEventDescriptionAndTime>
+    </StyledEventDiscoveryLayout>
   );
 };
 
