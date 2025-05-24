@@ -1,10 +1,11 @@
 import { Google } from "@mui/icons-material";
-import { Button, Paper, Typography } from "@mui/material";
+import { Button, Paper, styled, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const MentorProfile = () => {
   const { id } = useParams();
+  const navigator = useNavigate();
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -14,6 +15,17 @@ const MentorProfile = () => {
       .catch((err) => console.log(err));
   }, [id]);
 
+  const StyledDescriptionContainer = styled('div')(({theme})=>({
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '20px',
+    [theme.breakpoints.up('md')]:{
+      flexDirection: 'row'
+    },
+    [theme.breakpoints.up('lg')]:{
+      flexDirection: 'row'
+    }
+  }))
   return (
     <div
       style={{
@@ -60,13 +72,14 @@ const MentorProfile = () => {
               borderRadius: "20px",
               cursor: "pointer",
             }}
+            onClick={()=>navigator('/inbox')}
           >
             Message
           </div>
         </div>
       </div>
-      <div style={{ display: "flex" , gap:'20px'}}>
-        <div style={{ width: "70%" }}>
+      <StyledDescriptionContainer>
+        <div style={{maxWidth: '1000px'}}>
           {id} this is mentor profile
           {user && JSON.stringify(user)}
           <Typography variant="h3">Bio</Typography>
@@ -80,7 +93,7 @@ const MentorProfile = () => {
             knowledge through workshops and online courses.
           </Typography>
         </div>
-        <div style={{ width: "30%" }}>
+        <div>
           <Paper
             sx={{
               padding: "20px",
@@ -115,7 +128,7 @@ const MentorProfile = () => {
             </div>
           </Paper>
         </div>
-      </div>
+      </StyledDescriptionContainer>
     </div>
   );
 };

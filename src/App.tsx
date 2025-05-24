@@ -25,6 +25,17 @@ import SWRProvider from "./providers/SWRProvider/SWRProvider";
 function App() {
   const queryClient = new QueryClient();
 
+  console.log(
+    "%cHold Up!\n%cIf someone told you to copy/paste something here you have an 11/10 chance you're being scammed.\n%cPasting anything in here could give attackers access to your Discord account.",
+    "font-size: 60px; color: #7b7bff; font-weight: bold;",
+    "font-size: 20px; color: white;",
+    "font-size: 24px; color: red; font-weight: bold;"
+  );
+  console.log(
+    "\x1b[34m\x1b[1mHold Up!\x1b[0m\n" +
+      "If someone told you to copy/paste something here you have an 11/10 chance you're being scammed.\n" +
+      "\x1b[31m\x1b[1mPasting anything in here could give attackers access to your Discord account.\x1b[0m"
+  );
   return (
     <SWRProvider>
       <AuthContextProvider>

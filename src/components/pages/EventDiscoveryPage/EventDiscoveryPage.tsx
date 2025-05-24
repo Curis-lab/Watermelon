@@ -1,7 +1,6 @@
 import { Typography } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { AccessTime, VideocamOutlined } from "@mui/icons-material";
 import {
   StyledEventDescriptionAndTime,
@@ -10,6 +9,7 @@ import {
   StyledEventTimeDescription,
   StyledLinProfile,
 } from "./EventDiscovery.styled";
+import { getEventInfoAndAuthorProfileById } from "../../../hooks/api/tanstack-query/event-route";
 
 const EventDiscoveryPage = () => {
   //todo: add event details by the page
@@ -17,28 +17,8 @@ const EventDiscoveryPage = () => {
   const { id } = useParams<{ id: string }>();
   const { data: eventInfo } = useQuery({
     queryKey: ["event", id],
-    queryFn: async () => {
-      const response = await axios.get(
-        `http://localhost:3000/api/events/${id}`
-      );
-      return response;
-    },
+    queryFn: getEventInfoAndAuthorProfileById(id),
   });
-  //todo: add join event button
-  const handleJoinEvent = async () => {
-    try {
-      const userId = "67ccfb73b0bdef777700027b";
-      await axios.post(`http://localhost:3000/api/events/${id}/join`, {
-        userId,
-      });
-    } catch (error) {
-      if (error instanceof Error) {
-        console.error("Error joining event:", error.message);
-      } else {
-        console.error("Unexpected error:", error);
-      }
-    }
-  };
 
   return (
     <StyledEventDiscoveryLayout>
