@@ -9,17 +9,17 @@ export const StyeldDecription = styled(Box)({
 });
 
 export const StyledCardWrapper = styled("div")(({ theme }) => ({
-  padding: "3px",
+  padding: "5px",
   borderRadius: "4px",
   backgroundColor: "#D9D9D9",
-  display: "flex",
-  flexDirection: 'column',
+  display: "grid",
+  gap:'5px',
   [theme.breakpoints.up("md")]: {
     width: "674px",
-    flexDirection: 'row',
+    gridTemplateColumns: '1fr 2fr'
   },
   [theme.breakpoints.up("lg")]: {
     width: "828px",
-    flexDirection: 'row'
+    gridTemplateColumns: '1fr 2fr'
   },
 }));

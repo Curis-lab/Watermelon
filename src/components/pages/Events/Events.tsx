@@ -40,6 +40,26 @@ const Events = () => {
       paddingInline: "100px",
     },
   }));
+  const StyledInput = styled("input")({
+    padding: "10px",
+    borderRadius: "5px",
+  });
+
+  const StyledButton = styled("button")({
+    padding: "10px",
+    background: "blue",
+    color: "white",
+    borderRadius: "5px",
+    width: "100px",
+    textAlign: "center",
+    boxShadow: "2px 2px 0 0 rgba(0, 0, 0, 1)",
+  });
+
+  const StyledPageCount = styled("span")({
+    fontSize: "1.13em",
+    alignContent: "center",
+  });
+
   return (
     <StyledEventsLayout>
       <Typography variant="h1">Welcome 'Nyan Lin</Typography>
@@ -47,7 +67,7 @@ const Events = () => {
       <div style={{ display: "flex", gap: "10px" }}>
         <div>
           <div style={{ display: "flex", gap: "10px" }}>
-            <input
+            <StyledInput
               type="text"
               value={search}
               onChange={handleSearch}
@@ -60,14 +80,16 @@ const Events = () => {
           <Divider sx={{ marginBlockEnd: "20px", border: "2px solid #000" }} />
           <EventList {...events} />
           <div style={{ display: "flex", gap: "10px", marginTop: "20px" }}>
-            <button
+            <StyledButton
               onClick={() => setPage((p) => Math.max(1, p - 1))}
               disabled={page === 1}
             >
               Previous
-            </button>
-            <span>Page {page}</span>
-            <button onClick={() => setPage((p) => p + 1)}>Next</button>
+            </StyledButton>
+            <StyledPageCount>Page {page}</StyledPageCount>
+            <StyledButton onClick={() => setPage((p) => p + 1)}>
+              Next
+            </StyledButton>
           </div>
         </div>
       </div>
