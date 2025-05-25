@@ -108,12 +108,15 @@ const StyledShowProfileContainer = styled("div")(({ theme }) => ({
 
 const StyledLoginBtn = styled("div")(({ theme }) => ({
   border: `2px solid ${theme.palette.common.black}`,
-
-  boxShadow: "0px 0px 0px rgba(0, 0, 0, 0.2)",
+  color: 'white',
+  width: '100px',
+  textAlign: 'center',
+  boxShadow: "4px 4px 0px rgba(0, 0, 0, 1)",
   paddingBlock: theme.spacing(1),
   paddingInline: theme.spacing(2),
   backgroundColor: theme.palette.secondary.light,
-  fontSize: theme.typography.h1.fontSize,
+  fontSize: theme.typography.h3.fontSize,
+  fontWeight: theme.typography.fontWeightBold,
   cursor: "pointer",
   "&:hover": {
     backgroundColor: theme.palette.secondary.main,

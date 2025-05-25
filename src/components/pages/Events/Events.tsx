@@ -1,8 +1,8 @@
-import { Divider, styled, Typography } from "@mui/material";
+import { Chip, Divider, styled, Typography } from "@mui/material";
 import EventList from "../../templates/EventList";
 import { useQuery } from "@tanstack/react-query";
 import { getAllEvents } from "../../../hooks/api/tanstack-query/event-route";
-import { useState } from "react";
+import { MouseEvent, useCallback, useState } from "react";
 
 const Events = () => {
   // const [events, setEvents] = useState([]);
@@ -12,10 +12,25 @@ const Events = () => {
   const [search, setSearch] = useState("");
   const [location, setLocation] = useState("");
 
+  /**this is only for input box */
+  const [isFocused, setIsFocused] = useState(false);
+  /** end for input box */
+
   const { data: events } = useQuery({
     queryKey: ["event", page, date, search, location, limit],
     queryFn: () => getAllEvents({ page, date, search, location, limit }),
   });
+
+  /** this function is for input box */
+  const _handleInputFocusChange = useCallback(
+    (e: MouseEvent<HTMLInputElement>) => {
+      e.stopPropagation();
+      setIsFocused(true);
+    },
+    [isFocused, setIsFocused]
+  );
+  /** end for input box */
+
   const handleDateSelection = (selectedDate: Date) => {
     setDate(selectedDate);
     setPage(1); // Reset to first page when date changes
@@ -40,10 +55,6 @@ const Events = () => {
       paddingInline: "100px",
     },
   }));
-  const StyledInput = styled("input")({
-    padding: "10px",
-    borderRadius: "5px",
-  });
 
   const StyledButton = styled("button")({
     padding: "10px",
@@ -60,20 +71,61 @@ const Events = () => {
     alignContent: "center",
   });
 
+  /** Serch Input Box */
+  const StyledInput = styled("input")({
+    display: "inline-block",
+    width: "100%",
+    padding: "10px 48px",
+    fontsize: "16px",
+    lineHeight: "18px",
+    color: "#202020",
+    border: "0",
+    "&:focus": {
+      outline: "none",
+    },
+    "&::placeholder": {
+      color: "#bcbcbc",
+    },
+  });
+
+  const StyledSearchBarContainer = styled("div")({
+    position: "absolute",
+    maxWidth: "1032px",
+    width: "100%",
+  });
+
+  const StyledBodyComponent = styled("div")({
+    padding: "36px 16px",
+    background: "white",
+  });
+  /** End for Serach Input Box */
+
   return (
     <StyledEventsLayout>
-      <Typography variant="h1">Welcome 'Nyan Lin</Typography>
-      <Typography variant="h3">Events from your groups</Typography>
-      <div style={{ display: "flex", gap: "10px" }}>
-        <div>
-          <div style={{ display: "flex", gap: "10px" }}>
-            <StyledInput
-              type="text"
-              value={search}
-              onChange={handleSearch}
-              placeholder="name, description..."
-            />
-          </div>
+      <Typography variant="h1" sx={{paddingBlockEnd: '3px', paddingBlockStart: '20px'}}>Welcome 'Nyan Lin</Typography>
+      <Typography variant="h3" sx={{paddingBlockEnd: '30px'}}>Events from your groups</Typography>
+      <StyledSearchBarContainer>
+        <StyledInput
+          type="text"
+          value={""}
+          onChange={() => {}}
+          placeholder="name, description..."
+          onClick={_handleInputFocusChange}
+        />
+        {isFocused && (
+          <StyledBodyComponent>
+            <div>
+              <h3>Search Results</h3>
+              <div style={{ display: "flex", gap: "10px" }}>
+                <Chip label="Call" variant="outlined" onClick={() => {}} />
+                <Chip label="File" variant="outlined" onClick={() => {}} />
+                <Chip label="Chat" variant="outlined" onClick={() => {}} />
+              </div>
+            </div>
+          </StyledBodyComponent>
+        )}
+      </StyledSearchBarContainer>
+      <div style={{ display: "flex", flexDirection: 'column',  gap: "10px" , marginBlockStart: '70px'}}>
           <Typography sx={{ fontSize: "36px", fontWeight: "bold" }}>
             Today
           </Typography>
@@ -90,7 +142,6 @@ const Events = () => {
             <StyledButton onClick={() => setPage((p) => p + 1)}>
               Next
             </StyledButton>
-          </div>
         </div>
       </div>
     </StyledEventsLayout>
