@@ -30,9 +30,11 @@ const MUIModel = ({ body, footer, open, onClose, title }: MUIModelProps) => {
           padding: "20px",
           flexDirection: "column",
           alignItems: "center",
-          height: "500px",
+          height: "31.13em",
           backgroundColor: "white",
           width: "400px",
+          border: "12px solid red",
+          borderRadius: "12px",
         }}
       >
         {title}

@@ -37,7 +37,7 @@ const Body = ({ isLogin }: { isLogin: boolean }) => {
         email: formData.email,
         password: formData.password,
       });
-      console.log('this is response token', response)
+      console.log("this is response token", response);
       if (response.token) {
         registerModal.onClose();
 
@@ -95,6 +95,7 @@ const Body = ({ isLogin }: { isLogin: boolean }) => {
 const RegisterModal = () => {
   const registerModal = useRegisterModal();
   const [isLogin, setIsLogin] = useState<boolean>(true);
+  console.log("this is register modal", registerModal);
   const title = (
     <>
       <div
@@ -140,13 +141,16 @@ const RegisterModal = () => {
       </span>
     </div>
   );
+  console.log(registerModal.isOpen)
   return (
     <MUIModel
       title={title}
       body={<Body isLogin={isLogin} />}
       footer={footer}
       open={registerModal.isOpen}
-      onClose={() => {}}
+      onClose={() => {
+        // registerModal.onClose();
+      }}
     />
   );
 };

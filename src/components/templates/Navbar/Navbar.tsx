@@ -1,6 +1,6 @@
 import { NavbarWrapper } from "./Navbar.styled";
 import logo from "../../../static/images/logo.svg";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useAuth } from "../../../providers/AuthProvider";
 import {
   Button,
@@ -15,6 +15,7 @@ import {
 import { useState } from "react";
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
 import { ConditionallyRender } from "../../common/ConditionallyRender";
+import useRegisterModal from "../../../hooks/ModalController/useRegisterModal/useRegisterModal";
 
 const StyledProfileContainer = styled("div")({
   position: "relative",
@@ -60,7 +61,6 @@ const StyledDivider = styled(Divider)({
 const UserProfile = () => {
   const { clearToken } = useAuth();
   const [showProfile, setShowProfile] = useState(false);
-
   return (
     <ClickAwayListener onClickAway={() => setShowProfile(false)}>
       <StyledProfileContainer>
@@ -123,7 +123,8 @@ const StyledLoginBtn = styled("div")(({ theme }) => ({
 
 const Navbar = () => {
   const { isAuthenticated } = useAuth();
-  const navigate = useNavigate();
+  const registerModal = useRegisterModal();
+
   return (
     <NavbarWrapper>
       <div
@@ -154,7 +155,7 @@ const Navbar = () => {
         {isAuthenticated() ? (
           <UserProfile />
         ) : (
-          <StyledLoginBtn onClick={() => navigate("/register")}>
+          <StyledLoginBtn onClick={() => registerModal.onOpen()}>
             login
           </StyledLoginBtn>
         )}
