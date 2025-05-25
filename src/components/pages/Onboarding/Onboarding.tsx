@@ -46,18 +46,15 @@ const Onboarding = () => {
     //if I see image file I should use multipart/form-data
     const data = createFormData(formData, imageFile);
 
-    const fetcher = async (url:string) => {
+    const fetcher = async (url: string) => {
       try {
-        const response = await fetch(
-          url,
-          {
-            method: "POST",
-            body: data,
-            headers: {
-              Accept: "multipart/form-data",
-            },
-          }
-        );
+        const response = await fetch(url, {
+          method: "POST",
+          body: data,
+          headers: {
+            Accept: "multipart/form-data",
+          },
+        });
         return response.json();
       } catch (error) {
         throw new Error(`Error: ${error.statusText}`);
@@ -82,8 +79,18 @@ const Onboarding = () => {
       setImageFile(file);
     }
   };
+  const StyledInput = styled('input')(({theme})=>({
+    height: '50px',
+    padding: '10px'    
+  }));
+  const StyledSelect = styled('select')(({theme})=>({
+    height: '50px'
+  }))
+
   return (
     <StyledContainer>
+      <h1>Welcome to EventGo</h1>
+      <p>Join our community by filling out the registration form below. Whether you're a mentor, mentee, organizer, or attendee, we have a place for you!</p>
       <form
         onSubmit={handleSubmit}
         style={{
@@ -93,7 +100,7 @@ const Onboarding = () => {
           gap: "10px",
         }}
       >
-        <input
+        <StyledInput
           type="text"
           name="name"
           placeholder="Name"
@@ -101,7 +108,7 @@ const Onboarding = () => {
           onChange={handleInputChange}
           required
         />
-        <input
+        <StyledInput
           type="email"
           name="email"
           placeholder="Email"
@@ -109,7 +116,7 @@ const Onboarding = () => {
           onChange={handleInputChange}
           required
         />
-        <input
+        <StyledInput
           type="password"
           name="password"
           placeholder="Password"
@@ -117,12 +124,12 @@ const Onboarding = () => {
           onChange={handleInputChange}
           required
         />
-        <select name="role" value={formData.role} onChange={handleInputChange}>
+        <StyledSelect name="role" value={formData.role} onChange={handleInputChange}>
           <option value="mentor">Mentor</option>
           <option value="attendee">Attendee</option>
           <option value="organizer">Organizer</option>
           <option value="mentee">Mentee</option>
-        </select>
+        </StyledSelect>
         <div>
           <select
             name="expertise"
