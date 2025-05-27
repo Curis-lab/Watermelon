@@ -3,6 +3,7 @@ import EventList from "../../templates/EventList";
 import { useQuery } from "@tanstack/react-query";
 import { getAllEvents } from "../../../hooks/api/tanstack-query/event-route";
 import { MouseEvent, useCallback, useState } from "react";
+import { SearchOutlined, WidthFull } from "@mui/icons-material";
 
 
 
@@ -48,11 +49,17 @@ const StyledInput = styled("input")({
   },
 });
 
-const StyledSearchBarContainer = styled("div")({
+const StyledSearchBarContainer = styled("div")(({theme})=>({
   position: "absolute",
-  maxWidth: "1032px",
-  width: "100%",
-});
+  maxWidth: "1034px",
+  width: '400px',
+  [theme.breakpoints.up('md')]:{
+    width: '70%'
+  },
+  [theme.breakpoints.up('lg')]:{
+    width: '100%'
+  }
+}));
 
 const StyledBodyComponent = styled("div")({
   padding: "36px 16px",
@@ -87,6 +94,10 @@ const Events = () => {
     },
     [isFocused, setIsFocused]
   );
+  const _handleFocusChange = useCallback((e: MouseEvent<HTMLDivElement>)=>{
+    e.stopPropagation();
+    setIsFocused(e=>!e);
+  },[isFocused, setIsFocused])
   /** end for input box */
 
   const handleDateSelection = (selectedDate: Date) => {
@@ -104,6 +115,8 @@ const Events = () => {
     setPage(1); // Reset to first page when location changes
   };
 
+  
+
   return (
     <StyledEventsLayout>
       <Typography variant="h1" sx={{paddingBlockEnd: '3px', paddingBlockStart: '20px'}}>Welcome 'Nyan Lin</Typography>
@@ -116,14 +129,16 @@ const Events = () => {
           placeholder="name, description..."
           onClick={_handleInputFocusChange}
         />
+        <SearchOutlined onClick={_handleFocusChange} sx={{position: 'absolute', left:'10px', top: '7px', width: '25px', height: '25px'}}/>
         {isFocused && (
           <StyledBodyComponent>
             <div>
-              <h3>Search Results</h3>
+              <h3>Organizers</h3>
               <div style={{ display: "flex", gap: "10px" }}>
-                <Chip label="Call" variant="outlined" onClick={() => {}} />
-                <Chip label="File" variant="outlined" onClick={() => {}} />
-                <Chip label="Chat" variant="outlined" onClick={() => {}} />
+                <Chip label="Mg Mg" variant="outlined" onClick={() => {}} />
+                <Chip label="Min Min" variant="outlined" onClick={() => {}} />
+                <Chip label="Tun lin" variant="outlined" onClick={() => {}} />
+                <Chip label="Tun Kyaw" variant="outlined" onClick={() => {}} />
               </div>
             </div>
           </StyledBodyComponent>

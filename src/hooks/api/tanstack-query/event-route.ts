@@ -31,5 +31,6 @@ export const getAllEvents = async ({
   });
   const url = `${baseRoute}?${queryParams.toString()}`;
   const response = await axios.get(url);
-  return response.data.results;
+  
+  return response.data.data;
 };
