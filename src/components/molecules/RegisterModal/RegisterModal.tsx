@@ -58,7 +58,7 @@ const PasswordInput = () => {
   );
 };
 
-const Body = ({ isLogin }: { isLogin: boolean }) => {
+const Body = () => {
   const { loading } = useUserApi();
   const { login } = useApi();
   const navigate = useNavigate();
@@ -184,7 +184,7 @@ const RegisterModal = () => {
   return (
     <MUIModel
       title={title}
-      body={<Body isLogin={isLogin} />}
+      body={<Body />}
       footer={footer}
       open={registerModal.isOpen}
       onClose={() => {
