@@ -4,6 +4,63 @@ import { useQuery } from "@tanstack/react-query";
 import { getAllEvents } from "../../../hooks/api/tanstack-query/event-route";
 import { MouseEvent, useCallback, useState } from "react";
 
+
+
+const StyledEventsLayout = styled("div")(({ theme }) => ({
+  paddingInline: "20px",
+  [theme.breakpoints.up("md")]: {
+    paddingInline: "100px",
+  },
+  [theme.breakpoints.up("lg")]: {
+    paddingInline: "100px",
+  },
+}));
+
+const StyledButton = styled("button")({
+  padding: "10px",
+  background: "blue",
+  color: "white",
+  borderRadius: "5px",
+  width: "100px",
+  textAlign: "center",
+  boxShadow: "2px 2px 0 0 rgba(0, 0, 0, 1)",
+});
+
+const StyledPageCount = styled("span")({
+  fontSize: "1.13em",
+  alignContent: "center",
+});
+
+/** Serch Input Box */
+const StyledInput = styled("input")({
+  display: "inline-block",
+  width: "100%",
+  padding: "10px 48px",
+  fontsize: "16px",
+  lineHeight: "18px",
+  color: "#202020",
+  border: "0",
+  "&:focus": {
+    outline: "none",
+  },
+  "&::placeholder": {
+    color: "#bcbcbc",
+  },
+});
+
+const StyledSearchBarContainer = styled("div")({
+  position: "absolute",
+  maxWidth: "1032px",
+  width: "100%",
+});
+
+const StyledBodyComponent = styled("div")({
+  padding: "36px 16px",
+  background: "white",
+});
+/** End for Serach Input Box */
+
+
 const Events = () => {
   // const [events, setEvents] = useState([]);
   const [date, setDate] = useState(new Date());
@@ -20,6 +77,7 @@ const Events = () => {
     queryKey: ["event", page, date, search, location, limit],
     queryFn: () => getAllEvents({ page, date, search, location, limit }),
   });
+  const [input, setInput] = useState('');
 
   /** this function is for input box */
   const _handleInputFocusChange = useCallback(
@@ -46,60 +104,6 @@ const Events = () => {
     setPage(1); // Reset to first page when location changes
   };
 
-  const StyledEventsLayout = styled("div")(({ theme }) => ({
-    paddingInline: "20px",
-    [theme.breakpoints.up("md")]: {
-      paddingInline: "100px",
-    },
-    [theme.breakpoints.up("lg")]: {
-      paddingInline: "100px",
-    },
-  }));
-
-  const StyledButton = styled("button")({
-    padding: "10px",
-    background: "blue",
-    color: "white",
-    borderRadius: "5px",
-    width: "100px",
-    textAlign: "center",
-    boxShadow: "2px 2px 0 0 rgba(0, 0, 0, 1)",
-  });
-
-  const StyledPageCount = styled("span")({
-    fontSize: "1.13em",
-    alignContent: "center",
-  });
-
-  /** Serch Input Box */
-  const StyledInput = styled("input")({
-    display: "inline-block",
-    width: "100%",
-    padding: "10px 48px",
-    fontsize: "16px",
-    lineHeight: "18px",
-    color: "#202020",
-    border: "0",
-    "&:focus": {
-      outline: "none",
-    },
-    "&::placeholder": {
-      color: "#bcbcbc",
-    },
-  });
-
-  const StyledSearchBarContainer = styled("div")({
-    position: "absolute",
-    maxWidth: "1032px",
-    width: "100%",
-  });
-
-  const StyledBodyComponent = styled("div")({
-    padding: "36px 16px",
-    background: "white",
-  });
-  /** End for Serach Input Box */
-
   return (
     <StyledEventsLayout>
       <Typography variant="h1" sx={{paddingBlockEnd: '3px', paddingBlockStart: '20px'}}>Welcome 'Nyan Lin</Typography>
@@ -107,8 +111,8 @@ const Events = () => {
       <StyledSearchBarContainer>
         <StyledInput
           type="text"
-          value={""}
-          onChange={() => {}}
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
           placeholder="name, description..."
           onClick={_handleInputFocusChange}
         />

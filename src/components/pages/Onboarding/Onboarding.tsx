@@ -1,4 +1,10 @@
-import { Button, styled } from "@mui/material";
+import {
+  InputAdornment,
+  inputBaseClasses,
+  MenuItem,
+  styled,
+  TextField,
+} from "@mui/material";
 import { useState } from "react";
 import { createFormData } from "../../../utils/formUtils";
 import { useAuth } from "../../../providers/AuthProvider";
@@ -14,6 +20,33 @@ const StyledContainer = styled("div")({
   marginTop: "100px",
 });
 
+const StyledSubmitButton = styled("button")({
+  fontSize: "18px",
+  padding: "10px",
+  backgroundColor: "#000",
+  color: "#fff",
+  fontWeight: "bold",
+  marginBlock: "10px",
+  boxShadow: "10px 10px 0 0 rgb(154, 6, 6)",
+  "&:disabled": {
+    backgroundColor: "#ccc",
+    color: "#666",
+    cursor: "not-allowed",
+  },
+});
+
+const StyledForm = styled("form")(({ theme }) => ({
+  width: "100%",
+  display: "grid",
+  gap: "10px",
+  [theme.breakpoints.up("md")]: {
+    gridTemplateColumns: "1fr 1fr 1fr",
+  },
+  [theme.breakpoints.up("lg")]: {
+    gridTemplateColumns: "1fr 1fr 1fr",
+  },
+}));
+
 const Onboarding = () => {
   const { setToken } = useAuth();
   const [imageFile, setImageFile] = useState<File | null>(null);
@@ -24,8 +57,13 @@ const Onboarding = () => {
     role: "mentor",
     bio: "",
     availability: true,
-    expertise: "",
+    expertise: "design",
   });
+
+  const isSubmitButtonDisabled = () => {
+    const { name, email, password, bio } = formData;
+    return !name || !email || !password || !bio || !imageFile;
+  };
 
   const handleInputChange = (e) => {
     const { name, type, value, checked } = e.target;
@@ -79,99 +117,150 @@ const Onboarding = () => {
       setImageFile(file);
     }
   };
-  const StyledInput = styled('input')(({theme})=>({
-    height: '50px',
-    padding: '10px'    
-  }));
-  const StyledSelect = styled('select')(({theme})=>({
-    height: '50px'
-  }))
 
   return (
     <StyledContainer>
       <h1>Welcome to EventGo</h1>
-      <p>Join our community by filling out the registration form below. Whether you're a mentor, mentee, organizer, or attendee, we have a place for you!</p>
-      <form
-        onSubmit={handleSubmit}
-        style={{
-          width: "300px",
-          display: "flex",
-          flexDirection: "column",
-          gap: "10px",
-        }}
-      >
-        <StyledInput
-          type="text"
-          name="name"
-          placeholder="Name"
-          value={formData.name}
-          onChange={handleInputChange}
-          required
-        />
-        <StyledInput
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={formData.email}
-          onChange={handleInputChange}
-          required
-        />
-        <StyledInput
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={formData.password}
-          onChange={handleInputChange}
-          required
-        />
-        <StyledSelect name="role" value={formData.role} onChange={handleInputChange}>
-          <option value="mentor">Mentor</option>
-          <option value="attendee">Attendee</option>
-          <option value="organizer">Organizer</option>
-          <option value="mentee">Mentee</option>
-        </StyledSelect>
-        <div>
-          <select
-            name="expertise"
-            value={formData.expertise}
-            onChange={handleInputChange}
-          >
-            <option value="">Select Expertise</option>
-            <option value="web-development">Web Development</option>
-            <option value="data-science">Data Science</option>
-            <option value="design">Design</option>
-            <option value="marketing">Marketing</option>
-            <option value="business">Business</option>
-          </select>
-          <div>
-            <ProfileImageUpload
-              handleImageUpload={handleImageUpload}
-              imageUrl={imageFile}
-            />
-          </div>
-          <textarea
-            name="bio"
-            placeholder="Short Bio"
-            value={formData.bio}
-            onChange={handleInputChange}
-            style={{ width: "100%", height: "100px", resize: "none" }}
+      <p>
+        Join our community by filling out the registration form below. Whether
+        you're a mentor, mentee, organizer, or attendee, we have a place for
+        you!
+      </p>
+      <StyledForm onSubmit={handleSubmit}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <ProfileImageUpload
+            handleImageUpload={handleImageUpload}
+            imageUrl={imageFile}
           />
         </div>
-        <div>
-          <label>
-            <input
-              type="checkbox"
-              name="availability"
-              checked={formData.availability}
-              onChange={handleInputChange}
-            />
-            Available for Mentorship
-          </label>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "15px",
+            paddingInline: "10px",
+          }}
+        >
+          <TextField
+            variant="outlined"
+            name="name"
+            label="Name"
+            value={formData.name}
+            onChange={handleInputChange}
+            required
+            sx={{ width: "100%" }}
+          />
+          <TextField
+            type="email"
+            name="email"
+            label="Email"
+            value={formData.email}
+            onChange={handleInputChange}
+            required
+            sx={{ width: "100%" }}
+            slotProps={{
+              htmlInput: {
+                sx: { textAlign: "start" },
+              },
+              input: {
+                endAdornment: (
+                  <InputAdornment
+                    position="start"
+                    sx={{
+                      alignSelf: "flex",
+                      margin: 0,
+                      opacity: 0,
+                      pointerEvents: "none",
+                      [`[data-shrink=true] ~ .${inputBaseClasses.root} > &`]: {
+                        opacity: 1,
+                      },
+                    }}
+                  >
+                    @gmail.com
+                  </InputAdornment>
+                ),
+              },
+            }}
+          />
+          <TextField
+            type="password"
+            name="password"
+            label="Password"
+            value={formData.password}
+            onChange={handleInputChange}
+            required
+            sx={{ width: "100%" }}
+          />
         </div>
-        <Button type="submit" variant="contained">
-          Register
-        </Button>
-      </form>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "15px",
+            paddingInline: "10px",
+          }}
+        >
+          <TextField
+            select
+            name="role"
+            value={formData.role}
+            onChange={handleInputChange}
+            helperText="Select your role"
+            sx={{ width: "100%" }}
+          >
+            <MenuItem value="mentor">Mentor</MenuItem>
+            <MenuItem value="attendee">Attendee</MenuItem>
+            <MenuItem value="organizer">Organizer</MenuItem>
+            <MenuItem value="mentee">Mentee</MenuItem>
+          </TextField>
+          <div>
+            <TextField
+              select
+              name="expertise"
+              value={formData.expertise}
+              onChange={handleInputChange}
+              sx={{ width: "100%" }}
+              helperText="Select your expertise"
+            >
+              <MenuItem value="web-development">Web Development</MenuItem>
+              <MenuItem value="data-science">Data Science</MenuItem>
+              <MenuItem value="design">Design</MenuItem>
+              <MenuItem value="marketing">Marketing</MenuItem>
+              <MenuItem value="business">Business</MenuItem>
+            </TextField>
+
+            <TextField
+              multiline
+              name="bio"
+              label="Short Bio"
+              rows={4}
+              value={formData.bio}
+              onChange={handleInputChange}
+              sx={{ width: "100%" }}
+              helperText="Tell us about yourself"
+            />
+          </div>
+          <div>
+            <label>
+              <input
+                type="checkbox"
+                name="availability"
+                checked={formData.availability}
+                onChange={handleInputChange}
+              />
+              Available for Mentorship
+            </label>
+          </div>
+          <StyledSubmitButton disabled={isSubmitButtonDisabled()} type="submit">
+            Register
+          </StyledSubmitButton>
+        </div>
+      </StyledForm>
     </StyledContainer>
   );
 };
