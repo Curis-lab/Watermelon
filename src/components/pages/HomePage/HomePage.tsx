@@ -72,16 +72,28 @@ const NavigatorComponent = ({
       >
         <h2>{title}</h2>
         <p>Live Events & Workshops – Learn with the Community</p>
-        <div
-          style={{ display: "flex", alignItems: "center", gap: "10px" ,cursor: 'pointer'}}
-          onClick={()=>navigate(links)}
-
+        <Box
+          sx={{
+            padding: '10px ',
+            display: "flex",
+            alignItems: "center",
+            gap: "10px",
+            cursor: "pointer",
+            transition: "all 0.3s ease",
+            "&:hover": {
+              transform: "scale(1.05)",
+              boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+              background: 'white',
+              borderRadius: '10px'
+            },
+          }}
+          onClick={() => navigate(links)}
         >
           <p>Live Workshops & Events</p>
           <div>
             <OutboundOutlined sx={{ fontSize: 60 }} />
           </div>
-        </div>
+        </Box>
       </div>
     </div>
   );
@@ -131,32 +143,32 @@ const HomePage = () => {
           flex: 1,
         }}
       >
-        <Box
-          sx={{
-            borderRadius: "40px",
-            padding: "16px",
-            background: `
-          linear-gradient(white, white) padding-box, 
-          linear-gradient(135deg,rgb(223, 69, 30),rgb(103, 95, 255),rgb(123, 254, 127)) border-box
-        `,
-            border: "4px solid transparent",
-            backgroundClip: "padding-box, border-box",
-            width: "fit-content",
+        <Link
+          to="/onboarding"
+          style={{
+            textDecoration: "none",
           }}
         >
-          <Link to="/onboarding">
-            <Typography
-              sx={{
-                background: "linear-gradient(135deg, #FF5733, #FFC300)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                fontWeight: "bold",
-              }}
-            >
-              Let's get start
-            </Typography>
-          </Link>
-        </Box>
+          <Typography
+            sx={{
+              background: "linear-gradient(135deg, #FF5733, #FFC300)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              fontWeight: "bold",
+              fontSize: "25px",
+              padding: "10px 20px",
+              border: "1px solid white",
+              borderRadius: "30px",
+              marginBlock: "20px",
+              transition: "all 0.3s ease",
+              "&:hover": {
+                transform: "scale(1.1)",
+              },
+            }}
+          >
+            Let's get start
+          </Typography>
+        </Link>
       </div>
 
       <StyledNavigatorContainer>
