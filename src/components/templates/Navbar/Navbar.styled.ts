@@ -11,4 +11,7 @@ export const NavbarWrapper = styled("div")(({ theme }) => ({
   zIndex: 1000,
   backgroundColor: theme.palette.background.default,
   paddingInline: theme.spacing(2),
+  [theme.breakpoints.up('md')]:{   
+    paddingInline: theme.spacing(12),
+  }
 }));
