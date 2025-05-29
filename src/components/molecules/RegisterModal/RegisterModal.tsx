@@ -12,13 +12,19 @@ import {
   Typography,
 } from "@mui/material";
 import logo from "../../../static/images/logo.svg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useUserApi } from "../../../hooks/api/actions/useUserApi/useUserApi";
 import { useNavigate } from "react-router-dom";
 import { useApi } from "../../../hooks/api";
 
 // I need to pass the value
-const PasswordInput = () => {
+const PasswordInput = ({
+  value,
+  fn,
+}: {
+  value: string;
+  fn: (value: string) => void;
+}) => {
   const [showPassword, setShowPassword] = useState(false);
   const _handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -34,12 +40,18 @@ const PasswordInput = () => {
     event.preventDefault();
   };
 
+  const handleChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    fn(e.target.value);
+  };
+
   return (
-    <FormControl variant="outlined" sx={{ m: 1 }}>
+    <FormControl variant="outlined" sx={{ width: "100%" }}>
       <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
       <OutlinedInput
         id="outlined-adornment-password"
         type={showPassword ? "text" : "password"}
+        value={value}
+        onChange={handleChangePassword}
         endAdornment={
           <InputAdornment position="end">
             <IconButton
@@ -67,6 +79,8 @@ const Body = () => {
     password: "",
   });
 
+  const [password, setPassword] = useState<string>("");
+
   const registerModal = useRegisterModal();
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -75,26 +89,29 @@ const Body = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    console.log("this is fromData", formData);
     setFormData({
       email: "",
       name: "",
       password: "",
     });
 
-    try {
-      const response = await login({
-        email: formData.email,
-        password: formData.password,
-      });
-      console.log("this is response token", response);
-      if (response.token) {
-        registerModal.onClose();
+    // try {
+    //   const response = await login({
+    //     email: formData.email,
+    //     password: formData.password,
+    //   });
 
-        navigate("/onboarding");
-      }
-    } catch (error) {
-      console.error("Error: Failed to fetch", error);
-    }
+    //   console.log("this is response token", response);
+
+    //   if (response.token) {
+    //     registerModal.onClose();
+
+    //     navigate("/onboarding");
+    //   }
+    // } catch (error) {
+    //   console.error("Error: Failed to fetch", error);
+    // }
   };
 
   return (
@@ -117,16 +134,14 @@ const Body = () => {
         label="Email"
       />
 
-      <PasswordInput />
-      <TextField
-        name="password"
-        label="Password"
+      <PasswordInput
         value={formData.password}
-        onChange={handleChange}
-        placeholder="Password"
-        variant="outlined"
+        fn={(value) => {
+          setFormData((prevFormData) => ({ ...prevFormData, password: value }));
+        }}
       />
-      <Button disabled type="submit" variant="contained">
+
+      <Button type="submit" variant="contained">
         {loading ? "loading..." : "register"}
       </Button>
     </form>

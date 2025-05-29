@@ -14,13 +14,15 @@ import {
   Mentors,
   MentorProfile,
 } from "./components/pages";
-import Register from "./components/pages/Register/Register";
 import MainLayout from "./components/templates/Layout";
 import MUIThemeProvider from "./themes/MUIThemeProvider";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AuthContextProvider } from "./providers/AuthProvider";
 import SWRProvider from "./providers/SWRProvider/SWRProvider";
+
+
+
 
 function App() {
   const queryClient = new QueryClient();
@@ -44,9 +46,6 @@ function App() {
                   <Route path="/events" element={<Events />} />
                   <Route path="/mentors" element={<Mentors />} />
                   <Route path="/onboarding" element={<Onboarding />} />
-                  <Route path="/dashboard" element={<UserDashboard />} />
-                  <Route path="/inbox" element={<ChatAndNetwork />} />
-                  <Route path="/profile-setup" element={<ProfileSetup />} />
                   <Route path="/admin-dashboard" element={<AdminDashboard />} />
                   <Route path="/event/:id" element={<EventDiscoveryPage />} />
                   <Route path="/mentor/:id" element={<MentorProfile />} />
@@ -54,11 +53,17 @@ function App() {
                     path="/mentor/schedule"
                     element={<div>Mentor Schedule</div>}
                   />
+
+                  
+                  <Route path="/dashboard" element={<UserDashboard />} />
+                  <Route path="/profile-setup" element={<ProfileSetup />} />
+                  <Route path="/inbox" element={<ChatAndNetwork />} />
                   <Route path="/mentor/edit" element={<div>Mentor Edit</div>} />
                   <Route path="/profile" element={<Profile />} />
                   <Route path="/start" element={<CreateEvent />} />
-                  <Route path="/register" element={<Register />} />
                   <Route path="*" element={<NotFoundPage />} />
+
+
                 </Routes>
               </MainLayout>
             </ErrorBoundary>

@@ -19,15 +19,20 @@ const StyledForm = styled("form")({
 });
 
 const StyledCreateEventWrapper = styled("div")(({ theme }) => ({
-  display: "flex",
+  display: "grid",
   backgroundColor: theme.palette.background.default,
   padding: theme.spacing(2),
+  paddingInlined: "10px",
+  [theme.breakpoints.up("md")]: {
+    gridTemplateColumns: "1fr 1fr",
+    gap: "20px",
+    paddingInline: "50px",
+  },
 }));
 const StyledFormWrapper = styled("div")({
   display: "flex",
   flexDirection: "column",
-  width: "70%",
-  padding: "30px",
+  width: "100%",
   gap: "10px",
 });
 const StyledLinkWrapper = styled("div")({

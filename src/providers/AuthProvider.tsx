@@ -1,4 +1,10 @@
-import React, { createContext, useCallback, useContext, useState, useEffect } from "react";
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useState,
+  useEffect,
+} from "react";
 
 export const AuthContext = createContext();
 
@@ -7,12 +13,13 @@ export const AuthContextProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  
   const [user, setUser] = useState(null);
 
   const [authState, setAuthState] = useState(() => {
     const storedAuthState = localStorage.getItem("authState");
-    return storedAuthState ? JSON.parse(storedAuthState) : { token: null, expiresAt: null };
+    return storedAuthState
+      ? JSON.parse(storedAuthState)
+      : { token: null, expiresAt: null };
   });
 
   const [registerInfo, setRegitsterInfo] = useState({

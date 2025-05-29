@@ -33,7 +33,6 @@ const MUIModel = ({ body, footer, open, onClose, title }: MUIModelProps) => {
           height: "31.13em",
           backgroundColor: "white",
           width: "400px",
-          border: "12px solid red",
           borderRadius: "12px",
         }}
       >
