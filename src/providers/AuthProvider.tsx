@@ -1,10 +1,4 @@
-import React, {
-  createContext,
-  useCallback,
-  useContext,
-  useState,
-  useEffect,
-} from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 
 export const AuthContext = createContext();
 
@@ -13,72 +7,53 @@ export const AuthContextProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [user, setUser] = useState(null);
+  const [userInfo, setUserInfo] = useState(null);
 
-  const [authState, setAuthState] = useState(() => {
-    const storedAuthState = localStorage.getItem("authState");
-    return storedAuthState
-      ? JSON.parse(storedAuthState)
-      : { token: null, expiresAt: null };
-  });
-
-  const [registerInfo, setRegitsterInfo] = useState({
-    name: "",
-    email: "",
-    password: "",
-    role: "",
-  });
-
-  const updateRegisterInfo = useCallback(
-    (info: { email: string; name: string; passwprd: string; role: string }) => {
-      setRegitsterInfo((prev) => ({ ...prev, ...info }));
-    },
-    [setRegitsterInfo]
-  );
-
-  const setToken = (data: { token: string; expiresAt: number }) => {
-    const newAuthState = {
-      token: data.token,
-      expiresAt: data.expiresAt,
-    };
-    setAuthState(newAuthState);
-    localStorage.setItem("authState", JSON.stringify(newAuthState));
-  };
-
-  const clearToken = () => {
-    setAuthState({
-      token: null,
-      expiresAt: null,
-    });
-    localStorage.removeItem("authState");
-  };
+  const [authState, setAuthState] = useState(false);
 
   const isAuthenticated = () => {
-    console.log("this is auth state on isAuthenticated", authState);
-    return (
-      authState.token &&
-      (!authState.expiresAt || authState.expiresAt > Date.now())
-    );
+    if (userInfo) {
+      return userInfo.isLoggedIn;
+    } else {
+      return false;
+    }
   };
 
   useEffect(() => {
-    const storedAuthState = localStorage.getItem("authState");
-    if (storedAuthState) {
-      setAuthState(JSON.parse(storedAuthState));
-    }
+    const fetchUserInfo = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/api/auth/me", {
+          method: "GET",
+          credentials: "include",
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        return data;
+      } catch (error) {
+        console.log("this is error", error);
+      }
+    };
+
+    fetchUserInfo().then((data) => {
+      if (data.isLoggedIn) {
+        setUserInfo(data);
+        setAuthState(data.isLoggedIn);
+      } else {
+        setAuthState(data.isLoggedIn);
+      }
+    });
   }, []);
 
   return (
     <AuthContext.Provider
       value={{
-        user,
-        registerInfo,
-        updateRegisterInfo,
         authState,
-        setUser,
-        setToken,
-        clearToken,
         isAuthenticated,
+        userInfo,
       }}
     >
       {children}

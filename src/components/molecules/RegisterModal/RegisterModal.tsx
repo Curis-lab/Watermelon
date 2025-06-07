@@ -70,7 +70,7 @@ const PasswordInput = ({
   );
 };
 
-const Body = () => {
+const Body = ({ closeModal }: { closeModal: () => void }) => {
   const { loading } = useUserApi();
   const { login } = useApi();
   const navigate = useNavigate();
@@ -96,22 +96,23 @@ const Body = () => {
       password: "",
     });
 
-    // try {
-    //   const response = await login({
-    //     email: formData.email,
-    //     password: formData.password,
-    //   });
-
-    //   console.log("this is response token", response);
-
-    //   if (response.token) {
-    //     registerModal.onClose();
-
-    //     navigate("/onboarding");
-    //   }
-    // } catch (error) {
-    //   console.error("Error: Failed to fetch", error);
-    // }
+    //I going to make it three state
+    try {
+      const response = fetch("http://localhost:3000/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+        credentials: "include",
+      });
+      if (response.ok) {
+        console.log("this is return pending", response.json());
+      }
+      closeModal();
+    } catch (error) {
+      throw new Error("Failed to push");
+    }
   };
 
   return (
@@ -142,7 +143,7 @@ const Body = () => {
       />
 
       <Button type="submit" variant="contained">
-        {loading ? "loading..." : "register"}
+        login
       </Button>
     </form>
   );
@@ -151,6 +152,7 @@ const Body = () => {
 const RegisterModal = () => {
   const registerModal = useRegisterModal();
   const [isLogin, setIsLogin] = useState<boolean>(true);
+  const navigate = useNavigate();
   const title = (
     <>
       <div
@@ -189,17 +191,24 @@ const RegisterModal = () => {
       {/* Not a member yet? <span style={{color: 'blue', cursor:'pointer'}}>Sign Up</span> */}
       Don't you have an account?{" "}
       <span
-        style={{ color: "blue", cursor: "pointer" }}
-        onClick={() => setIsLogin((e) => !e)}
+        style={{
+          color: "blue",
+          cursor: "pointer",
+          textDecoration: "underline",
+        }}
+        onClick={() => {
+          navigate("/onboarding");
+          registerModal.onClose();
+        }}
       >
-        {isLogin ? "Login" : "Create one"}
+        Register it
       </span>
     </div>
   );
   return (
     <MUIModel
       title={title}
-      body={<Body />}
+      body={<Body closeModal={() => registerModal.onClose()} />}
       footer={footer}
       open={registerModal.isOpen}
       onClose={() => {

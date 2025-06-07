@@ -9,8 +9,9 @@ const ProfilePage = () => {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const result = await request("http://localhost:3000/api/user", {
+      const result = await request("http://localhost:3000/api/auth/me", {
         method: "GET",
+        credentials: 'include'
       });
       if (result.ok) {
         const userData = await result.json();
@@ -18,7 +19,7 @@ const ProfilePage = () => {
       }
     };
     fetchUser();
-  }, [request]);
+  }, []);
   return (
     <Box>
       {user && (
@@ -31,7 +32,6 @@ const ProfilePage = () => {
         />
       )}
 
-      {JSON.stringify(user)}
     </Box>
   );
 };

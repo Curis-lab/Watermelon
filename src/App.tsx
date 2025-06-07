@@ -21,9 +21,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AuthContextProvider } from "./providers/AuthProvider";
 import SWRProvider from "./providers/SWRProvider/SWRProvider";
 
-
-
-
 function App() {
   const queryClient = new QueryClient();
 
@@ -54,7 +51,6 @@ function App() {
                     element={<div>Mentor Schedule</div>}
                   />
 
-                  
                   <Route path="/dashboard" element={<UserDashboard />} />
                   <Route path="/profile-setup" element={<ProfileSetup />} />
                   <Route path="/inbox" element={<ChatAndNetwork />} />
@@ -62,8 +58,6 @@ function App() {
                   <Route path="/profile" element={<Profile />} />
                   <Route path="/start" element={<CreateEvent />} />
                   <Route path="*" element={<NotFoundPage />} />
-
-
                 </Routes>
               </MainLayout>
             </ErrorBoundary>

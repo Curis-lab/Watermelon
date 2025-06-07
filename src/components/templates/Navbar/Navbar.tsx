@@ -12,7 +12,7 @@ import {
   Paper,
   Divider,
 } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
 import { ConditionallyRender } from "../../common/ConditionallyRender";
 import useRegisterModal from "../../../hooks/ModalController/useRegisterModal/useRegisterModal";
@@ -59,8 +59,15 @@ const StyledDivider = styled(Divider)({
 });
 
 const UserProfile = () => {
-  const { clearToken } = useAuth();
+  const { userInfo } = useAuth();
   const [showProfile, setShowProfile] = useState(false);
+
+  const Logout = ()=>{
+    fetch('http://localhost:3000/api/auth/logout',{
+      method: 'POST',
+      credentials: 'include'
+    })
+  }
   return (
     <ClickAwayListener onClickAway={() => setShowProfile(false)}>
       <StyledProfileContainer>
@@ -71,9 +78,9 @@ const UserProfile = () => {
           }}
           onClick={() => setShowProfile((prev) => !prev)}
         >
-          <Avatar alt="name" />
+          <Avatar alt="name" src={userInfo?.user.profileImage} />
           <Box>
-            <Typography>Jone Doe</Typography>
+            <Typography>{userInfo?.user.name}</Typography>
           </Box>
           {showProfile ? <ExpandLess /> : <ExpandMore />}
         </Button>
@@ -83,13 +90,7 @@ const UserProfile = () => {
             <StyledPaper>
               <StyledLink to="/profile">View profile settings</StyledLink>
               <StyledDivider />
-              <StyledLogoutButton
-                onClick={() => {
-                  clearToken();
-                }}
-              >
-                Logout
-              </StyledLogoutButton>
+              <StyledLogoutButton onClick={Logout}>Logout</StyledLogoutButton>
             </StyledPaper>
           }
         />
@@ -108,9 +109,9 @@ const StyledShowProfileContainer = styled("div")(({ theme }) => ({
 
 const StyledLoginBtn = styled("div")(({ theme }) => ({
   border: `2px solid ${theme.palette.common.black}`,
-  color: 'white',
-  width: '100px',
-  textAlign: 'center',
+  color: "white",
+  width: "100px",
+  textAlign: "center",
   boxShadow: "4px 4px 0px rgba(0, 0, 0, 1)",
   paddingBlock: theme.spacing(1),
   paddingInline: theme.spacing(2),

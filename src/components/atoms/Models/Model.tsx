@@ -24,6 +24,7 @@ const MUIModel = ({ body, footer, open, onClose, title }: MUIModelProps) => {
         alignItems: "center",
       }}
     >
+      
       <div
         style={{
           display: "flex",
