@@ -22,14 +22,14 @@ import {
 } from "./Events.styled";
 
 const Events = () => {
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState<Date>(new Date());
   const [page, setPage] = useState(1);
   const [limit] = useState(5);
   const [search, setSearch] = useState("");
   const [location, setLocation] = useState("");
   const [isFocused, setIsFocused] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  
+
   const { data: events, isLoading } = useQuery({
     queryKey: ["event", page, date, search, location, limit],
     queryFn: () => getAllEvents({ page, date, search, location, limit }),
@@ -38,13 +38,13 @@ const Events = () => {
   // Debounce search query
   useEffect(() => {
     const timer = setTimeout(() => {
+      setDate(new Date());
       setSearch(searchQuery);
       setPage(1); // Reset to first page when search changes
     }, 500); // 500ms debounce
 
     return () => clearTimeout(timer);
   }, [searchQuery]);
-
 
   // Get search results for the dropdown
   const { data: searchResults } = useQuery({
@@ -77,7 +77,7 @@ const Events = () => {
   );
 
   const _handleKeyPress = useCallback(
-    (e: KeyboardEvent<HTMLInputElement>) => {
+    (e: React.KeyboardEvent<HTMLInputElement>) => {
       if (e.key === "Enter") {
         setIsFocused(false);
       }
@@ -93,11 +93,17 @@ const Events = () => {
   const handleEventSelect = (eventId: string) => {
     // You can implement navigation to event details here
     setIsFocused(false);
+    console.log(eventId);
   };
-
   return (
     <StyledEventsLayout>
-      <Typography sx={{ fontSize: "36px", fontWeight: "bold" , paddingBlockStart: ' 100px'}}>
+      <Typography
+        sx={{
+          fontSize: "36px",
+          fontWeight: "bold",
+          paddingBlockStart: " 100px",
+        }}
+      >
         Welcome's Nyan Lin 🎉
       </Typography>
       <Typography variant="h3" sx={{ paddingBlockEnd: "30px" }}>
@@ -113,7 +119,8 @@ const Events = () => {
           onKeyPress={_handleKeyPress}
         />
         <SearchOutlined
-          onClick={_handleFocusChange}
+          component="div"
+          onClick={(e) => _handleFocusChange(e as unknown as MouseEvent<HTMLDivElement>)}
           sx={{
             position: "absolute",
             left: "10px",
@@ -149,7 +156,7 @@ const Events = () => {
                     {searchResults?.map((event: any) => (
                       <ListItem
                         key={event.id}
-                        button
+                        component="li"
                         onClick={() => handleEventSelect(event.id)}
                         sx={{
                           "&:hover": {
@@ -237,7 +244,7 @@ const Events = () => {
             No events found. Try adjusting your search criteria.
           </Typography>
         ) : (
-          <EventList {...events} />
+          <EventList events={events} />
         )}
         <div style={{ display: "flex", gap: "10px", marginTop: "20px" }}>
           <StyledButton

@@ -20,10 +20,10 @@ const StyledForm = styled("form")({
 
 const StyledCreateEventWrapper = styled("div")(({ theme }) => ({
   display: "grid",
-  backgroundColor: theme.palette.background.default,
-  padding: theme.spacing(2),
+  backgroundColor: theme?.palette?.background?.default || "#fff",
+  padding: theme?.spacing(2) || "16px",
   paddingInlined: "10px",
-  [theme.breakpoints.up("md")]: {
+  [theme?.breakpoints?.up("md")]: {
     gridTemplateColumns: "1fr 1fr",
     gap: "20px",
     paddingInline: "50px",
@@ -55,6 +55,7 @@ const CreateEvent = () => {
     description: "",
     date: "",
     location: "",
+    hostedId: "", // Added hostedId to the state
   });
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -75,7 +76,7 @@ const CreateEvent = () => {
   };
 
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     field: string
   ) => {
     setCollectData((prev) => ({ ...prev, [field]: e.target.value }));

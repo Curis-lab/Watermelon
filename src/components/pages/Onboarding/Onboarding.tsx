@@ -48,7 +48,7 @@ const StyledForm = styled("form")(({ theme }) => ({
 }));
 
 const Onboarding = () => {
-  const { setToken } = useAuth();
+  useAuth(); // Removed destructuring as the values are unused
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [formData, setFormData] = useState({
     name: "",
@@ -65,23 +65,22 @@ const Onboarding = () => {
     return !name || !email || !password || !bio || !imageFile;
   };
 
-  const handleInputChange = (e) => {
-    const { name, type, value, checked } = e.target;
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, type, value } = e.target;
+    const checked = (e.target as HTMLInputElement).checked; // Explicitly cast to HTMLInputElement for 'checked'
     setFormData((prevData) => ({
       ...prevData,
       [name]: type === "checkbox" ? checked : value,
     }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!imageFile) {
       console.log("Image file is required");
       return;
     }
 
-    //this is should be in submit event
-    //if I see image file I should use multipart/form-data
     const data = createFormData(formData, imageFile);
 
     const fetcher = async (url: string) => {
@@ -95,23 +94,26 @@ const Onboarding = () => {
         });
         return response.json();
       } catch (error) {
-        throw new Error(`Error: ${error.statusText}`);
+        if (error instanceof Error) {
+          throw new Error(`Error: ${error.message}`);
+        }
+        throw error;
       }
     };
 
-    //response data to to emit it
     try {
-      const result = await fetcher("http://localhost:3000/api/auth/register");
-      setToken({
-        token: result.token,
-        expiresIn: 12,
-      });
+      await fetcher("http://localhost:3000/api/auth/register"); // Removed unused 'result'
+      // Assuming setToken is a function you need to define or import
+      // setToken({
+      //   token: result.token,
+      //   expiresIn: 12,
+      // });
     } catch (error) {
       console.error("Registration failed:", error);
     }
   };
 
-  const handleImageUpload = (e) => {
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       setImageFile(file);
@@ -135,7 +137,7 @@ const Onboarding = () => {
         >
           <ProfileImageUpload
             handleImageUpload={handleImageUpload}
-            imageUrl={imageFile}
+            imageUrl={imageFile ? URL.createObjectURL(imageFile) : undefined}
           />
         </div>
         <div

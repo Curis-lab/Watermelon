@@ -1,10 +1,11 @@
 import axios from "axios";
 
 const baseRoute = 'http://localhost:3000/api/events'
+// const baseRoute2 = 'https://event-2-h3bg.onrender.com/api/event';
 
 export const getEventInfoAndAuthorProfileById = async (id: string) => {
   const response = await axios.get(`${baseRoute}/${id}`);
-  return response;
+  return response.data;
 };
 
 export const getAllEvents = async ({
@@ -15,7 +16,7 @@ export const getAllEvents = async ({
   limit,
 }: {
   page: number;
-  date: string | Date;
+  date: Date;
   search: string;
   location: string;
   limit: number;
@@ -25,7 +26,8 @@ export const getAllEvents = async ({
   const queryParams = new URLSearchParams({
     page: page.toString(),
     limit: limit.toString(),
-    // date: date.toISOString(),
+    date: date.toISOString(),
+    
     ...(search && { search }),
     ...(location && { location }),
   });

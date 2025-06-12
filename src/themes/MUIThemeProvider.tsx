@@ -7,8 +7,8 @@ interface MUIThemeProviderProps {
 }
 
 const MUIThemeProvider = ({ children }: MUIThemeProviderProps) => {
-  const { zIndex, ...restTheme } = theme;
-  const mainTheme = createTheme({ ...restTheme });
+  const { zIndex, components, ...restTheme } = theme;
+  const mainTheme = createTheme({ ...restTheme, components: components as any });
   console.log(zIndex);
   return (
     <ThemeProvider theme={mainTheme}>

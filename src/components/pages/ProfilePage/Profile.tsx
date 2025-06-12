@@ -3,8 +3,14 @@ import { Box } from "@mui/material";
 import ProfilePageLayout from "../../templates/ProfilePageLayout";
 import { useApi } from "../../../hooks/api";
 
+interface User {
+  name: string;
+  profileImage: string;
+  expertise: string;
+}
+
 const ProfilePage = () => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<User | null>(null);
   const { request } = useApi();
 
   useEffect(() => {

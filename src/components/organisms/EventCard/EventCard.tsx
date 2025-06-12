@@ -17,7 +17,7 @@ const StyledSkeleton = styled(Skeleton)(({theme})=>({
 }))
 
 const EventCard = ({ props }: { props: Event }) => {
-  const { date, name, description, location, imageUrl, _id } = props;
+  const { name,  location, _id } = props;
   const navigate = useNavigate();
   return (
     <StyledCardWrapper onClick={() => navigate(`/event/${_id}`)}>

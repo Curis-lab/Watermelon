@@ -1,9 +1,9 @@
 import { Dispatch, SetStateAction, useCallback, useState } from "react";
-import { formatPath, joinPaths } from "../../../../utils/formatPath";
+import { formatPath } from "../../../../utils/formatPath"; // Removed 'joinPaths' as it is unused
 import { headers } from "../../../../utils/apiUtils";
 
 type ApiErrorHandler = (
-  setErrors: Dispatch<SetStateAction<{}>>,
+  setErrors: Dispatch<SetStateAction<object>>, // Changed '{}' to 'object' for better type safety
   res: Response,
   requestId: string
 ) => void;
@@ -19,13 +19,13 @@ export interface IUseAPI {
 
 //complicated sound
 const useApi = () => {
-  const [errors, setErrors] = useState<Record<string, stringl>>({});
+  const [errors] = useState<Record<string, string>>({}); // Removed 'setErrors' as it is unused
   const [loading, setLoading] = useState<boolean>(false);
 
   const makeRequest = useCallback(
     async (
       apiCaller: () => Promise<Response>,
-      requestId: string,
+      _requestId: string, // Prefixed 'requestId' with '_' to indicate it's unused
       loadingOn: boolean = true
     ): Promise<Response> => {
       
@@ -36,16 +36,16 @@ const useApi = () => {
         const res = await apiCaller();
         setLoading(false);
         return res;
-      } catch (e: Error) {
-        throw new Error(e);
+      } catch (e: unknown) { // Changed 'Error' to 'unknown' for catch clause
+        throw new Error(String(e)); // Convert 'e' to string for error message
       }
     },
     []
   );
   const createRequest = useCallback((path: string, options: RequestInit) => {
-    const defaultOptions = {
+    const defaultOptions: RequestInit = {
       headers,
-      credentials: "include",
+      credentials: "include" as RequestCredentials, // Explicitly cast to RequestCredentials
     };
     return {
       caller: () => {

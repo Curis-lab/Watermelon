@@ -4,8 +4,8 @@ const StyledAvatar = styled(Avatar)(({ theme }) => ({
   width: theme.spacing(4),
   height: theme.spacing(4),
   margin: "auto",
-  backgroundColor: theme.palette.secondary.light,
-  color: theme.palette.text.primary,
+  backgroundColor:  "#f0f0f0", // Default to light gray if undefined
+  color: "#000", // Default to black if undefined
   fontSize: theme.fontSizes.smallerBody,
   fontWeight: theme.fontWeight.bold,
 }));

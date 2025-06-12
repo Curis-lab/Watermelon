@@ -4,7 +4,7 @@ export const SearchBoxWrapper = styled("div")(({ theme }) => ({
   display: "flex",
   alignItems: "center",
   backgroundColor: "white",
-  border: `1px solid ${theme.palette.neutral.border}`,
+  border: `1px solid #000`,
   borderRadius: theme.shape.borderRadiusExtraLarge,
   padding: "3px 5px 3px 12px",
   width: "100%",

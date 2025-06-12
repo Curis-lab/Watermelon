@@ -1,5 +1,4 @@
 import { FormControlLabel, styled, TextField } from "@mui/material";
-import * as React from 'react';
 import Switch, { SwitchProps } from '@mui/material/Switch';
 
 const AccountSetup = () => {
@@ -73,9 +72,9 @@ const MentorDetails = () => {
         border: "6px solid #fff",
       },
       "&.Mui-disabled .MuiSwitch-thumb": {
-        color: theme.palette.grey[100],
+        color: '#fff',
         ...theme.applyStyles("dark", {
-          color: theme.palette.grey[600],
+          color: '#fff',
         }),
       },
       "&.Mui-disabled + .MuiSwitch-track": {

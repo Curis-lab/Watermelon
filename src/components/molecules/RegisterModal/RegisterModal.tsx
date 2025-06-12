@@ -12,10 +12,8 @@ import {
   Typography,
 } from "@mui/material";
 import logo from "../../../static/images/logo.svg";
-import { useEffect, useState } from "react";
-import { useUserApi } from "../../../hooks/api/actions/useUserApi/useUserApi";
-import { useNavigate } from "react-router-dom";
-import { useApi } from "../../../hooks/api";
+import { useState } from "react"; // Removed useEffect
+import { useNavigate } from "react-router-dom"; // Removed unused imports
 
 // I need to pass the value
 const PasswordInput = ({
@@ -71,17 +69,11 @@ const PasswordInput = ({
 };
 
 const Body = ({ closeModal }: { closeModal: () => void }) => {
-  const { loading } = useUserApi();
-  const { login } = useApi();
-  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
 
-  const [password, setPassword] = useState<string>("");
-
-  const registerModal = useRegisterModal();
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
@@ -92,13 +84,11 @@ const Body = ({ closeModal }: { closeModal: () => void }) => {
     console.log("this is fromData", formData);
     setFormData({
       email: "",
-      name: "",
       password: "",
     });
 
-    //I going to make it three state
     try {
-      const response = fetch("http://localhost:3000/api/auth/login", {
+      const response = await fetch("http://localhost:3000/api/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -107,7 +97,7 @@ const Body = ({ closeModal }: { closeModal: () => void }) => {
         credentials: "include",
       });
       if (response.ok) {
-        console.log("this is return pending", response.json());
+        console.log("this is return pending", await response.json());
       }
       closeModal();
     } catch (error) {
@@ -151,7 +141,6 @@ const Body = ({ closeModal }: { closeModal: () => void }) => {
 
 const RegisterModal = () => {
   const registerModal = useRegisterModal();
-  const [isLogin, setIsLogin] = useState<boolean>(true);
   const navigate = useNavigate();
   const title = (
     <>
@@ -188,7 +177,6 @@ const RegisterModal = () => {
 
   const footer = (
     <div>
-      {/* Not a member yet? <span style={{color: 'blue', cursor:'pointer'}}>Sign Up</span> */}
       Don't you have an account?{" "}
       <span
         style={{

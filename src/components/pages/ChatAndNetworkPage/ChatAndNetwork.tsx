@@ -8,14 +8,19 @@ import {
 import { useFormActivity } from "../../../hooks/useFormActivity";
 import { socket } from "../../../server";
 
+interface FormData {
+  message: string;
+  room: string;
+}
+
 const ChatAndNetwork = () => {
   const [id, setId] = useState<string>("");
   const [messages, setMessages] = useState<string[]>([]);
-  const initialState = {
+  const initialState: FormData = {
     message: "",
+    room: "",
   };
-  const { handleChange, handleSubmit, formData } =
-    useFormActivity(initialState);
+  const { handleChange, handleSubmit } = useFormActivity(initialState);
 
   useEffect(() => {
     const connectSocket = () => {
@@ -24,20 +29,21 @@ const ChatAndNetwork = () => {
       });
       socket.on('messages',(data)=>{
         console.log(data);
-        // setMessages(p=>[...p, data]);
+        setMessages(p=>[...p, data]);
       })
     };
     connectSocket();
 
-    // return () => {
-    //   socket.off("connect");
-    // };
+    return () => {
+      socket.off("connect");
+      socket.off("messages");
+    };
   }, []);
 
   const submitCallback = async () => {
-    socket.emit("message", formData.message);
-    return "hello";
+    socket.emit("message", 'hello');
   };
+
   return (
     <LayoutWrapper>
       <ListOfUserWrapper>
@@ -115,7 +121,7 @@ const ChatAndNetwork = () => {
           }}
         >
           <input
-            value={formData.message}
+            value={""}
             onChange={handleChange}
             name="message"
             placeholder="Message..."
@@ -133,7 +139,6 @@ const ChatAndNetwork = () => {
               height: "50px",
             }}
             type="submit"
-            // onClick={sendMessage}
           >
             Send
           </button>
@@ -150,7 +155,7 @@ const ChatAndNetwork = () => {
           }}
         >
           <input
-            value={formData.message}
+            value={ ""}
             onChange={handleChange}
             name="room"
             placeholder="Room..."
@@ -168,7 +173,6 @@ const ChatAndNetwork = () => {
               height: "50px",
             }}
             type="submit"
-            // onClick={sendMessage}
           >
             {">"}
           </button>

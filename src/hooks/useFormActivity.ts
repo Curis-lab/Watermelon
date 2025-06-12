@@ -2,8 +2,9 @@ import { useState } from "react";
 
 export const useFormActivity = (initialState = {}) => {
   const [formData, setFormData] = useState(initialState);
+  const [errors, setErrors] = useState<Record<string, any>>({});
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
     const newValue = type === "checkbox" ? checked : value;
     setFormData((prev) => ({
@@ -12,13 +13,13 @@ export const useFormActivity = (initialState = {}) => {
     }));
   };
 
-  //I want to collect as multiplart data
+  //I want to collect as multipart data
 
-  const handleSubmit = async(e, submitCallback) => {
+  const handleSubmit = async(e: React.FormEvent<HTMLFormElement>, submitCallback: () => Promise<void>) => {
     e.preventDefault();
     try {
       await submitCallback();
-    } catch (error) {
+    } catch (error: any) {
       setErrors(error.errors || {});
     }
     console.log(formData);
@@ -28,5 +29,6 @@ export const useFormActivity = (initialState = {}) => {
     handleChange,
     formData,
     handleSubmit,
+    errors,
   };
 };

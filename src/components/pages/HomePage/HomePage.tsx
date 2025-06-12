@@ -177,6 +177,7 @@ const HomePage = () => {
             key={idx}
             title={item.title}
             number={item.number}
+            bgColor={item.bgColor}
             links={item.links}
             fn={() => {}}
           />

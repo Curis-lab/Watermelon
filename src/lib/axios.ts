@@ -31,18 +31,16 @@ instance.interceptors.request.use(
   }
 );
 
+// Event Data Processing
+export class DataFetcher {
+  constructor() {}
 
-//Event Data Processing
-export  class DataFetcher {
-  constructor() {
-    this.loading = false;
+  setLoading(loading: boolean) {
+    // This method is kept for potential future use or extension
+    console.log(loading);
   }
 
-  setLoading(loading) {
-    this.loading = loading;
-  }
-
-  async request(method, url, data = null, options = {}) {
+  async request(method: string, url: string, data: any = null, options: object = {}): Promise<any> {
     this.setLoading(true);
     try {
       const response = await instance.request({
@@ -52,26 +50,30 @@ export  class DataFetcher {
         ...options,
       });
       return response.data;
-    } catch (error) {
-      throw new Error(error.message);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        throw new Error(error.message);
+      } else {
+        throw new Error("An unknown error occurred");
+      }
     } finally {
       this.setLoading(false);
     }
   }
 
-  fetchData(url, options = {}) {
+  fetchData(url: string, options: object = {}): Promise<any> {
     return this.request("get", url, null, options);
   }
 
-  postData(url, data, options = {}) {
+  postData(url: string, data: any, options: object = {}): Promise<any> {
     return this.request("post", url, data, options);
   }
 
-  putData(url, data, options = {}) {
+  putData(url: string, data: any, options: object = {}): Promise<any> {
     return this.request("put", url, data, options);
   }
 
-  deleteData(url, options = {}) {
+  deleteData(url: string, options: object = {}): Promise<any> {
     return this.request("delete", url, null, options);
   }
 }

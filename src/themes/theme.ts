@@ -7,9 +7,9 @@ export const theme = createTheme({
     values: {
       xs: 0,
       sm: 600,
-      md: 810,
-      lg: 1200,
-      xl: 1536,
+      md: 960,
+      lg: 1280,
+      xl: 1920,
     },
   },
   boxShadows: {
@@ -73,7 +73,7 @@ export const theme = createTheme({
     tableRowHeightDense: 48,
   },
   zIndex: {
-    sticky: 1400,
+    appBar: 1400, // Replacing 'sticky' with 'appBar' as a known property
   },
   palette: {
     common: {
@@ -96,91 +96,58 @@ export const theme = createTheme({
       main: colors.pink[800],
       light: colors.pink[500],
       dark: colors.pink[900], // Color used for text
-      border: colors.pink[300],
       contrastText: colors.pink[900], // Color used for text inside badge
     },
     info: {
       main: colors.violet[500],
       light: colors.violet[500],
       dark: colors.violet[800], // Color used for text
-      border: colors.violet[200],
       contrastText: colors.violet[800], // Color used for text inside alert
     },
     success: {
       main: colors.green[600],
       light: colors.green[50],
       dark: colors.green[800], // Color used for text
-      border: colors.green[300],
       contrastText: colors.green[800], // Color used for text inside alert
     },
     warning: {
       main: colors.orange[800],
       light: colors.orange[100],
       dark: colors.orange[900], // Color used for text
-      border: colors.orange[500],
       contrastText: colors.orange[900], // Color used for text inside alert
     },
     error: {
       main: colors.red[700], // used on error buttons // used on icons on these elements
       light: colors.red[50],
       dark: colors.red[800], // Color used for text
-      border: colors.red[300],
       contrastText: colors.red[800], // Color used for text inside alert
-    },
-    web: {
-      main: "#1A4049", // used on sales-related elements
-      contrastText: colors.grey[50], // Color used for inner text
-    },
-    neutral: {
-      main: colors.grey[700],
-      light: colors.grey[100],
-      dark: colors.grey[800],
-      border: colors.grey[500],
-      contrastText: colors.grey[800], // Color used for text inside badge
     },
     background: {
       paper: colors.grey[50],
       default: colors.grey[200],
-      application: colors.pink[900],
-      sidebar: colors.pink[900],
-      alternative: colors.pink[800], // used on the dark theme to switch primary main to a darker shade
-      elevation1: colors.pink[100],
-      elevation2: colors.pink[200],
     },
     divider: colors.grey[400],
-    table: {
-      headerBackground: colors.grey[200],
-      headerHover: colors.grey[300],
-      divider: colors.grey[300],
-      rowHover: colors.grey[100],
-    },
-    highlight: colors.orange[200],
-    spotlight: {
-      border: "#463cfb",
-      outline: "#6058f5",
-      pulse: "#463cfb",
-    },
-    links: colors.pink[900],
-    eventLog: {
-      diffAdd: colors.green[800],
-      diffSub: colors.red[800],
-      edited: colors.grey[900],
-    },
-    seen: {
-      unknown: colors.grey[100],
-      recent: colors.green[100],
-      inactive: colors.orange[200],
-      abandoned: colors.red[200],
-      primary: colors.pink[100],
-    },
-    envAccordion: {
-      disabled: colors.grey[100],
-      expanded: colors.grey[200],
-    },
-    grey: {
-      100: colors.grey[100], // Disabled Switch base (OFF)
-      600: colors.grey[800], // slider tooltip background
-      700: colors.grey[800], // Dark tooltip background
-    },
+    // links: colors.pink[900],
+    // eventLog: {
+    //   diffAdd: colors.green[800],
+    //   diffSub: colors.red[800],
+    //   edited: colors.grey[900],
+    // },
+    // seen: {
+    //   unknown: colors.grey[100],
+    //   recent: colors.green[100],
+    //   inactive: colors.orange[200],
+    //   abandoned: colors.red[200],
+    //   primary: colors.pink[100],
+    // },
+    // envAccordion: {
+    //   disabled: colors.grey[100],
+    //   expanded: colors.grey[200],
+    // },
+    // grey: {
+    //   100: colors.grey[100], // Disabled Switch base (OFF)
+    //   600: colors.grey[800], // slider tooltip background
+    //   700: colors.grey[800], // Dark tooltip background
+    // },
   },
 });

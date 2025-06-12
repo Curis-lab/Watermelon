@@ -8,15 +8,13 @@ const StyledEventList = styled('div')({
   gap: '10px',
 })
 
-
-const EventList = (events: { events: Event[] }) => {
+const EventList = ({ events }: { events: Event[] }) => {
+  console.log('events',events);
   return (
     <StyledEventList>
-      {Object.keys(events)
-        .map((key) => events[key])
-        .map((e, idx) => (
-          <EventCard key={idx} props={e} />
-        ))}
+      {events && events.map((e, idx) => (
+        <EventCard key={idx} props={e} />
+      ))}
     </StyledEventList>
   );
 };

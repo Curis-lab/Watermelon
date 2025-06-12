@@ -37,7 +37,7 @@ const Mentors = () => {
     fetchMentors();
   }, []);
 
-  const renderMentorCard = (user) => (
+  const renderMentorCard = (user: { _id: string; name: string }) => (
     <StyledContaierBox to={`/mentor/${user._id}`} key={user._id} style={{}}>
       <div
         style={{
@@ -142,11 +142,9 @@ const Mentors = () => {
               justifyContent: "center",
               cursor: "pointer",
               transition: "all 0.3s ease-in-out",
-              ":hover": {
-                color: "#000",
-                transform: "scale(1.1)",
-              },
             }}
+            onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.1)")}
+            onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
           >
             {cat.icon}
             <p style={{ fontSize: "15px" }}>{cat.name}</p>

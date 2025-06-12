@@ -6,7 +6,7 @@ const SearchBox = () => {
       <Search
         sx={{
           mr: 1,
-          color: (theme) => theme.palette.action.disabled,
+          color: '#000',
         }}
       />
       <StyledInputBase placeholder="Search..." />

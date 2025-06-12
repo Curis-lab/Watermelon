@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import type { ReactNode, ReactElement } from 'react';
 
 interface IConditionallyRenderProps {
     condition: boolean;
@@ -7,20 +7,20 @@ interface IConditionallyRenderProps {
 }
 
 type TargetElement =
-    | JSX.Element
-    | JSX.Element[]
+    | ReactElement
+    | ReactElement[]
     | RenderFunc
     | ReactNode
     | null;
 
-type RenderFunc = () => JSX.Element;
+type RenderFunc = () => ReactElement;
 
 export const ConditionallyRender = ({
     condition,
     show,
     elseShow,
-}: IConditionallyRenderProps): JSX.Element | null => {
-    const handleFunction = (renderFunc: RenderFunc): JSX.Element | null => {
+}: IConditionallyRenderProps): ReactElement | null => {
+    const handleFunction = (renderFunc: RenderFunc): ReactElement | null => {
         const result = renderFunc();
         if (!result) {
             /* eslint-disable-next-line */
@@ -41,13 +41,13 @@ export const ConditionallyRender = ({
             return handleFunction(show as RenderFunc);
         }
 
-        return show as JSX.Element;
+        return show as ReactElement;
     }
     if (!condition && elseShow) {
         if (isFunc(elseShow)) {
             return handleFunction(elseShow as RenderFunc);
         }
-        return elseShow as JSX.Element;
+        return elseShow as ReactElement;
     }
     return null;
 };

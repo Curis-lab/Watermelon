@@ -1,5 +1,4 @@
 import { Modal } from "@mui/material";
-import React from "react";
 
 /**
  * title, body, footer

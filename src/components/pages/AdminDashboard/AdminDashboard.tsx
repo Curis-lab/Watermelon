@@ -1,9 +1,12 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
+interface User {
+  username: string;
+}
 
 const AdminDashboard = () => {
-  const [users, setUsers] = useState();
+  const [users, setUsers] = useState<User[] | null>(null);
 
   useEffect(() => {
     let isMounted = true;
@@ -25,19 +28,19 @@ const AdminDashboard = () => {
       }
     };
     getUsers();
-    return ()=>{
+    return () => {
       isMounted = false;
       controller.abort();
-    }
+    };
   }, []);
   return (
     <div>
       <h2>Admin Dashboard</h2>
       <h2>Users List</h2>
-      { users?.length ? (
+      {users && users.length ? (
         <ul>
-          {users.map((user, i) => (
-            <li key={i}>{user?.username}</li>
+          {users.map((user: User, i: number) => (
+            <li key={i}>{user.username}</li>
           ))}
         </ul>
       ) : (

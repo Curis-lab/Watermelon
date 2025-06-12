@@ -6,7 +6,7 @@ const ProfileImageUpload = ({
   handleImageUpload,
   imageUrl
 }: {
-  handleImageUpload: (e) => void;
+  handleImageUpload: (e:any) => void;
   imageUrl?:string;
 }) => {
   const [draggingOver, setDraggingOver] = useState(false);

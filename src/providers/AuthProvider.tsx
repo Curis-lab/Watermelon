@@ -1,13 +1,26 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 
-export const AuthContext = createContext();
+interface UserInfo {
+  isLoggedIn: boolean;
+  // Add other properties of userInfo if needed
+}
+
+export const AuthContext = createContext<{
+  authState: boolean;
+  isAuthenticated: () => boolean;
+  userInfo: UserInfo | null;
+}>({
+  authState: false,
+  isAuthenticated: () => false,
+  userInfo: null,
+});
 
 export const AuthContextProvider = ({
   children,
 }: {
   children: React.ReactNode;
 }) => {
-  const [userInfo, setUserInfo] = useState(null);
+  const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
 
   const [authState, setAuthState] = useState(false);
 
@@ -31,7 +44,7 @@ export const AuthContextProvider = ({
           throw new Error(`HTTP error! status: ${response.status}`);
         }
 
-        const data = await response.json();
+        const data: UserInfo = await response.json();
         return data;
       } catch (error) {
         console.log("this is error", error);
@@ -39,11 +52,11 @@ export const AuthContextProvider = ({
     };
 
     fetchUserInfo().then((data) => {
-      if (data.isLoggedIn) {
+      if (data && data.isLoggedIn) {
         setUserInfo(data);
         setAuthState(data.isLoggedIn);
       } else {
-        setAuthState(data.isLoggedIn);
+        setAuthState(false);
       }
     });
   }, []);

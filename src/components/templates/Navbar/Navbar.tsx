@@ -12,7 +12,7 @@ import {
   Paper,
   Divider,
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useState } from "react"; // Removed useEffect as it is not used
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
 import { ConditionallyRender } from "../../common/ConditionallyRender";
 import useRegisterModal from "../../../hooks/ModalController/useRegisterModal/useRegisterModal";
@@ -59,11 +59,10 @@ const StyledDivider = styled(Divider)({
 });
 
 const UserProfile = () => {
-  const { userInfo } = useAuth();
   const [showProfile, setShowProfile] = useState(false);
 
-  const Logout = ()=>{
-    fetch('http://localhost:3000/api/auth/logout',{
+  const Logout = () => {
+    fetch('http://localhost:3000/api/auth/logout', {
       method: 'POST',
       credentials: 'include'
     })
@@ -78,9 +77,9 @@ const UserProfile = () => {
           }}
           onClick={() => setShowProfile((prev) => !prev)}
         >
-          <Avatar alt="name" src={userInfo?.user.profileImage} />
+          <Avatar alt="name" src='' />
           <Box>
-            <Typography>{userInfo?.user.name}</Typography>
+            <Typography>tuntun</Typography>
           </Box>
           {showProfile ? <ExpandLess /> : <ExpandMore />}
         </Button>
@@ -102,28 +101,26 @@ const StyledShowProfileContainer = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "row",
   gap: "10px",
-  [theme.breakpoints.down("sm")]: {
+  [theme?.breakpoints?.down("sm")]: { // Added optional chaining
     display: "none",
   },
 }));
 
-const StyledLoginBtn = styled("div")(({ theme }) => ({
-  border: `2px solid ${theme.palette.common.black}`,
-  color: "white",
-  width: "100px",
-  textAlign: "center",
-  boxShadow: "4px 4px 0px rgba(0, 0, 0, 1)",
-  paddingBlock: theme.spacing(1),
-  paddingInline: theme.spacing(2),
-  backgroundColor: theme.palette.secondary.light,
-  fontSize: theme.typography.h3.fontSize,
-  fontWeight: theme.typography.fontWeightBold,
-  cursor: "pointer",
-  "&:hover": {
-    backgroundColor: theme.palette.secondary.main,
-    color: theme.palette.common.white,
-  },
-}));
+const StyledLoginBtn = styled("div")`
+  border: 2px solid ${({ theme }) => theme?.palette?.common?.black || 'black'};
+  color: white;
+  width: 100px;
+  text-align: center;
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 1);
+  padding-block: ${({ theme }) => theme?.spacing(1) || '8px'};
+  padding-inline: ${({ theme }) => theme?.spacing(2) || '16px'};
+  font-size: ${({ theme }) => theme?.typography?.h3?.fontSize || '1.5rem'};
+  font-weight: ${({ theme }) => theme?.typography?.fontWeightBold || 'bold'};
+  cursor: pointer;
+  &:hover {
+    color: ${({ theme }) => theme?.palette?.common?.white || 'white'};
+  }
+`;
 
 const Navbar = () => {
   const { isAuthenticated } = useAuth();

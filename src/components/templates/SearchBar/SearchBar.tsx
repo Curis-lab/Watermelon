@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { StyledSearchBarContainer, StyledInput , StyledBodyComponent} from "./SearchBar.styled";
+import { useState, useEffect, useCallback } from "react";
+import { StyledSearchBarContainer, StyledInput, StyledBodyComponent } from "./SearchBar.styled";
 import { SearchOutlined } from "@mui/icons-material";
 import {
     Chip,
@@ -8,18 +8,17 @@ import {
     List,
     ListItem,
     ListItemText,
-  } from "@mui/material";
+} from "@mui/material";
+// Assuming you are using a different library for data fetching
+import { useQuery } from "@tanstack/react-query"; // Updated import for react-query
+import { getAllEvents } from "../../../hooks/api/tanstack-query/event-route";
 
 export default function SearchBar() {
-
   const [isFocused, setIsFocused] = useState(false);
-
-  const [date, setDate] = useState(new Date());
   const [page, setPage] = useState(1);
   const [limit] = useState(5);
   const [search, setSearch] = useState("");
   const [location, setLocation] = useState("");
-  const [isFocused, setIsFocused] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
   // Debounce search query
@@ -32,43 +31,33 @@ export default function SearchBar() {
     return () => clearTimeout(timer);
   }, [searchQuery]);
 
-  const { data: events, isLoading } = useQuery({
-    queryKey: ["event", page, date, search, location, limit],
-    queryFn: () => getAllEvents({ page, date, search, location, limit }),
+  const { isLoading } = useQuery({
+    queryKey: ["event", page, search, location, limit],
+    queryFn: () => getAllEvents({ page:1, date: new Date(), search:'apple', location:"yangon", limit:1}),
   });
 
   // Get search results for the dropdown
   const { data: searchResults } = useQuery({
     queryKey: ["event-search", searchQuery],
     queryFn: () =>
-      getAllEvents({
-        page: 1,
-        date,
-        search: searchQuery,
-        location: "",
-        limit: 3,
-      }),
+      getAllEvents({ page:1, date: new Date(), search:'apple', location:"yangon", limit:1}),
     enabled: searchQuery.length > 0 && isFocused,
   });
 
   const _handleInputFocusChange = useCallback(
-    (e: MouseEvent<HTMLInputElement>) => {
+    (e: React.MouseEvent<HTMLInputElement>) => {
       e.stopPropagation();
       setIsFocused(true);
     },
     [setIsFocused]
   );
 
-  const _handleFocusChange = useCallback(
-    (e: MouseEvent<HTMLDivElement>) => {
-      e.stopPropagation();
-      setIsFocused((e) => !e);
-    },
-    [setIsFocused]
-  );
+  const _handleFocusChange = useCallback(() => {
+    setIsFocused((prev) => !prev);
+  }, [setIsFocused]);
 
   const _handleKeyPress = useCallback(
-    (e: KeyboardEvent<HTMLInputElement>) => {
+    (e: React.KeyboardEvent<HTMLInputElement>) => {
       if (e.key === "Enter") {
         setIsFocused(false);
       }
@@ -81,7 +70,7 @@ export default function SearchBar() {
     setPage(1);
   };
 
-  const handleEventSelect = (eventId: string) => {
+  const handleEventSelect = () => {
     // You can implement navigation to event details here
     setIsFocused(false);
   };
@@ -97,6 +86,7 @@ export default function SearchBar() {
         onKeyPress={_handleKeyPress}
       />
       <SearchOutlined
+        component="div"
         onClick={_handleFocusChange}
         sx={{
           position: "absolute",
@@ -133,8 +123,8 @@ export default function SearchBar() {
                   {searchResults?.map((event: any) => (
                     <ListItem
                       key={event.id}
-                      button
-                      onClick={() => handleEventSelect(event.id)}
+                      component="li"
+                      onClick={() => handleEventSelect()}
                       sx={{
                         "&:hover": {
                           backgroundColor: "rgba(0, 0, 0, 0.04)",

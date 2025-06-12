@@ -10,16 +10,14 @@ export const useUserApi = () => {
   const PATH = "/authentication/register";
   const { createRequest, makeRequest, loading } = useApi();
   const addUser = async(user: IUser) => {
-    const requestId = "addUser";
     const req = createRequest(
       PATH,
       {
         method: "POST",
         body: JSON.stringify(user),
-      },
-      requestId
+      }
     );
-    const response = await makeRequest(req.caller, requestId);
+    const response = await makeRequest(req.caller, "addUser");
     console.log(response);
   };
 

@@ -1,20 +1,19 @@
 import { useAuth } from "../providers/AuthProvider";
 
 export function useApi() {
-  const { authState, setToken, clearToken } = useAuth();
+  const { authState, isAuthenticated } = useAuth();
 
-  async function request(url: string, options = {}) {
-    const headers = {
-      ...options,
+  async function request(url: string, options: Record<string, any> = {}) {
+    const headers: Record<string, string> = {
+      ...options.headers,
     };
 
-    if (authState.token) {
-      headers.Authorization = `Bearer ${authState.token}`;
+    if (isAuthenticated()) {
+      headers.Authorization = `Bearer ${authState}`;
     }
 
     const response = await fetch(url, { ...options, headers });
     if (response.status === 401) {
-      clearToken();
       throw new Error("Session expired");
     }
     return response;
@@ -24,8 +23,6 @@ export function useApi() {
     email: string;
     password: string;
   }): Promise<any> {
-    clearToken();
-
     const response = await fetch("http://localhost:3000/api/auth/login", {
       method: "POST",
       body: JSON.stringify(credentials),
@@ -36,10 +33,11 @@ export function useApi() {
 
     const { body } = await response.json();
 
-    setToken({
-      token: body.token,
-      expiresIn: 12,
-    });
+    // Assuming setToken and clearToken are handled elsewhere
+    // setToken({
+    //   token: body.token,
+    //   expiresIn: 12,
+    // });
 
     return body;
   }

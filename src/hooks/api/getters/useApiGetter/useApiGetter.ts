@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import useSWR, { SWRConfiguration } from "swr";
+import useSWR, { SWRConfiguration, Key } from "swr";
 import handleErrorResponse from "../httpErrorResponseHandler";
 export const useApiGetter = <T>(
   cacheKey: Key,
