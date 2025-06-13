@@ -1,4 +1,4 @@
-import { Skeleton, Typography, styled ,Box} from "@mui/material";
+import {Typography} from "@mui/material";
 import {
   StyledCardWrapper,
   StyeldDecription,
@@ -6,22 +6,22 @@ import {
 import { Event } from "../../../types/Event";
 import { useNavigate } from "react-router-dom";
 
-const StyledSkeleton = styled(Skeleton)(({theme})=>({
-  width:'100%',
-  height: '100%',
-  padding: '30px',
-  borderRadius: '3px',
-  [theme.breakpoints.down('md')]:{
-    height: '200px'
-  },
-}))
+// const StyledSkeleton = styled(Skeleton)(({theme})=>({
+//   width:'100%',
+//   height: '100%',
+//   padding: '30px',
+//   borderRadius: '3px',
+//   [theme.breakpoints.down('md')]:{
+//     height: '200px'
+//   },
+// }))
 
 const EventCard = ({ props }: { props: Event }) => {
-  const { name,  location, _id } = props;
+  const { name,  location, _id, imageUrl } = props;
   const navigate = useNavigate();
   return (
     <StyledCardWrapper onClick={() => navigate(`/event/${_id}`)}>
-      {/* <img
+      <img
         src={imageUrl}
         alt="card"
         style={{
@@ -30,11 +30,11 @@ const EventCard = ({ props }: { props: Event }) => {
           borderRadius: "3px",
           objectFit: "cover",
         }}
-      /> */}
-      <Box sx={{width: '100%'}}>
+      />
+      {/* <Box sx={{width: '100%'}}>
 
       <StyledSkeleton variant="rectangular" animation="wave"/>
-      </Box>  
+      </Box>   */}
       <StyeldDecription>
         <div
           style={{

@@ -1,10 +1,41 @@
-import axios from "axios";
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
+import API_ENDPOINTS from "../../../lib/api/apiendpoints";
 
-const baseRoute = 'http://localhost:3000/api/events'
-// const baseRoute2 = 'https://event-2-h3bg.onrender.com/api/event';
+const baseRoute =
+  import.meta.env.VITE_API_URL || "http://localhost:3000/api/events";
+const baseURL = "https://event-2-h3bg.onrender.com/api";
 
+export const createApiClient = (): AxiosInstance => {
+  const client = axios.create({
+    baseURL,
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  return client;
+};
+const apiClient = createApiClient();
+const apiRequest = async <T>({
+  method = "GET",
+  url,
+  data,
+  params,
+  headers,
+}: AxiosRequestConfig): Promise<T> => {
+  try {
+    const response: AxiosResponse<T> = await apiClient({ method, url, data, params, headers });
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      throw new Error(
+        error.response?.data?.detail || error.message || "API request failed."
+      );
+    }
+    throw error;
+  }
+};
 export const getEventInfoAndAuthorProfileById = async (id: string) => {
-  const response = await axios.get(`${baseRoute}/${id}`);
+  const response: AxiosResponse = await axios.get(`${baseRoute}/${id}`);
   return response.data;
 };
 
@@ -20,19 +51,20 @@ export const getAllEvents = async ({
   search: string;
   location: string;
   limit: number;
-}) => {
-
+}): Promise<any> => {
   console.log(date);
   const queryParams = new URLSearchParams({
     page: page.toString(),
     limit: limit.toString(),
     date: date.toISOString(),
-    
+
     ...(search && { search }),
     ...(location && { location }),
   });
   const url = `${baseRoute}?${queryParams.toString()}`;
-  const response = await axios.get(url);
-  
-  return response.data.data;
+  const data: AxiosResponse = await axios.get(url);
+  const response: AxiosResponse = await apiRequest({ url: API_ENDPOINTS.events.getAll });
+  console.log("data", data);
+
+  return response.data;
 };

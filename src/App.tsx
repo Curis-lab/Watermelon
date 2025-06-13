@@ -19,7 +19,6 @@ import MUIThemeProvider from "./themes/MUIThemeProvider";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AuthContextProvider } from "./providers/AuthProvider";
-import SWRProvider from "./providers/SWRProvider/SWRProvider";
 
 function App() {
   const queryClient = new QueryClient();
@@ -32,39 +31,31 @@ function App() {
   );
 
   return (
-    <SWRProvider>
-      <AuthContextProvider>
-        <MUIThemeProvider>
-          <QueryClientProvider client={queryClient}>
-            <ErrorBoundary>
-              <MainLayout>
-                <Routes>
-                  <Route path="/" element={<Home />} />
-                  <Route path="/events" element={<Events />} />
-                  <Route path="/mentors" element={<Mentors />} />
-                  <Route path="/onboarding" element={<Onboarding />} />
-                  <Route path="/admin-dashboard" element={<AdminDashboard />} />
-                  <Route path="/event/:id" element={<EventDiscoveryPage />} />
-                  <Route path="/mentor/:id" element={<MentorProfile />} />
-                  <Route
-                    path="/mentor/schedule"
-                    element={<div>Mentor Schedule</div>}
-                  />
-
-                  <Route path="/dashboard" element={<UserDashboard />} />
-                  <Route path="/profile-setup" element={<ProfileSetup />} />
-                  <Route path="/inbox" element={<ChatAndNetwork />} />
-                  <Route path="/mentor/edit" element={<div>Mentor Edit</div>} />
-                  <Route path="/profile" element={<Profile />} />
-                  <Route path="/start" element={<CreateEvent />} />
-                  <Route path="*" element={<NotFoundPage />} />
-                </Routes>
-              </MainLayout>
-            </ErrorBoundary>
-          </QueryClientProvider>
-        </MUIThemeProvider>
-      </AuthContextProvider>
-    </SWRProvider>
+    <AuthContextProvider>
+      <MUIThemeProvider>
+        <QueryClientProvider client={queryClient}>
+          <ErrorBoundary>
+            <MainLayout>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/events" element={<Events />} />
+                <Route path="/mentors" element={<Mentors />} />
+                <Route path="/onboarding" element={<Onboarding />} />
+                <Route path="/admin-dashboard" element={<AdminDashboard />} />
+                <Route path="/event/:id" element={<EventDiscoveryPage />} />
+                <Route path="/mentor/:id" element={<MentorProfile />} />
+                <Route path="/dashboard" element={<UserDashboard />} />
+                <Route path="/profile-setup" element={<ProfileSetup />} />
+                <Route path="/inbox" element={<ChatAndNetwork />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/start" element={<CreateEvent />} />
+                <Route path="*" element={<NotFoundPage />} />
+              </Routes>
+            </MainLayout>
+          </ErrorBoundary>
+        </QueryClientProvider>
+      </MUIThemeProvider>
+    </AuthContextProvider>
   );
 }
 
