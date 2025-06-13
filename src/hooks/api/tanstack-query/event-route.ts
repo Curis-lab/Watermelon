@@ -1,8 +1,6 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
 import API_ENDPOINTS from "../../../lib/api/apiendpoints";
 
-const baseRoute =
-  import.meta.env.VITE_API_URL || "http://localhost:3000/api/events";
 const baseURL = "https://event-2-h3bg.onrender.com/api";
 
 export const createApiClient = (): AxiosInstance => {
@@ -35,7 +33,7 @@ const apiRequest = async <T>({
   }
 };
 export const getEventInfoAndAuthorProfileById = async (id: string) => {
-  const response: AxiosResponse = await axios.get(`${baseRoute}/${id}`);
+  const response: AxiosResponse = await axios.get(`${baseURL}/${id}`);
   return response.data;
 };
 
@@ -61,10 +59,11 @@ export const getAllEvents = async ({
     ...(search && { search }),
     ...(location && { location }),
   });
-  const url = `${baseRoute}?${queryParams.toString()}`;
-  const data: AxiosResponse = await axios.get(url);
+  console.log(queryParams);
+  // const url = `${baseRoute}?${queryParams.toString()}`;
+  // const data: AxiosResponse = await axios.get(url);
   const response: AxiosResponse = await apiRequest({ url: API_ENDPOINTS.events.getAll });
-  console.log("data", data);
+  // console.log("data", data);
 
   return response.data;
 };
