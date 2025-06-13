@@ -1,6 +1,6 @@
 const API_ENDPOINTS = {
     events:{
-        getAll: '/event'
+        getAll: '/event',
     }
 };
 export default API_ENDPOINTS;
