@@ -17,8 +17,9 @@ const EventDiscoveryPage = () => {
   const { id } = useParams<{ id: string }>();
   const { data: eventInfo, isSuccess } = useQuery({
     queryKey: ["event", id],
-    queryFn: () => getEventInfoAndAuthorProfileById(id as string),
+    queryFn: () => getEventInfoAndAuthorProfileById(id as string)
   });
+
   return (
     <StyledEventDiscoveryLayout>
       {isSuccess && (

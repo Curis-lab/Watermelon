@@ -17,15 +17,15 @@ import { useNavigate } from "react-router-dom";
 // }))
 
 const EventCard = ({ props }: { props: Event }) => {
-  const { name,  location, _id, imageUrl } = props;
+  const { name,  location, id, imageUrl , attendees} = props;
   const navigate = useNavigate();
   return (
-    <StyledCardWrapper onClick={() => navigate(`/event/${_id}`)}>
+    <StyledCardWrapper onClick={() => navigate(`/event/${id}`)}>
       <img
         src={imageUrl}
         alt="card"
         style={{
-          width: "239px",
+          width: "100%",
           height: "160px",
           borderRadius: "3px",
           objectFit: "cover",
@@ -83,7 +83,7 @@ const EventCard = ({ props }: { props: Event }) => {
               : description}
           </Typography> */}
         <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <Typography sx={{fontSize: '16px', opacity: '0.5'}}>299 attendees</Typography>
+          <Typography sx={{fontSize: '16px', opacity: '0.5'}}>{attendees.length} attendees</Typography>
         </div>
       </StyeldDecription>
     </StyledCardWrapper>

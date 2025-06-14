@@ -1,5 +1,7 @@
-import axios ,{ AxiosInstance , AxiosRequestConfig} from "axios";
+import axios ,{ AxiosInstance , AxiosRequestConfig, AxiosResponse} from "axios";
 
+
+const baseURL = 'https://event-2-h3bg.onrender.com/api';
 export const createApiClient = (): AxiosInstance => {
   const client = axios.create({
     baseURL,
