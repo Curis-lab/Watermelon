@@ -43,3 +43,5 @@ Contains utility functions.
 # color palette
 
 https://colorhunt.co/palette/3f7d58efefefef9651ec5228
+
+refrences ui : [Landing Page](https://ca.pinterest.com/pin/160370436726183970/)
