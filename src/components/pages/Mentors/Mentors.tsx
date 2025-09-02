@@ -25,7 +25,7 @@ const Mentors = () => {
   useEffect(() => {
     const fetchMentors = async () => {
       try {
-        const response = await fetch("http://localhost:3000/api/mentors");
+        const response = await fetch("https://event-2-h3bg.onrender.com/api/mentors");
         const data = await response.json();
         console.log("data", data);
         setMentors(data);

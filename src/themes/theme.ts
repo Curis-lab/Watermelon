@@ -127,27 +127,27 @@ export const theme = createTheme({
       default: colors.grey[200],
     },
     divider: colors.grey[400],
-    // links: colors.pink[900],
-    // eventLog: {
-    //   diffAdd: colors.green[800],
-    //   diffSub: colors.red[800],
-    //   edited: colors.grey[900],
-    // },
-    // seen: {
-    //   unknown: colors.grey[100],
-    //   recent: colors.green[100],
-    //   inactive: colors.orange[200],
-    //   abandoned: colors.red[200],
-    //   primary: colors.pink[100],
-    // },
-    // envAccordion: {
-    //   disabled: colors.grey[100],
-    //   expanded: colors.grey[200],
-    // },
-    // grey: {
-    //   100: colors.grey[100], // Disabled Switch base (OFF)
-    //   600: colors.grey[800], // slider tooltip background
-    //   700: colors.grey[800], // Dark tooltip background
-    // },
+    links: colors.pink[900],
+    eventLog: {
+      diffAdd: colors.green[800],
+      diffSub: colors.red[800],
+      edited: colors.grey[900],
+    },
+    seen: {
+      unknown: colors.grey[100],
+      recent: colors.green[100],
+      inactive: colors.orange[200],
+      abandoned: colors.red[200],
+      primary: colors.pink[100],
+    },
+    envAccordion: {
+      disabled: colors.grey[100],
+      expanded: colors.grey[200],
+    },
+    grey: {
+      100: colors.grey[100], // Disabled Switch base (OFF)
+      600: colors.grey[800], // slider tooltip background
+      700: colors.grey[800], // Dark tooltip background
+    },
   },
 });

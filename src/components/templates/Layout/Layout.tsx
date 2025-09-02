@@ -1,8 +1,6 @@
 import { ReactNode } from "react";
 import Navbar from "../Navbar";
-// import Sidebar from "../Sidebar";
 import { useLocation } from "react-router-dom";
-// import MUIModel from "../../atoms/Models";
 import RegisterModal from "../../molecules/RegisterModal";
 import Footer from "../Footer/Footer";
 

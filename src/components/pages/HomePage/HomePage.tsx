@@ -1,164 +1,238 @@
-import { Box, Typography } from "@mui/material";
-import { OutboundOutlined } from "@mui/icons-material";
-import { Link, useNavigate } from "react-router-dom";
-import { StyledNavigatorContainer } from "./HomePage.styled";
-
-import { navigatorCard } from "../../../constants";
-
-const NavigatorComponent = ({
-  title,
-  number,
-  bgColor,
-  links,
-  fn,
-}: {
-  title: string;
-  number: string;
-  bgColor: string;
-  links: string;
-  fn: () => void;
-}) => {
-  const navigate = useNavigate();
-  console.log(bgColor);
-  return (
-    <div>
-      <h1
-        style={{
-          WebkitTextStroke: "1px white",
-          color: "transparent",
-          fontSize: "60px",
-        }}
-        onClick={fn}
-      >
-        {number}
-      </h1>
-      <div
-        style={{
-          background: "red",
-          height: "300px",
-          width: "300px",
-          borderTopLeftRadius: "150px",
-          borderTopRightRadius: "150px",
-          padding: "40px",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
-        <h2>{title}</h2>
-        <p>Live Events & Workshops – Learn with the Community</p>
-        <Box
-          sx={{
-            padding: '10px ',
-            display: "flex",
-            alignItems: "center",
-            gap: "10px",
-            cursor: "pointer",
-            transition: "all 0.3s ease",
-            "&:hover": {
-              transform: "scale(1.05)",
-              boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
-              background: 'white',
-              borderRadius: '10px'
-            },
-          }}
-          onClick={() => navigate(links)}
-        >
-          <p>Live Workshops & Events</p>
-          <div>
-            <OutboundOutlined sx={{ fontSize: 60 }} />
-          </div>
-        </Box>
-      </div>
-    </div>
-  );
-};
+import { Box, Button, Typography } from "@mui/material";
+import image from "../../../assets/events.jpg";
+import phone from "../../../assets/phone.jpg";
 
 const HomePage = () => {
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        background: "#03032B",
-      }}
-    >
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          color: "white",
-          marginTop: "50px",
-        }}
-      >
-        <h1>
-          Get 1:1 mentorship or join live events -{" "}
-          <span
-            style={{
-              display: "inline-block",
-              background: "#F4B508",
-              paddingInline: "20px",
-              paddingBlock: "10px",
-              borderRadius: "40px 0",
-              color: "black",
-            }}
-          >
-            All in one place
-          </span>
-        </h1>
-      </div>
-      <div
-        style={{
+    <Box>
+      {/* TODO: Implement remaining sections:
+        - Problem & Solution Section
+        - Features & Benefits Section with:
+          - Event Discovery
+          - Mentor Finding
+          - Dashboard Management 
+          - Community Building
+        - Social Proof Section with:
+          - User Testimonials
+          - Partner Logos
+        - How It Works Section with 4 steps
+        - Target Audience Section for:
+          - Mentees
+          - Mentors
+        - Final CTA Section
+        - Additional Sections for:
+          - Event Organizers
+          - Corporate Solutions
+      */}
+      <Box
+        sx={{
+          minHeight: "100vh",
           width: "100%",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          flex: 1,
+          position: "relative",
+          padding: "15px",
         }}
       >
-        <Link
-          to="/onboarding"
+        <img
+          src={image}
+          alt="events photo"
           style={{
-            textDecoration: "none",
+            objectFit: "cover",
+            objectPosition: "center top",
+            width: "100%",
+            minHeight: "100vh",
+            borderRadius: "20px",
+          }}
+        />
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            position: "absolute",
+            top: "0",
+            color: "white",
+            height: "100%",
+            gap: "30px",
           }}
         >
           <Typography
+            variant="h1"
             sx={{
-              background: "linear-gradient(135deg, #FF5733, #FFC300)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              fontWeight: "bold",
-              fontSize: "25px",
-              padding: "10px 20px",
-              border: "1px solid white",
-              borderRadius: "30px",
-              marginBlock: "20px",
-              transition: "all 0.3s ease",
-              "&:hover": {
-                transform: "scale(1.1)",
-              },
+              lineHeight: "50px",
+              textAlign: "center",
+              fontWeight: "500",
+              fontSize: "2.5rem",
+              padding: "10px",
             }}
           >
-            Let's get start
+            Discover Events, Find Mentors, Build Connections
           </Typography>
-        </Link>
-      </div>
-
-      <StyledNavigatorContainer>
-        {navigatorCard.map((item, idx) => (
-          <NavigatorComponent
-            key={idx}
-            title={item.title}
-            number={item.number}
-            bgColor={item.bgColor}
-            links={item.links}
-            fn={() => {}}
+          <Typography
+            sx={{
+              display: "block",
+              textAlign: "center",
+              paddingInline: "15%",
+              letterSpacing: "0.5px",
+              wordSpacing: "1px",
+            }}
+          >
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore
+            maxime quia, nemo laboriosam sunt praesentium maiores quos veniam
+            consequatur dicta cum voluptate aliquam nulla fugiat culpa pariatur,
+            provident recusandae incidunt?
+          </Typography>
+          <Button
+            sx={{
+              alignSelf: "center",
+              border: "1px solid white",
+              borderRadius: "30px",
+              padding: "15px 30px",
+            }}
+          >
+            Register
+          </Button>
+        </Box>
+      </Box>
+      <Box
+        sx={{
+          minHeight: "100vh",
+          background: "#fff",
+          paddingInline: "15px",
+          paddingBlock: "10%",
+        }}
+      >
+        <Typography variant="caption">Featured & Benefits topics</Typography>
+        <Typography
+          sx={{
+            fontSize: "30px",
+          }}
+        >
+          Discover Opportunities & Grow Your Network
+        </Typography>
+        <Box
+          sx={{
+            display: "grid",
+            gridTemplateColumns: {
+              md: "repeat(3, 1fr)",
+              xs: "1fr",
+            },
+            gridTemplateRows: {
+              md: "repeat(1, 320px)",
+              xs: "repeat(3, 320px)",
+            },
+            gap: "20px",
+            marginTop: "60px",
+          }}
+        >
+          <Box
+            sx={{
+              width: "100%",
+              background: "#000",
+              height: "100%",
+              borderRadius: "10px",
+            }}
+          >
+            1
+          </Box>
+          <Box
+            sx={{
+              width: "100%",
+              background: "#000",
+              height: "100%",
+              borderRadius: "10px",
+            }}
+          >
+            1
+          </Box>
+          <Box
+            sx={{
+              width: "100%",
+              background: "#000",
+              height: "100%",
+              borderRadius: "10px",
+            }}
+          >
+            1
+          </Box>
+        </Box>
+      </Box>
+      <Box
+        sx={{
+          minHeight: "100vh",
+          display: "flex",
+          padding: "15px",
+          width: "100vw",
+        }}
+      >
+        <Box
+          sx={{
+            width: "40%",
+          }}
+        >
+          <img
+            src={phone}
+            alt="phone"
+            style={{
+              objectFit: "cover",
+              objectPosition: "center",
+              minHeight: "100%",
+              width: "100%",
+            }}
           />
-        ))}
-      </StyledNavigatorContainer>
-    </div>
+        </Box>
+        <Box
+          sx={{
+            background: "#000",
+            width: "60%",
+            color: "white",
+          }}
+        >
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "20px",
+              padding: "20px",
+              color: "#fff",
+            }}
+          >
+            <Typography variant="h2">How it works</Typography>
+
+            <Box>
+              <Box>
+                <Typography variant="h3">1. Sign Up</Typography>
+                <Typography>
+                  Create your account to get started with our platform
+                </Typography>
+              </Box>
+
+              <Box>
+                <Typography variant="h3">2. Explore</Typography>
+                <Typography>
+                  Browse through our extensive collection of resources and tools
+                </Typography>
+              </Box>
+
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "10px",
+                  alignItems: "center",
+                  textAlign: "center",
+                }}
+              >
+                <Typography variant="h3">3. Get Started</Typography>
+                <Typography>
+                  Begin your journey and make the most of our platform's
+                  features
+                </Typography>
+              </Box>
+            </Box>
+          </Box>
+        </Box>
+      </Box>
+    </Box>
   );
 };
 

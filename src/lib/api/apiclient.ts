@@ -1,7 +1,6 @@
-import axios ,{ AxiosInstance , AxiosRequestConfig, AxiosResponse} from "axios";
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
 
-
-const baseURL = 'https://event-2-h3bg.onrender.com/api';
+const baseURL = "https://event-2-h3bg.onrender.com/api";
 export const createApiClient = (): AxiosInstance => {
   const client = axios.create({
     baseURL,
@@ -21,7 +20,13 @@ export const apiRequest = async <T>({
   headers,
 }: AxiosRequestConfig): Promise<T> => {
   try {
-    const response: AxiosResponse<T> = await apiClient({ method, url, data, params, headers });
+    const response: AxiosResponse<T> = await apiClient({
+      method,
+      url,
+      data,
+      params,
+      headers,
+    });
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
