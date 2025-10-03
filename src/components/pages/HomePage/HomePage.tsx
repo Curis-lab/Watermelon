@@ -161,7 +161,7 @@ const HomePage = () => {
           minHeight: "100vh",
           display: "flex",
           padding: "15px",
-          width: "100vw",
+          width: '100%'
         }}
       >
         <Box
@@ -183,7 +183,7 @@ const HomePage = () => {
         <Box
           sx={{
             background: "#000",
-            width: "60%",
+            // width: "2rem",
             color: "white",
           }}
         >

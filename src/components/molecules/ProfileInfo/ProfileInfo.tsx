@@ -7,11 +7,13 @@ const StyledBox = styled(Box)(({ theme }) => ({
   alignItems: "center",
   gap: theme.spacing(2),
 }));
+
 interface IProfileInfo {
   name: string;
   expertise: string;
   imageUrl: string;
 }
+
 const ProfileInfo = ({ info }: { info: IProfileInfo }) => {
   return (
     <StyledBox>

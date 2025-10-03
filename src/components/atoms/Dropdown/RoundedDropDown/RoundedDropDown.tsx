@@ -10,8 +10,13 @@ const RoundedDropDown = () => {
   const handleChange = (event: SelectChangeEvent) => {
     setAge(event.target.value as string);
   };
+
   return (
-    <FormControl fullWidth>
+    <FormControl
+      sx={{
+        minWidth: "160px",
+      }}
+    >
       <InputLabel id="demo-simple-select-label">Age</InputLabel>
       <Select
         labelId="demo-simple-select-label"

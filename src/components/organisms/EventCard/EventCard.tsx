@@ -1,29 +1,19 @@
-import {Typography} from "@mui/material";
-import {
-  StyledCardWrapper,
-  StyeldDecription,
-} from "./EventCard.styled";
+import { Box, Typography } from "@mui/material";
+import { StyledCardWrapper, StyeldDecription } from "./EventCard.styled";
 import { Event } from "../../../types/Event";
 import { useNavigate } from "react-router-dom";
-
-// const StyledSkeleton = styled(Skeleton)(({theme})=>({
-//   width:'100%',
-//   height: '100%',
-//   padding: '30px',
-//   borderRadius: '3px',
-//   [theme.breakpoints.down('md')]:{
-//     height: '200px'
-//   },
-// }))
+import ContentHeader from "../../molecules/ContentHeader/ContentHeader";
+import defaultImage from "../../../assets/default.webp";
 
 const EventCard = ({ props }: { props: Event }) => {
-  const { name,  location, id, imageUrl , attendees} = props;
+  const { name, location, id, imageUrl, attendees } = props;
   const navigate = useNavigate();
+
   return (
     <StyledCardWrapper onClick={() => navigate(`/event/${id}`)}>
       <img
-        src={imageUrl}
-        alt="card"
+        src={imageUrl || defaultImage}
+        alt="event"
         style={{
           width: "100%",
           height: "160px",
@@ -36,55 +26,20 @@ const EventCard = ({ props }: { props: Event }) => {
       <StyledSkeleton variant="rectangular" animation="wave"/>
       </Box>   */}
       <StyeldDecription>
-        <div
-          style={{
+        <Box
+          sx={{
             display: "flex",
             justifyContent: "space-between",
           }}
         >
-          <Typography
-            sx={{
-              fontSize: "16px",
-              fontWeight: "bold",
-              color: "#644D1A",
-              opacity: 0.8,
-            }}
-          >
+          <Typography>
             WEB, APR 16.10:30 PM MMT
             {/* {new Date(date).toLocaleDateString()} */}
           </Typography>
-          <Typography
-            sx={{
-              fontSize: "16px",
-              fontWeight: "bold",
-              color: "#000",
-            }}
-          >
-            Suggestion
-          </Typography>
-        </div>
-        <div style={{ paddingBlock: "20px", flex: 1 }}>
-          <Typography
-            sx={{ fontSize: "16px", fontWeight: "bold", color: "#000", paddingBlock:'3px' }}
-          >
-            {name}
-          </Typography>
-          <Typography sx={{ fontSize: "16px", opacity: '0.8' }}>{location}</Typography>
-        </div>
-        {/* <Typography
-            sx={{
-              fontSize: "16px",
-              fontWeight: "bold",
-              color: "#000",
-            }}
-          >
-            {description.length > 200
-              ? `${description.substring(0, 80)}...`
-              : description}
-          </Typography> */}
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <Typography sx={{fontSize: '16px', opacity: '0.5'}}>{attendees.length} attendees</Typography>
-        </div>
+          <Typography variant="caption">Suggestion</Typography>
+        </Box>
+        <ContentHeader {...{ title: name, subtitle: location }} />
+        <Typography variant="caption">{attendees.length} attendees</Typography>
       </StyeldDecription>
     </StyledCardWrapper>
   );

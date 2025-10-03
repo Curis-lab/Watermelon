@@ -3,9 +3,9 @@ import { Box, styled } from "@mui/material";
 export const StyeldDecription = styled(Box)({
   display: "flex",
   flexDirection: "column",
-  flex: 1,
-  justifyContent: "center",
+  justifyContent: "space-around",
   paddingInline: "10px",
+  minHeight: '100%'
 });
 
 export const StyledCardWrapper = styled("div")(({ theme }) => ({

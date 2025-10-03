@@ -26,6 +26,8 @@ const ProfilePage = () => {
     };
     fetchUser();
   }, []);
+
+  
   return (
     <Box>
       {user && (

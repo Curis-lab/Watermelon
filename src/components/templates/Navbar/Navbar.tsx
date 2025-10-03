@@ -61,12 +61,12 @@ const StyledDivider = styled(Divider)({
 const UserProfile = () => {
   const [showProfile, setShowProfile] = useState(false);
 
-  const Logout = () => {
-    fetch('http://localhost:3000/api/auth/logout', {
-      method: 'POST',
-      credentials: 'include'
-    })
-  }
+  const Logout = async () => {
+    await fetch("http://localhost:3000/api/auth/logout", {
+      method: "POST",
+      credentials: "include",
+    });
+  };
   return (
     <ClickAwayListener onClickAway={() => setShowProfile(false)}>
       <StyledProfileContainer>
@@ -77,7 +77,7 @@ const UserProfile = () => {
           }}
           onClick={() => setShowProfile((prev) => !prev)}
         >
-          <Avatar alt="name" src='' />
+          <Avatar alt="name" src="" />
           <Box>
             <Typography>tuntun</Typography>
           </Box>
@@ -101,24 +101,26 @@ const StyledShowProfileContainer = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "row",
   gap: "10px",
-  [theme?.breakpoints?.down("sm")]: { // Added optional chaining
+  alignItems: 'center',
+  [theme?.breakpoints?.down("sm")]: {
+    // Added optional chaining
     display: "none",
   },
 }));
 
 const StyledLoginBtn = styled("div")`
-  border: 2px solid ${({ theme }) => theme?.palette?.common?.black || 'black'};
-  color: white;
+  border: 2px solid ${({ theme }) => theme?.palette?.common?.black || "black"};
+  border-radius: 20px;
   width: 100px;
   text-align: center;
   box-shadow: 4px 4px 0px rgba(0, 0, 0, 1);
-  padding-block: ${({ theme }) => theme?.spacing(1) || '8px'};
-  padding-inline: ${({ theme }) => theme?.spacing(2) || '16px'};
-  font-size: ${({ theme }) => theme?.typography?.h3?.fontSize || '1.5rem'};
-  font-weight: ${({ theme }) => theme?.typography?.fontWeightBold || 'bold'};
+  padding-block: ${({ theme }) => theme?.spacing(1) || "8px"};
+  padding-inline: ${({ theme }) => theme?.spacing(2) || "16px"};
+  font-size: ${({ theme }) => theme?.typography?.h3?.fontSize || "1.5rem"};
+  font-weight: ${({ theme }) => theme?.typography?.fontWeightBold || "bold"};
   cursor: pointer;
   &:hover {
-    color: ${({ theme }) => theme?.palette?.common?.white || 'white'};
+    color: "#fff";
   }
 `;
 
@@ -151,13 +153,22 @@ const Navbar = () => {
           }}
         />
       </div>
-
       <StyledShowProfileContainer>
+        <Link to="/mentors" style={{
+          textDecoration: 'none',
+          color: '#000',
+          fontSize: '1.1rem',
+        }}>Mentor</Link>
+        <Link to="/events" style={{
+          textDecoration: 'none',
+          color: '#000',
+          fontSize: '1.1rem',
+        }}>Events</Link>
         {isAuthenticated() ? (
           <UserProfile />
         ) : (
           <StyledLoginBtn onClick={() => registerModal.onOpen()}>
-            login
+            Login
           </StyledLoginBtn>
         )}
       </StyledShowProfileContainer>

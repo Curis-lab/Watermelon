@@ -17,7 +17,6 @@ const MUIThemeProvider = ({ children }: MUIThemeProviderProps) => {
     ...restTheme,
     components: components as any,
   });
-  console.log(zIndex);
   return (
     <ThemeProvider theme={mainTheme}>
       <CssBaseline />

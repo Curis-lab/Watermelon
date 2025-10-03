@@ -15,7 +15,7 @@ const StyledFooterContainer = styled("div")(({ theme }) => ({
 
 const Footer = () => {
   return (
-    <>
+    <Box>
       <StyledFooterContainer>
         <Box
           sx={{
@@ -26,20 +26,12 @@ const Footer = () => {
         >
           <img src={logo} alt="logo" style={{ width: "50px" }} />
           <Typography
-            variant="h2"
-            sx={{
-              fontSize: "1.8em",
-              letterSpacing: "2px",
-            }}
+            variant="h5"
           >
             EventGo
           </Typography>
           <Typography
-            sx={{
-              letterSpacing: "1px",
-              wordSpacing: "0.2px",
-              textAlign: "justify",
-            }}
+          variant="body1"
           >
             Connecting curious minds through events and mentorship. Join us to
             learn, grow, and connect.
@@ -171,19 +163,19 @@ const Footer = () => {
             >
               Guides
             </Link>
-            <Link
-              to="/api"
+            <a
+              href="http://localhost:3000/docs"
               style={{ textDecoration: "none", color: "inherit" }}
             >
               API
-            </Link>
+            </a>
           </Box>
         </Box>
       </StyledFooterContainer>
       <div style={{ textAlign: "center", paddingBlockEnd: "15px" }}>
         ©2025 EventGo. All rights reserved.
       </div>
-    </>
+    </Box>
   );
 };
 

@@ -46,7 +46,7 @@ export const theme = createTheme({
     },
     caption: {
       fontSize: `${12 / 16}rem`,
-    },
+    }
   },
   fontSizes: {
     extraLargeHeader: "clamp(2rem, 2.5vw, 2.5rem)",

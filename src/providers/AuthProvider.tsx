@@ -32,34 +32,34 @@ export const AuthContextProvider = ({
     }
   };
 
-  useEffect(() => {
-    const fetchUserInfo = async () => {
-      try {
-        const response = await fetch("http://localhost:3000/api/auth/me", {
-          method: "GET",
-          credentials: "include",
-        });
+  // useEffect(() => {
+  //   const fetchUserInfo = async () => {
+  //     try {
+  //       const response = await fetch("http://localhost:3000/api/auth/me", {
+  //         method: "GET",
+  //         credentials: "include",
+  //       });
 
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
+  //       if (!response.ok) {
+  //         throw new Error(`HTTP error! status: ${response.status}`);
+  //       }
+        
+  //       const data: UserInfo = await response.json();
+  //       return data;
+  //     } catch (error) {
+  //       console.log("this is error", error);
+  //     }
+  //   };
 
-        const data: UserInfo = await response.json();
-        return data;
-      } catch (error) {
-        console.log("this is error", error);
-      }
-    };
-
-    fetchUserInfo().then((data) => {
-      if (data && data.isLoggedIn) {
-        setUserInfo(data);
-        setAuthState(data.isLoggedIn);
-      } else {
-        setAuthState(false);
-      }
-    });
-  }, []);
+  //   fetchUserInfo().then((data) => {
+  //     if (data && data.isLoggedIn) {
+  //       setUserInfo(data);
+  //       setAuthState(data.isLoggedIn);
+  //     } else {
+  //       setAuthState(false);
+  //     }
+  //   });
+  // }, []);
 
   return (
     <AuthContext.Provider
