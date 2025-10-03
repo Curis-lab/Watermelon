@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import image from "../../../assets/events.jpg";
 import phone from "../../../assets/phone.jpg";
 
@@ -26,54 +26,38 @@ const HomePage = () => {
       */}
       <Box
         sx={{
-          minHeight: "100vh",
-          width: "100%",
-          position: "relative",
-          padding: "15px",
+          minHeight: "90vh",
+          minWidth: "100%",
+          backgroundImage: `url(${image})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: 'center',
+          borderRadius: '10px'
         }}
       >
-        <img
-          src={image}
-          alt="events photo"
-          style={{
-            objectFit: "cover",
-            objectPosition: "center top",
-            width: "100%",
-            minHeight: "100vh",
-            borderRadius: "20px",
-          }}
-        />
         <Box
           sx={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            position: "absolute",
-            top: "0",
+            gap: "1.2rem",
             color: "white",
-            height: "100%",
-            gap: "30px",
+            display: 'flex',
+            flexDirection: 'column',
+            maxWidth: "50rem",
+            
           }}
         >
-          <Typography
-            variant="h1"
-            sx={{
-              lineHeight: "50px",
-              textAlign: "center",
-              fontWeight: "500",
-              fontSize: "2.5rem",
-              padding: "10px",
-            }}
-          >
+          <Typography variant="h5" sx={{
+            textAlign: 'center'
+          }}>
             Discover Events, Find Mentors, Build Connections
           </Typography>
           <Typography
+            variant="body1"
             sx={{
-              display: "block",
               textAlign: "center",
-              paddingInline: "15%",
-              letterSpacing: "0.5px",
-              wordSpacing: "1px",
+              lineHeight: "1.5em",
             }}
           >
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore
@@ -81,16 +65,6 @@ const HomePage = () => {
             consequatur dicta cum voluptate aliquam nulla fugiat culpa pariatur,
             provident recusandae incidunt?
           </Typography>
-          <Button
-            sx={{
-              alignSelf: "center",
-              border: "1px solid white",
-              borderRadius: "30px",
-              padding: "15px 30px",
-            }}
-          >
-            Register
-          </Button>
         </Box>
       </Box>
       <Box
@@ -161,7 +135,7 @@ const HomePage = () => {
           minHeight: "100vh",
           display: "flex",
           padding: "15px",
-          width: '100%'
+          minWidth: "100%",
         }}
       >
         <Box

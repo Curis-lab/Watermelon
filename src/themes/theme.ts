@@ -1,7 +1,6 @@
 import { colors } from "./colors";
 import { createTheme } from "@mui/material/styles";
 
-// I want to take care for fontsize when screen size is changed.
 export const theme = createTheme({
   breakpoints: {
     values: {

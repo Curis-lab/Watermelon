@@ -32,11 +32,7 @@ const StyledBodyLayoutInline = styled(Box)(({ theme }) => ({
 const LandingPage = ({ children }: Props) => (
   <>
     <Navbar />
-    {["/", "/onboarding"].includes(window.location.pathname) ? (
-      <div>{children}</div>
-    ) : (
       <StyledBodyLayoutInline>{children}</StyledBodyLayoutInline>
-    )}
     <Footer />
   </>
 );

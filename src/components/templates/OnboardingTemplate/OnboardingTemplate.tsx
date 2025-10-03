@@ -13,7 +13,7 @@ import SelectWithOptions from "../../atoms/Dropdown/SelectWithOptions/SelectWith
 import HeroHeader from "../../molecules/HeroHeader/HeroHeader";
 
 const StyledContainer = styled("div")({
-  minWidth: "100vw",
+  minWidth: "100%",
   minHeight: "100vh",
   backgroundImage:
     "url(https://i.pinimg.com/1200x/00/32/70/003270ad0273b9628256d88a1492ff5e.jpg)",
@@ -24,6 +24,7 @@ const StyledContainer = styled("div")({
   paddingBottom: "4rem",
   display: "flex",
   justifyContent: "flex-end",
+  borderRadius: '10px'
 });
 
 const StyledSubmitButton = styled("button")({
