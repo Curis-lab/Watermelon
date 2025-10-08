@@ -101,7 +101,7 @@ const StyledShowProfileContainer = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "row",
   gap: "10px",
-  alignItems: 'center',
+  alignItems: "center",
   [theme?.breakpoints?.down("sm")]: {
     // Added optional chaining
     display: "none",
@@ -109,11 +109,9 @@ const StyledShowProfileContainer = styled("div")(({ theme }) => ({
 }));
 
 const StyledLoginBtn = styled("div")`
-  border: 2px solid ${({ theme }) => theme?.palette?.common?.black || "black"};
   border-radius: 20px;
   width: 100px;
   text-align: center;
-  box-shadow: 4px 4px 0px rgba(0, 0, 0, 1);
   padding-block: ${({ theme }) => theme?.spacing(1) || "8px"};
   padding-inline: ${({ theme }) => theme?.spacing(2) || "16px"};
   font-size: ${({ theme }) => theme?.typography?.h3?.fontSize || "1.5rem"};
@@ -123,6 +121,15 @@ const StyledLoginBtn = styled("div")`
     color: "#fff";
   }
 `;
+const StyledLinked = styled(Link)({
+  textDecoration: "none",
+  color: "#000",
+  fontSize: "1.1rem",
+  ":hover": {
+    color: "#7b7bff",
+    border: "1px solid #7b7bff",
+  },
+});
 
 const Navbar = () => {
   const { isAuthenticated } = useAuth();
@@ -154,16 +161,15 @@ const Navbar = () => {
         />
       </div>
       <StyledShowProfileContainer>
-        <Link to="/mentors" style={{
-          textDecoration: 'none',
-          color: '#000',
-          fontSize: '1.1rem',
-        }}>Mentor</Link>
-        <Link to="/events" style={{
-          textDecoration: 'none',
-          color: '#000',
-          fontSize: '1.1rem',
-        }}>Events</Link>
+        <StyledLinked to="/mentors">Mentor</StyledLinked>
+        <StyledLinked to="/events">Events</StyledLinked>
+        <StyledLinked to="/onboarding">OnBoarding</StyledLinked>
+        <StyledLinked to="/admin-dashboard">Admin Dashboard</StyledLinked>
+        <StyledLinked to="/dashboard">User Dashboard</StyledLinked>
+        <StyledLinked to="/profile-setup">Profile setup</StyledLinked>
+        <StyledLinked to="/inbox">Inbox</StyledLinked>
+        <StyledLinked to="/Profile">Profile</StyledLinked>
+        <StyledLinked to="/start">Create Event</StyledLinked>
         {isAuthenticated() ? (
           <UserProfile />
         ) : (

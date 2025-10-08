@@ -1,5 +1,5 @@
+import { memo } from "react";
 import { Box, Pagination } from "@mui/material";
-import React from "react";
 import EventList from "../../templates/EventList";
 
 interface IPaginatedEventList {
@@ -10,6 +10,7 @@ interface IPaginatedEventList {
 }
 
 function PaginatedEventList(props: IPaginatedEventList) {
+  console.log('this is Ipagenated Event LIst')
   return (
     <Box
       sx={{
@@ -19,6 +20,7 @@ function PaginatedEventList(props: IPaginatedEventList) {
         gap: "12px",
       }}
     >
+      {/* somtime  they don't change any props */}
       <EventList events={props.events} />
       <Pagination
         count={props.count}
@@ -31,4 +33,4 @@ function PaginatedEventList(props: IPaginatedEventList) {
   );
 }
 
-export default PaginatedEventList;
+export default memo(PaginatedEventList);

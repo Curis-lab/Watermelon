@@ -13,8 +13,8 @@ export const ListOfUserWrapper = styled("div")({
 });
 
 export const ChatWrapper = styled("div")({
-  maxHeight: '90vh',
-  display: 'flex',
-  flexDirection: 'column',
-  width: '100%'
+  maxHeight: "90vh",
+  display: "flex",
+  flexDirection: "column",
+  width: "100%",
 });

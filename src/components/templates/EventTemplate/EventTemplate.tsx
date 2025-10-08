@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, styled, Typography } from "@mui/material";
 import PaginatedEventList from "../../organisms/PaginatedEventList/PaginatedEventList";
 import { usePagination } from "../../../hooks/usePagination";
+import { DayPicker } from "react-day-picker";
+import "react-day-picker/style.css";
 
 const StyledEventsLayout = styled("div")(({ theme }) => ({
   paddingInline: "20px",
@@ -37,10 +39,16 @@ function EventTemplate({ events }: IEventTemplate) {
     events: events,
     itemsPerPage: 5,
   });
+  const [selected, setSelected] = useState<{ from?: Date; to?: Date }>();
+  // navigation
 
   return (
     <StyledEventsLayout>
-      <Box>
+      <Box
+        sx={{
+          marginBlock: "1.8rem",
+        }}
+      >
         <Typography variant="h2">Welcome's Nyan Lin</Typography>
         <Typography>Events from your groups</Typography>
       </Box>
@@ -53,7 +61,36 @@ function EventTemplate({ events }: IEventTemplate) {
             handleChange={handleChange}
           />
         )}
-        <Box>This is for calendar</Box>
+        <Box
+          sx={{
+            paddingInline: "1.5rem",
+            display: "flex",
+            flexDirection: "column",
+            gap: "1em",
+            width: "100%",
+          }}
+        >
+          <Box
+            sx={{
+              height: "12rem",
+              borderRadius: "2rem",
+              background: "blue",
+            }}
+          ></Box>
+          <DayPicker
+            animate
+            mode="range"
+            selected={selected}
+            onSelect={setSelected}
+            footer={
+              selected?.from
+                ? selected.to
+                  ? `Selected: ${selected.from.toLocaleDateString()} - ${selected.to.toLocaleDateString()}`
+                  : `Selected: ${selected.from.toLocaleDateString()}`
+                : "Pick a date range."
+            }
+          />
+        </Box>
       </StyledEventAndCalendarLayout>
     </StyledEventsLayout>
   );

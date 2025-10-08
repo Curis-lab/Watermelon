@@ -11,7 +11,9 @@ export const usePagination = ({ events, itemsPerPage }: PanginationProps) => {
   const startIndex = (page - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
 
+  //! big calculation
   const currentItems = [...events].slice(startIndex, endIndex);
+  
   const handleChange = (event, value) => {
     setPage(value);
   };
