@@ -1,5 +1,4 @@
 export const colors = {
-  // primary or branding
   pink: {
     50: "#fff0f5",
     100: "#ffd9e6",
@@ -10,7 +9,7 @@ export const colors = {
     600: "#cc1450",
     700: "#a61141",
     800: "#800d32",
-    900: "#590923",
+    900: "#4E56C0",
   },
   // success
   green: {

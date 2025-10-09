@@ -17,15 +17,16 @@ interface Props {
  */
 
 const StyledBodyLayoutInline = styled(Box)(({ theme }) => ({
-  padding: theme.spacing(1.25),
+  paddingTop: theme.spacing(8),
+  paddingInline: theme.spacing(1.25),
   [theme.breakpoints.up("md")]: {
-    padding: theme.spacing(5),
+    paddingInline: theme.spacing(5),
   },
   [theme.breakpoints.up("lg")]: {
-    padding: theme.spacing(7.5),
+    paddingInline: theme.spacing(7.5),
   },
   [theme.breakpoints.up("xl")]: {
-    padding: theme.spacing(10),
+    paddingInline: theme.spacing(10),
   },
 }));
 
