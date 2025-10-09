@@ -1,20 +1,74 @@
-import { Box, Button, styled, TextField } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  Button,
+  styled,
+  TextField,
+  Typography,
+} from "@mui/material";
 import UserList from "../../organisms/ChatAndNetwork/UserList";
 import { SendAndArchiveTwoTone } from "@mui/icons-material";
 
 export const LayoutWrapper = styled("div")(({ theme }) => ({
-  [theme.breakpoints.up("sm")]: {
+  [theme.breakpoints.up("md")]: {
     display: "flex",
+  },
+  minHeight: "90vh",
+}));
+
+export const ListOfUserWrapper = styled("div")(({ theme }) => ({
+  minWidth: "16rem",
+  [theme.breakpoints.down("md")]: {
+    height: "3rem",
   },
 }));
 
-export const ListOfUserWrapper = styled("div")({});
-
-export const ChatWrapper = styled("div")({});
+export const ChatWrapper = styled("div")(({ theme }) => ({
+  position: "relative",
+  width: "100%",
+  minHeight: "100%",
+  [theme.breakpoints.down("md")]: {
+    height: "53rem",
+  },
+}));
 
 function ChatBox({ render }) {
   return render();
 }
+
+const MessageDisplay = () => (
+  <Box
+    sx={{
+      display: "flex",
+      gap: "10px",
+    }}
+  >
+    <Avatar src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRE5NWATYB-uSmqEX3f5rhBLHfYU3xrg1DPhjzwIw0fSzQ2jzWo95WgQ6cVQQuIHPAiydI&usqp=CAU" />
+    <Box>
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+        }}
+      >
+        <Typography
+          sx={{
+            fontWeight: "bold",
+          }}
+        >
+          Jhon
+        </Typography>
+        <Typography variant="caption"> — 5/14/25, 2:10 PM</Typography>
+      </Box>
+      <Typography>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident,
+        animi praesentium necessitatibus sunt quaerat nobis ad rem similique
+        quasi eaque sequi sint voluptatibus obcaecati, delectus iure in odit!
+        Nemo, voluptate.
+      </Typography>
+    </Box>
+  </Box>
+);
 function ChatAndNetworkTemplate() {
   return (
     <LayoutWrapper>
@@ -22,11 +76,26 @@ function ChatAndNetworkTemplate() {
         <UserList />
       </ListOfUserWrapper>
       <ChatWrapper>
-        {/* submit form for sending file*/}
+        <Box sx={{ height: "100%", width: "100%", marginInline: '5px',marginBlock:'5px' }}>
+          <MessageDisplay />
+        </Box>
         <ChatBox
           render={() => (
-            <Box>
-              <TextField variant="outlined" focused />
+            <Box
+              sx={{
+                position: "absolute",
+                bottom: 0,
+                minWidth: "100%",
+                display: "flex",
+              }}
+            >
+              <TextField
+                sx={{
+                  flex: 1,
+                }}
+                variant="outlined"
+                focused
+              />
               <Button
                 sx={{}}
                 variant="outlined"
