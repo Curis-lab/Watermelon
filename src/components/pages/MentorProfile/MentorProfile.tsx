@@ -51,7 +51,7 @@ const MentorProfile = () => {
     useGetMentorProfile(id ? id : "");
   const { reviews, error, loading } = useReviews();
 
-  if (mentorProfileError ) {
+  if (mentorProfileError) {
     return null;
   }
 

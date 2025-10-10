@@ -1,19 +1,24 @@
 import { Avatar, styled } from "@mui/material";
 
 const StyledAvatar = styled(Avatar)({
-    borderRadius: '50%',
-    overflow: 'hidden',
-    boxShadow: 'lg'
+  borderRadius: "50%",
+  overflow: "hidden",
+  boxShadow: "lg",
 });
 
-const ProfileAvatar = ({imageurl, size="sm"}: {imageurl:string, size:"sm"|"md"|"lg"
+const ProfileAvatar = ({
+  imageurl,
+  size = "sm",
+}: {
+  imageurl: string;
+  size: "sm" | "md" | "lg";
 }) => {
-    const sizeMap = {
-        sm: { width: 32, height: 32 },
-        md: { width: 48, height: 48 },
-        lg: { width: 64, height: 64 }
-    };
-    return ( <StyledAvatar src={imageurl} alt="avatar" sx={sizeMap[size]} /> );
-}
- 
+  const sizeMap = {
+    sm: { width: 32, height: 32 },
+    md: { width: 48, height: 48 },
+    lg: { width: 100, height: 100 },
+  };
+  return <StyledAvatar src={imageurl} alt="avatar" sx={sizeMap[size]} />;
+};
+
 export default ProfileAvatar;

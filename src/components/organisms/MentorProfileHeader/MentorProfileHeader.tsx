@@ -1,8 +1,5 @@
-import { Google } from "@mui/icons-material";
-import ContentHeader from "../../molecules/ContentHeader/ContentHeader";
-import IconDescription from "../../molecules/IconDescription/IconDescription";
-import ProfileAvatar from "../../atoms/avatars";
-import { Box, Chip } from "@mui/material";
+import { Box } from "@mui/material";
+import ProfileBanner from "../../molecules/ProfileBanner/ProfileBanner";
 
 interface IMentorProfileHeader {
   navigator: (path:string) => void;
@@ -14,7 +11,6 @@ interface IMentorProfileHeader {
 }
 
 function MentorProfileHeader(props: IMentorProfileHeader) {
-  console.log(props);
   return (
     <Box
       sx={{
@@ -22,43 +18,7 @@ function MentorProfileHeader(props: IMentorProfileHeader) {
         justifyContent: "space-between",
       }}
     >
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "14px",
-        }}
-      >
-        <ProfileAvatar
-          imageurl={
-            props.imgURL
-              ? props.imgURL
-              : "https://www.perfocal.com/blog/content/images/2021/01/Perfocal_17-11-2019_TYWFAQ_100_standard-3.jpg"
-          }
-          size="lg"
-        />
-        <ContentHeader
-          title={props.name ? props.name : "Emaily Curis"}
-          subtitle={props.role ? props.role : "UI/UX Designer"}
-        />
-        <Box
-          sx={{
-            display: "flex",
-            gap: "8px",
-            maxWidth: "350px",
-            flexWrap: "wrap",
-          }}
-        >
-          {props.expertise &&
-            props.expertise.map((v, idx) => (
-              <Chip key={idx} variant="outlined" size="small" label={v} />
-            ))}
-        </Box>
-        <IconDescription
-          Icon={Google}
-          description={props.company ? props.company : ""}
-        />
-      </Box>
+      <ProfileBanner {...props}/>
       <Box
         sx={{
           display: "flex",

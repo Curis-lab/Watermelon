@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { Box } from "@mui/material";
-import ProfilePageLayout from "../../templates/ProfilePageLayout";
+// import ProfilePageLayout from "../../templates/ProfilePageLayout";
 import { useApi } from "../../../hooks/api";
+import ProfileTemplate from "../../templates/ProfileTemplate/ProfileTemplate";
 
 interface User {
   name: string;
@@ -30,7 +31,7 @@ const ProfilePage = () => {
   
   return (
     <Box>
-      {user && (
+      {/* {user && (
         <ProfilePageLayout
           header={{
             name: user.name,
@@ -38,8 +39,8 @@ const ProfilePage = () => {
             expertise: user.expertise,
           }}
         />
-      )}
-
+      )} */}
+      <ProfileTemplate/>
     </Box>
   );
 };
