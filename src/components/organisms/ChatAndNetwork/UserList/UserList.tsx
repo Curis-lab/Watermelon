@@ -31,14 +31,21 @@ const UserList = () => {
       sx={{
         display: { xs: "flex", sm: "flex", md: "block" },
         gap: "10px",
+        maxHeight: "calc(100vh - 150px)",
+        overflowY: "auto",
+        "&::-webkit-scrollbar": {
+          width: "8px"
+        },
+        "&::-webkit-scrollbar-track": {
+          background: "transparent"
+        },
+        "&::-webkit-scrollbar-thumb": {
+          background: "#888",
+          borderRadius: "4px"
+        }
       }}
     >
-      <ChatProfile />
-      <ChatProfile />
-      <ChatProfile />
-      <ChatProfile />
-      <ChatProfile />
-      <ChatProfile />
+      {Array.from({length: 99}).map((_,idx)=><ChatProfile key={idx} />)}
     </Box>
   );
 };

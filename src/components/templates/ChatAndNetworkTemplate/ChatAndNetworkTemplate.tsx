@@ -2,6 +2,7 @@ import {
   Avatar,
   Box,
   Button,
+  Paper,
   styled,
   TextField,
   Typography,
@@ -13,10 +14,13 @@ export const LayoutWrapper = styled("div")(({ theme }) => ({
   [theme.breakpoints.up("md")]: {
     display: "flex",
   },
+  [theme.breakpoints.down('md')]:{
+    padding:'10px'  
+  },
   minHeight: "90vh",
 }));
 
-export const ListOfUserWrapper = styled("div")(({ theme }) => ({
+export const ListOfUserWrapper = styled('div')(({ theme }) => ({
   minWidth: "16rem",
   [theme.breakpoints.down("md")]: {
     height: "3rem",
@@ -41,6 +45,7 @@ const MessageDisplay = () => (
     sx={{
       display: "flex",
       gap: "10px",
+      marginBlock: '1rem'
     }}
   >
     <Avatar src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRE5NWATYB-uSmqEX3f5rhBLHfYU3xrg1DPhjzwIw0fSzQ2jzWo95WgQ6cVQQuIHPAiydI&usqp=CAU" />
@@ -76,8 +81,25 @@ function ChatAndNetworkTemplate() {
         <UserList />
       </ListOfUserWrapper>
       <ChatWrapper>
-        <Box sx={{ height: "100%", width: "100%", marginInline: '5px',marginBlock:'5px' }}>
-          <MessageDisplay />
+        <Box sx={{ 
+          height: "100%", 
+          width: "100%", 
+          marginInline: '5px',
+          marginBlock: '5px',
+          maxHeight: "calc(100vh - 150px)",
+          overflowY: "auto",
+          "&::-webkit-scrollbar": {
+            width: "8px"
+          },
+          "&::-webkit-scrollbar-track": {
+            background: "transparent"
+          },
+          "&::-webkit-scrollbar-thumb": {
+            background: "#888",
+            borderRadius: "4px"
+          }
+        }}>
+          {Array.from({length: 99}).map((_, idx)=><MessageDisplay  key={idx}/>)}
         </Box>
         <ChatBox
           render={() => (
@@ -87,6 +109,7 @@ function ChatAndNetworkTemplate() {
                 bottom: 0,
                 minWidth: "100%",
                 display: "flex",
+                gap:'10px'
               }}
             >
               <TextField
