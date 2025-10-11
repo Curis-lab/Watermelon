@@ -2,7 +2,7 @@ import { Box } from "@mui/material";
 import ProfileBanner from "../../molecules/ProfileBanner/ProfileBanner";
 
 interface IMentorProfileHeader {
-  navigator: (path:string) => void;
+  navigator: (path: string) => void;
   expertise?: string[];
   imgURL?: string;
   company?: string;
@@ -18,7 +18,16 @@ function MentorProfileHeader(props: IMentorProfileHeader) {
         justifyContent: "space-between",
       }}
     >
-      <ProfileBanner {...props}/>
+      <ProfileBanner
+        {...props}
+        title="
+Senior UX Designer at Tech Corporate, France
+      "
+      >
+        <ProfileBanner.JobTitle />
+        <ProfileBanner.ExpertiseTags />
+        <ProfileBanner.RoleBadge />
+      </ProfileBanner>
       <Box
         sx={{
           display: "flex",

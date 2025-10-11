@@ -92,7 +92,7 @@ export const theme = createTheme({
     },
     secondary: {
       // Used for purple badges and purple light elements
-      main: colors.pink[800],
+      main: colors.pink[900],
       light: colors.pink[500],
       dark: colors.pink[900], // Color used for text
       contrastText: colors.pink[900], // Color used for text inside badge
