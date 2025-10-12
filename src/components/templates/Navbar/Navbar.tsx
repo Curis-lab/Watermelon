@@ -18,12 +18,14 @@ import {
   IconButton,
   Drawer,
   List,
+  ListItem,
 } from "@mui/material";
 import { useState } from "react"; // Removed useEffect as it is not used
-import { ExpandLess, ExpandMore, Menu, Close } from "@mui/icons-material";
+import { ExpandLess, ExpandMore, Menu, Close, Home } from "@mui/icons-material";
 import { ConditionallyRender } from "../../common/ConditionallyRender";
 import useRegisterModal from "../../../hooks/ModalController/useRegisterModal/useRegisterModal";
 import UserInfo from "../../molecules/UserInfo/UserInfo";
+import MetadataCard from "../../organisms/MetadataCard/MetadataCard";
 
 const StyledProfileContainer = styled("div")({
   position: "relative",
@@ -139,16 +141,35 @@ const StyledLinked = styled(Link)({
   },
 });
 
-const MobileTemplate = ()=>{
-  return (<List>
-    <UserInfo />
-  </List>)
-}
+const MobileTemplate = () => {
+  return (
+    <List>
+      <UserInfo />
+      <ListItem>
+        <MetadataCard
+          icon={
+            <Home
+              sx={{
+                color: "#C71E64",
+                fontSize: 30,
+              }}
+            />
+          }
+          title="Home"
+          sub="Keep track your connections"
+        >
+          <MetadataCard.Text />
+        </MetadataCard>
+      </ListItem>
+      <Divider/>
+    </List>
+  );
+};
 
 const Navbar = () => {
   const { isAuthenticated } = useAuth();
   const registerModal = useRegisterModal();
-  const [mobileOpen, setMobileOpen] = useState(true);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
     <NavbarWrapper>
@@ -217,7 +238,7 @@ const Navbar = () => {
                 <Close />
               </IconButton>
             </Box>
-            <MobileTemplate/>
+            <MobileTemplate />
           </Box>
         </Drawer>
       </Box>

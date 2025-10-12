@@ -1,7 +1,11 @@
-import { Box, styled, Typography } from "@mui/material";
+import { Box, IconButton, styled, Typography } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { AccessTime, VideocamOutlined } from "@mui/icons-material";
+import {
+  AccessTime,
+  VideocamOutlined,
+  EditCalendar,
+} from "@mui/icons-material";
 import {
   StyledEventTimeAndCalender,
   StyledEventTimeDescription,
@@ -10,6 +14,7 @@ import { getEventInfoAndAuthorProfileById } from "../../../hooks/api/tanstack-qu
 import ProfileAvatar from "../../atoms/avatars";
 import ContentSection from "../../organisms/ContentSection/ContentSection";
 import UserInfo from "../../molecules/UserInfo/UserInfo";
+import MetadataCard from "../../organisms/MetadataCard/MetadataCard";
 
 /**
  * this page only for render
@@ -98,7 +103,7 @@ const EventDiscoveryPage = () => {
 
             <ContentSection
               title="Description"
-              descrption="Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
+              description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
               mollitia, molestiae quas vel sint commodi repudiandae consequuntur
               voluptatum laborum numquam blanditiis harum quisquam eius sed odit
               fugiat iusto fuga praesentium optio, eaque rerum! Provident
@@ -109,36 +114,43 @@ const EventDiscoveryPage = () => {
             />
             <Box sx={{ display: "flex" }}>
               <Typography>Speaker:</Typography>
-              <UserInfo/>
-            </Box>
-            <Box>
-              <Typography>Schedule:</Typography>
-              <Typography>
-                {eventInfo.date} Sunday, March 30, 2025
-                <br />
-                8:15 PM - 10:15 PM MMT
-                <br />
-                Every week on Sunday
-              </Typography>
+              <UserInfo />
             </Box>
           </Box>
 
           <StyledEventTimeAndCalender>
             <StyledEventTimeDescription>
-              <AccessTime />
-              <div>
-                <Typography>
-                  {`${eventInfo.date} Sunday, March 30, 2025, 8:15 to 10:15PM MMT every week on Sunday`}
-                </Typography>
-                <Typography>Add to calendar</Typography>
-              </div>
+              <MetadataCard
+                icon={
+                  <AccessTime
+                    sx={{
+                      fontSize: 40,
+                      color: "#C71E64",
+                    }}
+                  />
+                }
+                title="Sunday, March 30, 2025, 8:15 to 10:15PM MMT every week on Sunday"
+              ></MetadataCard>
+              <IconButton color="primary">
+                <EditCalendar />
+              </IconButton>
             </StyledEventTimeDescription>
             <StyledEventTimeDescription>
-              <VideocamOutlined />
-              <div>
-                <Typography>Online event</Typography>
-                <Typography>Link visiable for attendees</Typography>
-              </div>
+              <MetadataCard
+                icon={
+                  <VideocamOutlined
+                    sx={{
+                      fontSize: 40,
+                      color: "#C71E64",
+                    }}
+                  />
+                }
+                title="Online event"
+                sub="Link visible for attendees"
+              >
+                {/* <MetadataCard.Text /> */}
+                <MetadataCard.Link url="https://www.google.com" />
+              </MetadataCard>
             </StyledEventTimeDescription>
           </StyledEventTimeAndCalender>
         </EventDescriptionLayout>
