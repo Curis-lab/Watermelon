@@ -15,3 +15,4 @@ export const UserDashboard = lazy(() => import("./UserDashboardPage"));
 export const Profile = lazy(() => import("./ProfilePage"));
 
 export const ProfileSetup = lazy(() => import("./ProfileSetup"));
+export const Settings = lazy(() => import("./Settings"));

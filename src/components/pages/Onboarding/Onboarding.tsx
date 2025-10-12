@@ -1,26 +1,20 @@
 import { useState } from "react";
-import { createFormData } from "../../../utils/formUtils";
-import { useAuth } from "../../../providers/AuthProvider";
-// import ProfileImageUpload from "../../atoms/Imageuploader/ProfileImage";
 import OnboardingTemplate from "../../templates/OnboardingTemplate/OnboardingTemplate";
 
-
 const Onboarding = () => {
-  useAuth(); // Removed destructuring as the values are unused
-  const [imageFile] = useState<File | null>(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
     role: "mentor",
     bio: "",
-    availability: true,
-    expertise: "design",
+    availability: false,
+    expertise: "",
   });
 
   const isSubmitButtonDisabled = () => {
     const { name, email, password, bio } = formData;
-    return !name || !email || !password || !bio || !imageFile;
+    return !name || !email || !password || !bio;
   };
 
   const handleInputChange = (
@@ -36,49 +30,9 @@ const Onboarding = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!imageFile) {
-      console.log("Image file is required");
-      return;
-    }
 
-    const data = createFormData(formData, imageFile);
-
-    const fetcher = async (url: string) => {
-      try {
-        const response = await fetch(url, {
-          method: "POST",
-          body: data,
-          headers: {
-            Accept: "multipart/form-data",
-          },
-        });
-        return response.json();
-      } catch (error) {
-        if (error instanceof Error) {
-          throw new Error(`Error: ${error.message}`);
-        }
-        throw error;
-      }
-    };
-
-    try {
-      await fetcher("http://localhost:3000/api/auth/register"); // Removed unused 'result'
-      // Assuming setToken is a function you need to define or import
-      // setToken({
-      //   token: result.token,
-      //   expiresIn: 12,
-      // });
-    } catch (error) {
-      console.error("Registration failed:", error);
-    }
+    console.log("this is data from register", formData);
   };
-
-  // const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const file = e.target.files?.[0];
-  //   if (file) {
-  //     setImageFile(file);
-  //   }
-  // };
 
   return (
     <OnboardingTemplate

@@ -14,6 +14,7 @@ import {
   Events,
   Mentors,
   MentorProfile,
+  Settings
 } from "./components/pages";
 import MainLayout from "./components/templates/Layout";
 import MUIThemeProvider from "./themes/MUIThemeProvider";
@@ -50,6 +51,7 @@ function App() {
                 <Route path="/inbox" element={<ChatAndNetwork />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/start" element={<CreateEvent />} />
+                <Route path="/settings" element={<Settings />} />
                 <Route path="*" element={<NotFoundPage />} />
               </Routes>
             </MainLayout>

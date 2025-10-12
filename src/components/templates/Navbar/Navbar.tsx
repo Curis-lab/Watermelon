@@ -199,13 +199,7 @@ const Navbar = () => {
       <StyledShowProfileContainer>
         <StyledLinked to="/mentors">Mentor</StyledLinked>
         <StyledLinked to="/events">Events</StyledLinked>
-        <StyledLinked to="/onboarding">OnBoarding</StyledLinked>
-        <StyledLinked to="/admin-dashboard">Admin Dashboard</StyledLinked>
-        <StyledLinked to="/dashboard">User Dashboard</StyledLinked>
-        <StyledLinked to="/profile-setup">Profile setup</StyledLinked>
-        <StyledLinked to="/inbox">Inbox</StyledLinked>
-        <StyledLinked to="/Profile">Profile</StyledLinked>
-        <StyledLinked to="/start">Create Event</StyledLinked>
+        <StyledLinked to="/settings">Settings</StyledLinked>
         {isAuthenticated() ? (
           <UserProfile />
         ) : (
