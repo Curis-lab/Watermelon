@@ -3,6 +3,10 @@ import { Box, Chip, Typography } from "@mui/material";
 import ProfileAvatar from "../../atoms/avatars";
 import { PersonPinCircle } from "@mui/icons-material";
 
+/**
+ * I want to combine with render Props pattern
+ */
+
 type ProfileBannerContent = {
   profile: IProfileBanner;
 };

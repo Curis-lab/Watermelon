@@ -1,3 +1,7 @@
+/**
+ * tthis is only presenter
+ */
+
 import { NavbarWrapper } from "./Navbar.styled";
 import logo from "../../../static/images/logo.svg";
 import { Link } from "react-router-dom";
@@ -11,11 +15,15 @@ import {
   Typography,
   Paper,
   Divider,
+  IconButton,
+  Drawer,
+  List,
 } from "@mui/material";
 import { useState } from "react"; // Removed useEffect as it is not used
-import { ExpandLess, ExpandMore } from "@mui/icons-material";
+import { ExpandLess, ExpandMore, Menu, Close } from "@mui/icons-material";
 import { ConditionallyRender } from "../../common/ConditionallyRender";
 import useRegisterModal from "../../../hooks/ModalController/useRegisterModal/useRegisterModal";
+import UserInfo from "../../molecules/UserInfo/UserInfo";
 
 const StyledProfileContainer = styled("div")({
   position: "relative",
@@ -131,9 +139,16 @@ const StyledLinked = styled(Link)({
   },
 });
 
+const MobileTemplate = ()=>{
+  return (<List>
+    <UserInfo />
+  </List>)
+}
+
 const Navbar = () => {
   const { isAuthenticated } = useAuth();
   const registerModal = useRegisterModal();
+  const [mobileOpen, setMobileOpen] = useState(true);
 
   return (
     <NavbarWrapper>
@@ -178,6 +193,34 @@ const Navbar = () => {
           </StyledLoginBtn>
         )}
       </StyledShowProfileContainer>
+      <Box sx={{ display: { xs: "flex", md: "none" } }}>
+        <IconButton
+          size="large"
+          aria-label="menu"
+          onClick={() => setMobileOpen(true)}
+        >
+          <Menu />
+        </IconButton>
+        <Drawer
+          anchor="left"
+          open={mobileOpen}
+          onClose={() => setMobileOpen(false)}
+        >
+          <Box sx={{ minWidth: "100vw", p: 2 }}>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "flex-end",
+              }}
+            >
+              <IconButton size="large" onClick={() => setMobileOpen(false)}>
+                <Close />
+              </IconButton>
+            </Box>
+            <MobileTemplate/>
+          </Box>
+        </Drawer>
+      </Box>
     </NavbarWrapper>
   );
 };
