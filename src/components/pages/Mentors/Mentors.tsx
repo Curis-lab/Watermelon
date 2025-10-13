@@ -3,9 +3,11 @@ import Retry from "../../common/Retry";
 import MentorTemplate from "../../templates/MentorTemplate/MentorTemplate";
 
 const Mentors = () => {
-  const { mentors, isLoading, error, refetch } = useMentors();
+  const { mentors, isLoading, error, refetch , status} = useMentors();
 
-  if (error) {
+
+  if(status==="pending") return <div>...pending</div>
+  if (status==="error") {
     <Retry error={error} refetch={refetch} />;
   }
 

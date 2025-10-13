@@ -1,47 +1,18 @@
-# 📂 Project Directory Structure
+## 📁 `hooks/api` Directory Overview
 
-### 📁 assets
-Contains images, fonts, and styles.
-- `logo.png`
-- `main.css`
+This directory organizes **API-related React hooks** for clean separation of data logic.
 
-### 📁 hooks
-Contains custom hooks for React.
-- `useFormat.ts`
-- `useFetch.ts`
+### Structure
 
-### 📁 lib
-Contains helper functions and utilities.
-- `apiClient.ts`
-- `dateUtils.ts`
+- **`actions/`**
+  - Contains hooks for **writing or updating data**.
+  - Typical operations: `POST`, `PUT`, `DELETE`.
+  - Example: `useAddUser`, `useUpdateSettings`.
 
-### 📁 openapi
-Contains documentation for OpenAPI.
-- `api-docs.yaml`
+- **`getters/`**
+  - Contains hooks for **reading or fetching data**.
+  - Typical operation: `GET`.
+  - Example: `useGetUser`, `useFetchProjects`.
 
-### 📁 providers
-Contains context providers for React.
-- `AuthProvider.tsx`
-- `ThemeProvider.tsx`
-
-### 📁 static
-Contains static files.
-- `favicon.ico`
-- `robots.txt`
-
-### 📁 types
-Contains TypeScript type definitions.
-- `userTypes.ts`
-- `eventTypes.ts`
-
-### 📁 utils
-Contains utility functions.
-- `stringUtils.ts`
-- `mathUtils.ts`
-
-
-# color palette
-
-https://colorhunt.co/palette/3f7d58efefefef9651ec5228
-
-refrences ui : [Landing Page](https://ca.pinterest.com/pin/160370436726183970/)
+### 🧠 Purpose
+Helps maintain a clear distinction between **data fetching** and **data mutation** logic within the `hooks/api` folder, promoting cleaner and more maintainable code.

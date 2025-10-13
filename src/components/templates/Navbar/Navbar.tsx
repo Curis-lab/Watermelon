@@ -1,7 +1,3 @@
-/**
- * tthis is only presenter
- */
-
 import { NavbarWrapper } from "./Navbar.styled";
 import logo from "../../../static/images/logo.svg";
 import { Link } from "react-router-dom";
@@ -147,21 +143,14 @@ const MobileTemplate = () => {
       <UserInfo />
       <ListItem>
         <MetadataCard
-          icon={
-            <Home
-              sx={{
-                color: "#C71E64",
-                fontSize: 30,
-              }}
-            />
-          }
+          Icon={Home}
           title="Home"
           sub="Keep track your connections"
         >
           <MetadataCard.Text />
         </MetadataCard>
       </ListItem>
-      <Divider/>
+      <Divider />
     </List>
   );
 };

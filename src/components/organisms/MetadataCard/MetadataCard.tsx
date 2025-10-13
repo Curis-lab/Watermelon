@@ -16,13 +16,20 @@ function useMataContext() {
   return context;
 }
 interface IMetadataCard {
-  icon: React.ReactNode;
+  Icon: React.ComponentType<any>;
   title: string;
   sub?: string;
   children: React.ReactNode;
 }
 
 function MetadataCard(props: IMetadataCard) {
+  const { Icon, title } = props;
+
+  const sizeOfIcon = {
+    fontSize: 40,
+    color: "#C71E64",
+  };
+
   return (
     <MataContext.Provider value={{ props }}>
       <Box
@@ -32,9 +39,9 @@ function MetadataCard(props: IMetadataCard) {
           alignItems: "center",
         }}
       >
-        <Box>{props.icon}</Box>
+        <Icon sx={{ sizeOfIcon }} />
         <Box>
-          <Typography variant="body1">{props.title}</Typography>
+          <Typography variant="body1">{title}</Typography>
           {props.children}
         </Box>
       </Box>
@@ -43,15 +50,16 @@ function MetadataCard(props: IMetadataCard) {
 }
 
 const Text = () => {
-  const { props } = useMataContext();
+  const { sub } = useMataContext().props;
   return (
     <Typography variant="body1" color="gray">
-      {props.sub}
+      {sub}
     </Typography>
   );
 };
 
 const ReferenceLink = ({ url }: { url: string }) => {
+  if (!url) return null;
   return <Link to={url}>{url}</Link>;
 };
 

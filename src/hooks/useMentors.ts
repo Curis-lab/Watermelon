@@ -20,28 +20,32 @@ interface IMentor {
 interface UseMentorsReturn {
   mentors: { _id: number; name: string }[];
   isLoading: boolean;
-  error: string | null | boolean;
+  error: string | null;
+  status: "loading" | "error" | "success" | "pending";
 }
-
-/**
- * I want to centralize on this keys
- */
 
 export const useMentors = (): UseMentorsReturn => {
   const {
     data: mentors,
     isLoading,
-    isError,
+    error,
+    status,
   } = useQuery({
     queryKey: ["mentors"],
     queryFn: () => fetcher(),
     staleTime: 600000,
   });
 
+  /**
+   * add some Business logci
+   */
+  console.log("mentors", mentors);
+  console.log("status", status);
   return {
     mentors: mentors || [],
     loading: isLoading,
-    error: isError,
+    error,
+    status,
   };
 };
 

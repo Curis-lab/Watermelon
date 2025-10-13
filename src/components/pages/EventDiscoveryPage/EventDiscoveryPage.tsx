@@ -121,30 +121,18 @@ const EventDiscoveryPage = () => {
           <StyledEventTimeAndCalender>
             <StyledEventTimeDescription>
               <MetadataCard
-                icon={
-                  <AccessTime
-                    sx={{
-                      fontSize: 40,
-                      color: "#C71E64",
-                    }}
-                  />
-                }
+                Icon={AccessTime}
                 title="Sunday, March 30, 2025, 8:15 to 10:15PM MMT every week on Sunday"
-              ></MetadataCard>
+              >
+                <MetadataCard.Text />
+              </MetadataCard>
               <IconButton color="primary">
                 <EditCalendar />
               </IconButton>
             </StyledEventTimeDescription>
             <StyledEventTimeDescription>
               <MetadataCard
-                icon={
-                  <VideocamOutlined
-                    sx={{
-                      fontSize: 40,
-                      color: "#C71E64",
-                    }}
-                  />
-                }
+                Icon={VideocamOutlined}
                 title="Online event"
                 sub="Link visible for attendees"
               >

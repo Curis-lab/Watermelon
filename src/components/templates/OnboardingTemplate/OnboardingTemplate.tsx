@@ -24,7 +24,7 @@ const StyledContainer = styled("div")({
   paddingBottom: "4rem",
   display: "flex",
   justifyContent: "flex-end",
-  borderRadius: '10px'
+  borderRadius: "10px",
 });
 
 const StyledSubmitButton = styled("button")({
@@ -57,7 +57,6 @@ const StyledContent = styled(Box)(({ theme }) => ({
   maxWidth: "50%",
   // padding: "2rem",
 }));
-
 
 function OnboardingTemplate({
   formData,
@@ -94,6 +93,7 @@ function OnboardingTemplate({
             onChange={handleInputChange}
             required
             sx={{ width: "100%" }}
+            helperText="Please enter your full name"
           />
 
           <TextField
@@ -104,6 +104,7 @@ function OnboardingTemplate({
             onChange={handleInputChange}
             required
             sx={{ minWidth: "100%" }}
+            helperText="Please enter a unique email address"
             slotProps={{
               htmlInput: {
                 sx: { textAlign: "start" },
@@ -136,6 +137,7 @@ function OnboardingTemplate({
             onChange={handleInputChange}
             required
             sx={{ width: "100%" }}
+            helperText="Password must be at least 8 characters long"
           />
           <SelectWithOptions
             textFieldProperties={{
@@ -150,7 +152,11 @@ function OnboardingTemplate({
               { value: "organizer", label: "Organizer" },
               { value: "mentee", label: "Mentee" },
             ]}
-            render={(val) => <MenuItem value={val.value}>{val.label}</MenuItem>}
+            render={(val, idx) => (
+              <MenuItem value={val.value} key={idx}>
+                {val.label}
+              </MenuItem>
+            )}
           />
           <SelectWithOptions
             textFieldProperties={{
@@ -167,7 +173,11 @@ function OnboardingTemplate({
               { value: "marketing", label: "Marketing" },
               { value: "business", label: "Business" },
             ]}
-            render={(val) => <MenuItem value={val.value}>{val.label}</MenuItem>}
+            render={(val, idx) => (
+              <MenuItem value={val.value} key={idx}>
+                {val.label}
+              </MenuItem>
+            )}
           />
 
           <TextField

@@ -1,9 +1,10 @@
-import { Close, Visibility, VisibilityOff } from "@mui/icons-material";
+import { Close, Facebook, Google, Visibility, VisibilityOff } from "@mui/icons-material";
 import useRegisterModal from "../../../hooks/ModalController/useRegisterModal/useRegisterModal";
 import MUIModel from "../../atoms/Models";
 import {
   Box,
   Button,
+  Divider,
   FormControl,
   IconButton,
   InputAdornment,
@@ -15,6 +16,7 @@ import {
 // import logo from "../../../static/images/logo.svg";
 import { useState } from "react"; // Removed useEffect
 import { useNavigate } from "react-router-dom"; // Removed unused imports
+import { useLogin } from "../../../hooks/api/actions/useRegister/userRegister";
 
 // I need to pass the value
 const PasswordInput = ({
@@ -77,6 +79,8 @@ const RegisterFormHandler = ({ url, closeModal, render }) => {
     email: "",
     password: "",
   });
+  const login = useLogin();
+
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -91,73 +95,85 @@ const RegisterFormHandler = ({ url, closeModal, render }) => {
   };
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    //
+    const res =  await login(formData);
+    console.log(res)
     console.log("this is fromData", formData);
     setFormData({
       email: "",
       password: "",
     });
 
-    //I want to change it as a hook
-    try {
-      const response = await fetch(`${url}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-        credentials: "include",
-      });
-      if (response.ok) {
-        console.log("this is return pending", await response.json());
-      }
-      closeModal();
-    } catch {
-      throw new Error("Failed to push");
-    }
   };
   return render(handleSubmit, formData, handleChange, handlePasswordChange);
 };
 
 const Body = ({ closeModal }: { closeModal: () => void }) => {
   return (
-    <RegisterFormHandler
-      url="http://localhost:3000/api/auth/login"
-      closeModal={closeModal}
-      render={(handleSubmit, formData, handleChange, handlePasswordChange) => (
-        <form
-          onSubmit={handleSubmit}
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "15px",
-            minWidth: "21.88rem",
-          }}
-        >
-          <TextField
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            placeholder="Email"
-            variant="outlined"
-            label="Email"
-            sx={{
-              minWidth: "80%",
-            }}
-          />
-
-          <PasswordInput value={formData.password} fn={handlePasswordChange} />
-
-          <Button
-            type="submit"
-            sx={{
-              border: "1px solid #000",
+    <Box>
+      <RegisterFormHandler
+        url="http://localhost:3000/api/auth/login"
+        closeModal={closeModal}
+        render={(
+          handleSubmit,
+          formData,
+          handleChange,
+          handlePasswordChange
+        ) => (
+          <form
+            onSubmit={handleSubmit}
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "15px",
+              minWidth: "21.88rem",
             }}
           >
-            login
-          </Button>
-        </form>
-      )}
-    />
+            <TextField
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder="Email"
+              variant="outlined"
+              label="Email"
+              sx={{
+                minWidth: "80%",
+              }}
+            />
+
+            <PasswordInput
+              value={formData.password}
+              fn={handlePasswordChange}
+            />
+
+            <Button
+              type="submit"
+              sx={{
+                border: "1px solid #000",
+              }}
+            >
+              login
+            </Button>
+          </form>
+        )}
+      />
+      <Divider
+        sx={{
+          marginBlock: "10px",
+        }}
+      />
+      <Box sx={{
+        display: 'flex',
+        justifyContent: 'center'
+      }}>
+        <IconButton color="primary">
+          <Google />
+        </IconButton>
+        <IconButton color="primary">
+          <Facebook />
+        </IconButton>
+      </Box>
+    </Box>
   );
 };
 
@@ -202,10 +218,12 @@ const RegisterModal = () => {
   );
 
   const footer = (
-    <Box sx={{
-      display: 'flex',
-      gap: '0.5em'
-    }}>
+    <Box
+      sx={{
+        display: "flex",
+        gap: "0.5em",
+      }}
+    >
       <Typography variant="body2">Don't you have an account? </Typography>
       <Typography
         variant="body2"

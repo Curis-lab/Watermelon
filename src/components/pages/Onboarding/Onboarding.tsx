@@ -1,7 +1,10 @@
 import { useState } from "react";
 import OnboardingTemplate from "../../templates/OnboardingTemplate/OnboardingTemplate";
+import { useRegister } from "../../../hooks/api/actions/useRegister/userRegister";
 
 const Onboarding = () => {
+  const register = useRegister();
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -30,7 +33,7 @@ const Onboarding = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+    await register(formData);
     console.log("this is data from register", formData);
   };
 

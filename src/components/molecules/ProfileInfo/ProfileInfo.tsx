@@ -17,7 +17,7 @@ interface IProfileInfo {
 const ProfileInfo = ({ info }: { info: IProfileInfo }) => {
   return (
     <StyledBox>
-      <ProfileAvatar imageurl={info.imageUrl} />
+      <ProfileAvatar size="lg" imageurl={info.imageUrl} />
       <Box>
         <Typography variant="h6">{info.name}</Typography>
         <Typography>{info.expertise}</Typography>
