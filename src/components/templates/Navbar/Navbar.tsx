@@ -171,6 +171,7 @@ const Navbar = () => {
         }}
       >
         <Link to="/" style={{ textDecoration: "none" }}>
+
           <img src={logo} alt="logo" style={{ width: "50px" }} />
         </Link>
         <input

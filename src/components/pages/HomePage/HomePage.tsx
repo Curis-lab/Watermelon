@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
-import image from "../../../assets/events.jpg";
-import phone from "../../../assets/phone.jpg";
+import image from "../../../assets/img/events.jpg";
+import phone from "../../../assets/img/phone.jpg";
 
 const HomePage = () => {
   return (

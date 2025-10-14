@@ -3,15 +3,8 @@ import { StyledCardWrapper, StyeldDecription } from "./EventCard.styled";
 import { Event } from "../../../types/Event";
 import { useNavigate } from "react-router-dom";
 import ContentHeader from "../../molecules/ContentHeader/ContentHeader";
-import defaultImage from "../../../assets/default.webp";
+import defaultImage from "../../../assets/img/default.webp";
 import { memo } from "react";
-
-/**
- *
- * @param param0 can I avoid template rendering
- * @returns
- */
-
 
 
 const EventCard = ({ props }: { props: Event }) => {
