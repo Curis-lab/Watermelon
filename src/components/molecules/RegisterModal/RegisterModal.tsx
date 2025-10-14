@@ -1,4 +1,10 @@
-import { Close, Facebook, Google, Visibility, VisibilityOff } from "@mui/icons-material";
+import {
+  Close,
+  Facebook,
+  Google,
+  Visibility,
+  VisibilityOff,
+} from "@mui/icons-material";
 import useRegisterModal from "../../../hooks/ModalController/useRegisterModal/useRegisterModal";
 import MUIModel from "../../atoms/Models";
 import {
@@ -17,6 +23,7 @@ import {
 import { useState } from "react"; // Removed useEffect
 import { useNavigate } from "react-router-dom"; // Removed unused imports
 import { useLogin } from "../../../hooks/api/actions/useRegister/userRegister";
+import { useSession } from "../../../context/SessionContext";
 
 // I need to pass the value
 const PasswordInput = ({
@@ -79,8 +86,9 @@ const RegisterFormHandler = ({ url, closeModal, render }) => {
     email: "",
     password: "",
   });
-  const login = useLogin();
-
+  const navigate = useNavigate();
+  const  {login}  = useSession();
+  const loginToDB = useLogin();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -96,14 +104,18 @@ const RegisterFormHandler = ({ url, closeModal, render }) => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     //
-    const res =  await login(formData);
-    console.log(res)
-    console.log("this is fromData", formData);
+    const res = await loginToDB(formData);
+    login(res.data);
+    console.log('result',res)
+    if(!res.data.isMfaActive){
+      navigate('/settings')
+    }else{
+      navigate('/');
+    }
     setFormData({
       email: "",
       password: "",
     });
-
   };
   return render(handleSubmit, formData, handleChange, handlePasswordChange);
 };
@@ -162,10 +174,12 @@ const Body = ({ closeModal }: { closeModal: () => void }) => {
           marginBlock: "10px",
         }}
       />
-      <Box sx={{
-        display: 'flex',
-        justifyContent: 'center'
-      }}>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
         <IconButton color="primary">
           <Google />
         </IconButton>

@@ -1,7 +1,6 @@
 import { NavbarWrapper } from "./Navbar.styled";
 import logo from "../../../static/images/logo.svg";
 import { Link } from "react-router-dom";
-import { useAuth } from "../../../providers/AuthProvider";
 import {
   Button,
   ClickAwayListener,
@@ -156,7 +155,7 @@ const MobileTemplate = () => {
 };
 
 const Navbar = () => {
-  const { isAuthenticated } = useAuth();
+  const  isAuthenticated  = false;
   const registerModal = useRegisterModal();
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -189,7 +188,7 @@ const Navbar = () => {
         <StyledLinked to="/mentors">Mentor</StyledLinked>
         <StyledLinked to="/events">Events</StyledLinked>
         <StyledLinked to="/settings">Settings</StyledLinked>
-        {isAuthenticated() ? (
+        {isAuthenticated ? (
           <UserProfile />
         ) : (
           <StyledLoginBtn onClick={() => registerModal.onOpen()}>

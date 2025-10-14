@@ -51,7 +51,7 @@ function EventTemplate({ events }: IEventTemplate) {
       >
         <Typography variant="h2">Welcome's Nyan Lin</Typography>
         <Typography>Events from your groups</Typography>
-      </Box>
+    </Box>
       <StyledEventAndCalendarLayout>
         {events && (
           <PaginatedEventList

@@ -33,13 +33,12 @@ const StyledBodyLayoutInline = styled(Box)(({ theme }) => ({
 const LandingPage = ({ children }: Props) => (
   <>
     <Navbar />
-      <StyledBodyLayoutInline>{children}</StyledBodyLayoutInline>
+    <StyledBodyLayoutInline>{children}</StyledBodyLayoutInline>
     <Footer />
   </>
 );
 
 const MainLayout = ({ children }: Props) => {
-  
   return (
     <div>
       <RegisterModal />

@@ -1,64 +1,49 @@
-import { Routes, Route } from "react-router-dom";
-import './themes/app.css';
-import {
-  ChatAndNetwork,
-  Home,
-  NotFoundPage,
-  UserDashboard,
-  AdminDashboard,
-  EventDiscoveryPage,
-  Profile,
-  CreateEvent,
-  Onboarding,
-  ProfileSetup,
-  Events,
-  Mentors,
-  MentorProfile,
-  Settings
-} from "./components/pages";
+import { useEffect } from "react";
+import { Route, BrowserRouter as Router, Routes } from "react-router";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { SessionProvider } from "./context/SessionContext";
+import { routes } from "./components/common/routes";
+import ErrorBoundary from "./components/ErrorBoundary";
 import MainLayout from "./components/templates/Layout";
 import MUIThemeProvider from "./themes/MUIThemeProvider";
-import ErrorBoundary from "./components/ErrorBoundary";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { AuthContextProvider } from "./providers/AuthProvider";
+import "./themes/app.css";
+
+const queryClient = new QueryClient();
 
 function App() {
-  const queryClient = new QueryClient();
+  const availabelRoutes = routes;
 
-  console.log(
-    "%cAttention!\n%cIf someone instructed you to copy/paste something here, there's a high chance it's a scam.\n%cPasting anything here could compromise your EventGo account.",
-    "font-size: 60px; color: #7b7bff; font-weight: bold;",
-    "font-size: 20px; color: white;",
-    "font-size: 24px; color: red; font-weight: bold;"
-  );
+  useEffect(() => {
+    console.log(
+      "%cAttention!\n%cIf someone instructed you to copy/paste something here, there's a high chance it's a scam.\n%cPasting anything here could compromise your EventGo account.",
+      "font-size: 60px; color: #7b7bff; font-weight: bold;",
+      "font-size: 20px; color: white;",
+      "font-size: 24px; color: red; font-weight: bold;"
+    );
+  }, []);
 
   return (
-    <AuthContextProvider>
+    <SessionProvider>
       <MUIThemeProvider>
         <QueryClientProvider client={queryClient}>
-          <ErrorBoundary>
-            <MainLayout>
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/events" element={<Events />} />
-                <Route path="/mentors" element={<Mentors />} />
-                <Route path="/onboarding" element={<Onboarding />} />
-                <Route path="/admin-dashboard" element={<AdminDashboard />} />
-                <Route path="/event/:id" element={<EventDiscoveryPage />} />
-                <Route path="/mentor/:id" element={<MentorProfile />} />
-                <Route path="/dashboard" element={<UserDashboard />} />
-                <Route path="/profile-setup" element={<ProfileSetup />} />
-                <Route path="/inbox" element={<ChatAndNetwork />} />
-                <Route path="/profile" element={<Profile />} />
-                <Route path="/start" element={<CreateEvent />} />
-                <Route path="/settings" element={<Settings />} />
-                <Route path="*" element={<NotFoundPage />} />
-              </Routes>
-            </MainLayout>
-          </ErrorBoundary>
+          <Router basename="/">
+            <ErrorBoundary>
+              <MainLayout>
+                <Routes>
+                  {availabelRoutes.map((route) => (
+                    <Route
+                      path={route.path}
+                      element={<route.component />}
+                      key={route.path}
+                    />
+                  ))}
+                </Routes>
+              </MainLayout>
+            </ErrorBoundary>
+          </Router>
         </QueryClientProvider>
       </MUIThemeProvider>
-    </AuthContextProvider>
+    </SessionProvider>
   );
 }
 

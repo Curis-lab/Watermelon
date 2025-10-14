@@ -1,14 +1,15 @@
-import { useAuth } from "../providers/AuthProvider";
-
 export function useApi() {
-  const { authState, isAuthenticated } = useAuth();
+  const { authState, isAuthenticated } = {
+    authState: {},
+    isAuthenticated: false,
+  };
 
   async function request(url: string, options: Record<string, any> = {}) {
     const headers: Record<string, string> = {
       ...options.headers,
     };
 
-    if (isAuthenticated()) {
+    if (isAuthenticated) {
       headers.Authorization = `Bearer ${authState}`;
     }
 
@@ -19,6 +20,9 @@ export function useApi() {
     return response;
   }
 
+
+  //sometime I might need some function
+  
   async function login(credentials: {
     email: string;
     password: string;
