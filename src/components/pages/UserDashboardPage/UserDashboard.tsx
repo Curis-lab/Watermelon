@@ -6,21 +6,20 @@ const UserDashboardPage = () => {
   const isAuthenticated = false;
   const [data, setData] = useState(null);
 
-  const fetchData = async () => {
-    try {
-      const response = await request("http://localhost:3000/api/auth/me");
-      const result = await response.json();
-      setData(result);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await request("http://localhost:3000/api/auth/me");
+        const result = await response.json();
+        setData(result);
+      } catch (err) {
+        console.log(err);
+      }
+    };
     if (isAuthenticated) {
       fetchData();
     }
-  }, []);
+  }, [isAuthenticated, request]);
 
   return (
     <>

@@ -26,7 +26,7 @@ const ProfilePage = () => {
       }
     };
     fetchUser();
-  }, []);
+  }, [request]);
 
   
   return (
@@ -40,6 +40,9 @@ const ProfilePage = () => {
           }}
         />
       )} */}
+      {
+        JSON.stringify(user)
+      }
       <ProfileTemplate/>
     </Box>
   );

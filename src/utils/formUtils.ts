@@ -14,7 +14,7 @@ interface EventFormData {
     location:string;
 }
 export const createFormData = (
-  formData: OnboardingFormData | EventFormData|any,
+  formData: OnboardingFormData | EventFormData| undefined,
   imageFile: File | null
 ) => {
   const data = new FormData();

@@ -1,12 +1,10 @@
-//! this is only style for template
-
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 
 const ProfileImageUpload = ({
   handleImageUpload,
   imageUrl
 }: {
-  handleImageUpload: (e:any) => void;
+  handleImageUpload: (e:ChangeEvent<HTMLInputElement>) => void;
   imageUrl?:string;
 }) => {
   const [draggingOver, setDraggingOver] = useState(false);

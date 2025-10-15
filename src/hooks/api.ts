@@ -4,7 +4,7 @@ export function useApi() {
     isAuthenticated: false,
   };
 
-  async function request(url: string, options: Record<string, any> = {}) {
+  async function request<T>(url: string, options: Record<string, T> = {}) {
     const headers: Record<string, string> = {
       ...options.headers,
     };
@@ -23,10 +23,10 @@ export function useApi() {
 
   //sometime I might need some function
   
-  async function login(credentials: {
+  async function login<T>(credentials: {
     email: string;
     password: string;
-  }): Promise<any> {
+  }): Promise<T> {
     const response = await fetch("http://localhost:3000/api/auth/login", {
       method: "POST",
       body: JSON.stringify(credentials),

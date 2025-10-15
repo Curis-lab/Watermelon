@@ -199,13 +199,11 @@ export const useEventSearch = ({
 
 export const fetcher = async ({
   page,
-  date,
   search,
   location,
   limit,
 }: {
   page: number;
-  date: Date;
   search: string;
   location: string;
   limit: number;

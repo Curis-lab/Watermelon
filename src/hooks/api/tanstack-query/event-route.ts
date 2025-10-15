@@ -1,13 +1,13 @@
 import API_ENDPOINTS from "../../../lib/api/apiendpoints";
 import { apiRequest } from "../../../lib/api/apiclient";
 
-// const baseURL = "https://event-2-h3bg.onrender.com/api";
-export const getEventInfoAndAuthorProfileById = async (
+export async function getEventInfoAndAuthorProfileById<T>(
   id: string
-): Promise<any> => {
-  const response = await apiRequest<any>({
+): Promise<typeof response> {
+  const response = await apiRequest<T>({
     url: API_ENDPOINTS.events.getById(id),
   });
-  console.log(response.data);
+
+  
   return response;
 };

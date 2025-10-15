@@ -40,7 +40,7 @@ export class DataFetcher {
     console.log(loading);
   }
 
-  async request(method: string, url: string, data: any = null, options: object = {}): Promise<any> {
+  async request(method: string, url: string, data= null, options: object = {}): Promise<> {
     this.setLoading(true);
     try {
       const response = await instance.request({
@@ -61,19 +61,19 @@ export class DataFetcher {
     }
   }
 
-  fetchData(url: string, options: object = {}): Promise<any> {
+  fetchData(url: string, options: object = {}): Promise<> {
     return this.request("get", url, null, options);
   }
 
-  postData(url: string, data: any, options: object = {}): Promise<any> {
+  postData(url: string, data, options: object = {}): Promise<> {
     return this.request("post", url, data, options);
   }
 
-  putData(url: string, data: any, options: object = {}): Promise<any> {
+  putData(url: string, data, options: object = {}): Promise<> {
     return this.request("put", url, data, options);
   }
 
-  deleteData(url: string, options: object = {}): Promise<any> {
+  deleteData(url: string, options: object = {}): Promise<> {
     return this.request("delete", url, null, options);
   }
 }

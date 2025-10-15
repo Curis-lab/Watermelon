@@ -23,7 +23,6 @@ export const ConditionallyRender = ({
     const handleFunction = (renderFunc: RenderFunc): ReactElement | null => {
         const result = renderFunc();
         if (!result) {
-            /* eslint-disable-next-line */
             console.warn(
                 'Nothing was returned from your render function. Verify that you are returning a valid react component',
             );

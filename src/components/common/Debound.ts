@@ -1,11 +1,11 @@
-type AnyFunction = (...args: any[]) => void;
+type AnyFunction<T> = (...args: T[]) => void;
 
-const Debound = (fn: AnyFunction, delay: number) => {
-  return (...args: any[]) => {
+function Debound<T>(fn: AnyFunction<T>, delay: number) {
+  return (...args: T[]) => {
     setTimeout(() => {
       fn(...args);
     }, delay);
   };
-};
+}
 
 export default Debound;

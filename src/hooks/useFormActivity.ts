@@ -2,7 +2,7 @@ import { useState } from "react";
 
 export const useFormActivity = (initialState = {}) => {
   const [formData, setFormData] = useState(initialState);
-  const [errors, setErrors] = useState<Record<string, any>>({});
+  const [errors, setErrors] = useState<Record<string, Error>>({});
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
@@ -19,7 +19,7 @@ export const useFormActivity = (initialState = {}) => {
     e.preventDefault();
     try {
       await submitCallback();
-    } catch (error: any) {
+    } catch (error: Error) {
       setErrors(error.errors || {});
     }
     console.log(formData);

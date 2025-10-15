@@ -21,7 +21,8 @@ import { ConditionallyRender } from "../../common/ConditionallyRender";
 import useRegisterModal from "../../../hooks/ModalController/useRegisterModal/useRegisterModal";
 import UserInfo from "../../molecules/UserInfo/UserInfo";
 import MetadataCard from "../../organisms/MetadataCard/MetadataCard";
-import { useSession } from "../../../context/SessionContext";
+import { useSession } from "../../../hooks/useSession";
+
 
 const StyledProfileContainer = styled("div")({
   position: "relative",
@@ -156,7 +157,7 @@ const MobileTemplate = () => {
 };
 
 const Navbar = () => {
-  const  isAuthenticated  = useSession().isLoggedIn;
+  const isAuthenticated = useSession().isLoggedIn;
   const registerModal = useRegisterModal();
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -172,7 +173,6 @@ const Navbar = () => {
         }}
       >
         <Link to="/" style={{ textDecoration: "none" }}>
-
           <img src={logo} alt="logo" style={{ width: "50px" }} />
         </Link>
         <input
@@ -187,7 +187,6 @@ const Navbar = () => {
         />
       </div>
       <StyledShowProfileContainer>
-
         <StyledLinked to="/mentors">Mentor</StyledLinked>
         <StyledLinked to="/events">Events</StyledLinked>
         {isAuthenticated ? (

@@ -49,7 +49,7 @@ const MentorProfile = () => {
   const navigator = useNavigate();
   const { data: mentorProfile, isError: mentorProfileError } =
     useGetMentorProfile(id ? id : "");
-  const { reviews, error, loading } = useReviews();
+  const { reviews} = useReviews();
 
   if (mentorProfileError) {
     return null;

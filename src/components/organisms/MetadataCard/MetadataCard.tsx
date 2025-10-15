@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, IconProps, Typography } from "@mui/material";
 import React, { createContext, useContext } from "react";
 import { Link } from "react-router-dom";
 
@@ -16,7 +16,7 @@ function useMataContext() {
   return context;
 }
 interface IMetadataCard {
-  Icon: React.ComponentType<any>;
+  Icon: React.ComponentType<IconProps>;
   title: string;
   sub?: string;
   children: React.ReactNode;

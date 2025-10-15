@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Typography, Box } from "@mui/material";
-import { useSession } from "../../../context/SessionContext";
-import { useNavigate } from "react-router-dom";
 import { setup2FA } from "../../../hooks/api/actions/useRegister/userRegister";
+import { useSession } from "../../../hooks/useSession";
 
 function SettingTemplates() {
   const { isLoggedIn } = useSession();
-  const navigate = useNavigate();
 
   const [response, setResponse] = useState({});
 

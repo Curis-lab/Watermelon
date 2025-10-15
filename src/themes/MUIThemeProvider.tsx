@@ -12,10 +12,10 @@ interface MUIThemeProviderProps {
 }
 
 const MUIThemeProvider = ({ children }: MUIThemeProviderProps) => {
-  const { zIndex, components, ...restTheme } = theme;
+  const { components, ...restTheme } = theme;
   const mainTheme = createTheme({
     ...restTheme,
-    components: components as any,
+    components: components as React.ReactNode,
   });
   return (
     <ThemeProvider theme={mainTheme}>

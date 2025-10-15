@@ -38,7 +38,7 @@ const AdminDashboard = () => {
       <h2>Admin Dashboard</h2>
       <h2>Users List</h2>
       Dashboad
-      {/* {users && users.length ? (
+       {users && users.length ? (
         <ul>
           {users.map((user: User, i: number) => (
             <li key={i}>{user.username}</li>
@@ -46,7 +46,7 @@ const AdminDashboard = () => {
         </ul>
       ) : (
         <p>No users found</p>
-      )} */}
+      )}
     </div>
   );
 };

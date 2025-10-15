@@ -1,8 +1,8 @@
 import React from "react";
-import { Box, Typography } from "@mui/material";
+import { Box, IconProps, Typography } from "@mui/material";
 
 interface IIconDescription {
-  Icon: React.ComponentType<any>;
+  Icon: React.ComponentType<IconProps>;
   description: string;
 }
 

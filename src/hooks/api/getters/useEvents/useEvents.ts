@@ -7,7 +7,7 @@ export const useEvent = () => {
   //what I should do
   const PATH = "/events";
   const options: SWRConfiguration = {}; // Define options as needed
-  const { data, refetch, loading, error } = useApiGetter<any>(
+  const { data, refetch, loading, error } = useApiGetter(
     formatPath(PATH),
     () => fetcher(formatPath(PATH), "Get Events"),
     options

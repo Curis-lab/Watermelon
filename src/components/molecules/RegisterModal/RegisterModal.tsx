@@ -20,10 +20,10 @@ import {
   Typography,
 } from "@mui/material";
 // import logo from "../../../static/images/logo.svg";
-import { useState } from "react"; // Removed useEffect
+import React, { useState } from "react"; // Removed useEffect
 import { useNavigate } from "react-router-dom"; // Removed unused imports
 import { useLogin } from "../../../hooks/api/actions/useRegister/userRegister";
-import { useSession } from "../../../context/SessionContext";
+import { useSession } from "../../../hooks/useSession";
 
 // I need to pass the value
 const PasswordInput = ({
@@ -81,13 +81,16 @@ const PasswordInput = ({
   );
 };
 
-const RegisterFormHandler = ({ url, closeModal, render }) => {
+type TRegisterFormHandler = {
+  render: () => React.ReactNode;
+};
+const RegisterFormHandler = ({ render }: TRegisterFormHandler) => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
   const navigate = useNavigate();
-  const  {login}  = useSession();
+  const { login } = useSession();
   const loginToDB = useLogin();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -106,11 +109,11 @@ const RegisterFormHandler = ({ url, closeModal, render }) => {
     //
     const res = await loginToDB(formData);
     login(res.data);
-    console.log('result',res)
-    if(!res.data.isMfaActive){
-      navigate('/settings')
-    }else{
-      navigate('/');
+    console.log("result", res);
+    if (!res.data.isMfaActive) {
+      navigate("/settings");
+    } else {
+      navigate("/");
     }
     setFormData({
       email: "",

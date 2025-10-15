@@ -120,7 +120,7 @@ export default function SearchBar() {
                 </Typography>
               ) : (
                 <List sx={{ width: "100%", bgcolor: "background.paper" }}>
-                  {searchResults?.map((event: any) => (
+                  {searchResults?.map((event) => (
                     <ListItem
                       key={event.id}
                       component="li"
