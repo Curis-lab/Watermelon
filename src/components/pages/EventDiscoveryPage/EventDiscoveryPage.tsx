@@ -1,5 +1,5 @@
-import { Box, IconButton, styled, Typography } from "@mui/material";
-import { useNavigate, useParams } from "react-router-dom";
+import { Box, Button, IconButton, styled, Typography } from "@mui/material";
+import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import {
   AccessTime,
@@ -11,14 +11,9 @@ import {
   StyledEventTimeDescription,
 } from "./EventDiscovery.styled";
 import { getEventInfoAndAuthorProfileById } from "../../../hooks/api/tanstack-query/event-route";
-import ProfileAvatar from "../../atoms/avatars";
 import ContentSection from "../../organisms/ContentSection/ContentSection";
 import UserInfo from "../../molecules/UserInfo/UserInfo";
 import MetadataCard from "../../organisms/MetadataCard/MetadataCard";
-
-/**
- * this page only for render
- */
 
 const EventDescriptionLayout = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -31,7 +26,6 @@ const EventDescriptionLayout = styled(Box)(({ theme }) => ({
 
 const EventDiscoveryPage = () => {
   //todo: add event details by the page
-  const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
   const { data: eventInfo, isSuccess } = useQuery({
     queryKey: ["event", id],
@@ -51,33 +45,11 @@ const EventDiscoveryPage = () => {
           >
             {eventInfo.name}
           </Typography>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "center",
-              gap: "10px",
-            }}
-          >
-            <ProfileAvatar
-              imageurl="https://plus.unsplash.com/premium_photo-1689568126014-06fea9d5d341?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D"
-              size="md"
-            />
 
-            <Box>
-              <Typography sx={{ fontSize: "0.8rem" }}>Hosted by</Typography>
-              <Typography
-                sx={{
-                  cursor: "pointer",
-                  fontSize: "1.2rem",
-                  fontWeight: "600",
-                }}
-                onClick={() => navigate(`/mentor/${eventInfo.hostedBy.id}`)}
-              >
-                {eventInfo.hostedBy.name || "Tun Tun"}
-              </Typography>
-            </Box>
-          </Box>
+          <UserInfo>
+            <UserInfo.Description />
+            <UserInfo.Name />
+          </UserInfo>
         </Box>
       )}
 
@@ -114,7 +86,10 @@ const EventDiscoveryPage = () => {
             />
             <Box sx={{ display: "flex" }}>
               <Typography>Speaker:</Typography>
-              <UserInfo />
+              <UserInfo>
+                <UserInfo.Name />
+                <UserInfo.Description />
+              </UserInfo>
             </Box>
           </Box>
 
@@ -136,10 +111,19 @@ const EventDiscoveryPage = () => {
                 title="Online event"
                 sub="Link visible for attendees"
               >
-                {/* <MetadataCard.Text /> */}
-                <MetadataCard.Link url="https://www.google.com" />
+                <MetadataCard.Text />
+                {/* <MetadataCard.Link url="https://www.google.com" /> */}
               </MetadataCard>
             </StyledEventTimeDescription>
+            <Button
+              sx={{
+                fontSize: "18px",
+                borderRadius: "20px",
+                border: "1px solid #000",
+              }}
+            >
+              Attend Online
+            </Button>
           </StyledEventTimeAndCalender>
         </EventDescriptionLayout>
       )}

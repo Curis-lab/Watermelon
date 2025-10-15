@@ -1,12 +1,13 @@
 import { Box, Tabs, Tab, Typography, IconButton, Chip } from "@mui/material";
 import React from "react";
 import ProfileBanner from "../../molecules/ProfileBanner/ProfileBanner";
-import { LinkedIn } from "@mui/icons-material";
+import { LinkedIn, Settings } from "@mui/icons-material";
 import ReviewCard from "../../organisms/ReviewCard/ReviewCard";
+import { useNavigate } from "react-router-dom";
 
-interface TabPanelProps {
+interface TabPanelProps<T> {
   children?: React.ReactNode;
-  index: number;
+  index: T;
   value: number;
 }
 
@@ -53,16 +54,16 @@ const reviews = [
   },
 ];
 
-function CustomTabPanel(props: TabPanelProps) {
+function CustomTabPanel<T>(props: TabPanelProps<T>) {
   const { children, value, index, ...other } = props;
-
+  
   return (
     <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
+    role="tabpanel"
+    hidden={value !== index}
+    id={`simple-tabpanel-${index}`}
+    aria-labelledby={`simple-tab-${index}`}
+    {...other}
     >
       {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
     </div>
@@ -78,7 +79,8 @@ function a11yProps(index: number) {
 
 function ProfileTemplate() {
   const [value, setValue] = React.useState(0);
-
+  const navigate = useNavigate();
+  
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
@@ -101,6 +103,8 @@ function ProfileTemplate() {
         sx={{
           marginLeft: { sx: "10px", md: "70px" },
           marginTop: "-20px",
+          display: "flex",
+          justifyContent: "space-between",
         }}
       >
         <ProfileBanner
@@ -108,15 +112,28 @@ function ProfileTemplate() {
             name: "Min Min",
             title: "Seniro UX Designer at Tech Coorporate, France",
             role: "mentee",
-            expertise: ["web development", "UX design", "UI design", "user research", "accessibility"],
+            expertise: [
+              "web development",
+              "UX design",
+              "UI design",
+              "user research",
+              "accessibility",
+            ],
             company: "Google",
             location: "Bangkok.TH",
           }}
         >
           <ProfileBanner.JobTitle />
-          <ProfileBanner.ExpertiseTags/>
+          <ProfileBanner.ExpertiseTags />
           <ProfileBanner.Location />
         </ProfileBanner>
+        <Box sx={{
+          padding: '15px'
+        }}>
+          <IconButton onClick={()=>{navigate('/settings')}}>
+            <Settings />
+          </IconButton>
+        </Box>
       </Box>
       <Box sx={{ width: "100%" }}>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
@@ -131,7 +148,7 @@ function ProfileTemplate() {
             <Tab label="Group sessions" {...a11yProps(3)} />
           </Tabs>
         </Box>
-        <CustomTabPanel value={value} index={0}>
+        <CustomTabPanel<number> value={value} index={0}>
           <Typography variant="body1">
             I am a passionate mentee interested in web development. Currently
             working at Google, I enjoy learning new technologies and building

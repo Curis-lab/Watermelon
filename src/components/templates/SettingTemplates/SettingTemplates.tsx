@@ -10,26 +10,26 @@ function SettingTemplates() {
 
   const [response, setResponse] = useState({});
 
-  const fetchQRCode = async()=>{
-    const {data} = await setup2FA();
+  const fetchQRCode = async () => {
+    const { data } = await setup2FA();
     setResponse(data);
-  }
+  };
 
-  useEffect(()=>{
-    fetchQRCode()
-  },[]);
+  useEffect(() => {
+    fetchQRCode();
+  }, []);
 
   console.log(response);
   console.log("is logged in", isLoggedIn);
   return (
-    <div>
+    <Box>
       <Typography variant="h6">Settings</Typography>
       Need to add two factor authentication
       <Box>
         <img src={response.qrCode} alt="2FA QR Code" />
       </Box>
       <Typography>QR Enter the code manually.</Typography>
-    </div>
+    </Box>
   );
 }
 
