@@ -4,6 +4,7 @@ import PaginatedEventList from "../../organisms/PaginatedEventList/PaginatedEven
 import { usePagination } from "../../../hooks/usePagination";
 import { DayPicker } from "react-day-picker";
 import "react-day-picker/style.css";
+import useAuthInfo from "../../../hooks/api/getters/useAuthInfo/useAuthInfo";
 
 const StyledEventsLayout = styled("div")(({ theme }) => ({
   paddingInline: "20px",
@@ -39,8 +40,9 @@ function EventTemplate({ events }: IEventTemplate) {
     events: events,
     itemsPerPage: 5,
   });
+  const { user } = useAuthInfo();
   const [selected, setSelected] = useState<{ from?: Date; to?: Date }>();
-  // navigation
+
 
   return (
     <StyledEventsLayout>
@@ -49,9 +51,9 @@ function EventTemplate({ events }: IEventTemplate) {
           marginBlock: "1.8rem",
         }}
       >
-        <Typography variant="h2">Welcome's Nyan Lin</Typography>
+        <Typography variant="h2">Welcome's {user.name || 'Guest'}</Typography>
         <Typography>Events from your groups</Typography>
-    </Box>
+      </Box>
       <StyledEventAndCalendarLayout>
         {events && (
           <PaginatedEventList

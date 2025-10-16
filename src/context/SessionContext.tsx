@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { SessionContext } from "../hooks/useSession";
 
-
-
 export const SessionProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null);

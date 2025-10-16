@@ -15,14 +15,13 @@ import {
   List,
   ListItem,
 } from "@mui/material";
-import { useState } from "react"; // Removed useEffect as it is not used
+import { useState } from "react";
 import { ExpandLess, ExpandMore, Menu, Close, Home } from "@mui/icons-material";
 import { ConditionallyRender } from "../../common/ConditionallyRender";
-import useRegisterModal from "../../../hooks/ModalController/useRegisterModal/useRegisterModal";
 import UserInfo from "../../molecules/UserInfo/UserInfo";
 import MetadataCard from "../../organisms/MetadataCard/MetadataCard";
-import { useSession } from "../../../hooks/useSession";
-
+import useRegisterModal from "../../../hooks/useRegisterModal";
+import useAuthInfo from "../../../hooks/api/getters/useAuthInfo/useAuthInfo";
 
 const StyledProfileContainer = styled("div")({
   position: "relative",
@@ -65,15 +64,9 @@ const StyledDivider = styled(Divider)({
   margin: "10px 0px",
 });
 
-const UserProfile = () => {
+const UserProfile = ({name, logout}:{name:string, logout:()=>void}) => {
   const [showProfile, setShowProfile] = useState(false);
 
-  const Logout = async () => {
-    await fetch("http://localhost:3000/api/auth/logout", {
-      method: "POST",
-      credentials: "include",
-    });
-  };
   return (
     <ClickAwayListener onClickAway={() => setShowProfile(false)}>
       <StyledProfileContainer>
@@ -86,7 +79,7 @@ const UserProfile = () => {
         >
           <Avatar alt="name" src="" />
           <Box>
-            <Typography>tuntun</Typography>
+            <Typography>{name}</Typography>
           </Box>
           {showProfile ? <ExpandLess /> : <ExpandMore />}
         </Button>
@@ -96,7 +89,7 @@ const UserProfile = () => {
             <StyledPaper>
               <StyledLink to="/profile">View profile settings</StyledLink>
               <StyledDivider />
-              <StyledLogoutButton onClick={Logout}>Logout</StyledLogoutButton>
+              <StyledLogoutButton onClick={logout}>Logout</StyledLogoutButton>
             </StyledPaper>
           }
         />
@@ -157,10 +150,9 @@ const MobileTemplate = () => {
 };
 
 const Navbar = () => {
-  const isAuthenticated = useSession().isLoggedIn;
   const registerModal = useRegisterModal();
   const [mobileOpen, setMobileOpen] = useState(false);
-
+  const {user, isLoggedIn, logout} = useAuthInfo();
   return (
     <NavbarWrapper>
       <div
@@ -189,8 +181,8 @@ const Navbar = () => {
       <StyledShowProfileContainer>
         <StyledLinked to="/mentors">Mentor</StyledLinked>
         <StyledLinked to="/events">Events</StyledLinked>
-        {isAuthenticated ? (
-          <UserProfile />
+        {isLoggedIn ? (
+          <UserProfile name={user.name} logout={logout} />
         ) : (
           <StyledLoginBtn onClick={() => registerModal.onOpen()}>
             Login

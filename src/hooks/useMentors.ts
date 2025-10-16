@@ -36,11 +36,6 @@ export const useMentors = (): UseMentorsReturn => {
     staleTime: 600000,
   });
 
-  /**
-   * add some Business logci
-   */
-  console.log("mentors", mentors);
-  console.log("status", status);
   return {
     mentors: mentors || [],
     loading: isLoading,

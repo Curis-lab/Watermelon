@@ -10,7 +10,6 @@ const StyledEventList = styled("div")({
 });
 
 const EventList = ({ events }: { events: Event[] }) => {
-  console.log("Event List");
   return (
     <StyledEventList>
       {events && events.map((e, idx) => <EventCard key={idx} props={e} />)}

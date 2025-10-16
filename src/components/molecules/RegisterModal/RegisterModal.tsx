@@ -5,7 +5,6 @@ import {
   Visibility,
   VisibilityOff,
 } from "@mui/icons-material";
-import useRegisterModal from "../../../hooks/ModalController/useRegisterModal/useRegisterModal";
 import MUIModel from "../../atoms/Models";
 import {
   Box,
@@ -24,6 +23,7 @@ import React, { useState } from "react"; // Removed useEffect
 import { useNavigate } from "react-router-dom"; // Removed unused imports
 import { useLogin } from "../../../hooks/api/actions/useRegister/userRegister";
 import { useSession } from "../../../hooks/useSession";
+import useRegisterModal from "../../../hooks/useRegisterModal";
 
 // I need to pass the value
 const PasswordInput = ({
@@ -108,8 +108,8 @@ const RegisterFormHandler = ({ render }: TRegisterFormHandler) => {
     e.preventDefault();
     //
     const res = await loginToDB(formData);
+
     login(res.data);
-    console.log("result", res);
     if (!res.data.isMfaActive) {
       navigate("/settings");
     } else {

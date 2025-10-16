@@ -1,22 +1,29 @@
-import { formatPath } from "../../../../utils/formatPath";
-import { fetcher, useApiGetter } from "../useApiGetter/useApiGetter";
-import { SWRConfiguration } from "swr"; // Assuming SWRConfiguration is imported from 'swr'
+import { useQuery } from "@tanstack/react-query";
+import API_ENDPOINTS from "../../../../lib/api/apiendpoints";
+import { apiRequest } from "../../../../lib/api/apiclient";
 
-//! this any type is comming form openapi-ts
 export const useEvent = () => {
-  //what I should do
-  const PATH = "/events";
-  const options: SWRConfiguration = {}; // Define options as needed
-  const { data, refetch, loading, error } = useApiGetter(
-    formatPath(PATH),
-    () => fetcher(formatPath(PATH), "Get Events"),
-    options
-  );
-
-  return {
-    events: data,
-    refetch,
+  const {
+    data: events,
+    isLoading,
     error,
-    loading,
+  } = useQuery({
+    queryKey: ["event"],
+    queryFn: () => fetcher(),
+  });
+
+  
+  return {
+    events: events,
+    loading: isLoading,
+    error,
   };
 };
+
+async function fetcher(): Promise<IEvent[]> {
+  const response: AxiosResponse = await apiRequest<{ body: IEvent[] }>({
+    url: `${API_ENDPOINTS.events.getAll}?page=1&limit=10`,
+  });
+
+  return response.body;
+}
