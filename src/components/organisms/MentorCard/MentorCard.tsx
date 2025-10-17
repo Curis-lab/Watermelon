@@ -27,6 +27,7 @@ type MentorCardProps = {
   _id: ids;
   name: string;
   navigator: (route: string) => void;
+  loading:boolean
 };
 
 function MentorCard({ _id, name, navigator }: MentorCardProps) {

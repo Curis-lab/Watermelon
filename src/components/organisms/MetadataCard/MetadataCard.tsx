@@ -4,7 +4,7 @@ import React, { createContext, useContext } from "react";
 import { Link } from "react-router-dom";
 
 type Matadata = {
-  sub:string
+  sub: string;
 };
 
 const MataContext = createContext<Matadata | undefined>(undefined);
@@ -31,7 +31,7 @@ function MetadataCard({ Icon, content, children }: IMetadataCard) {
   };
 
   return (
-    <MataContext.Provider value={{sub}}>
+    <MataContext.Provider value={{ sub }}>
       <Box
         sx={{
           display: "flex",
@@ -39,7 +39,7 @@ function MetadataCard({ Icon, content, children }: IMetadataCard) {
           alignItems: "center",
         }}
       >
-        <Icon sx={{ sizeOfIcon }} />
+        <Icon sx={sizeOfIcon} />
         <Box>
           <Typography variant="body1">{title}</Typography>
           {children}

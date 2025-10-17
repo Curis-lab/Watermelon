@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import API_ENDPOINTS from "../../../../lib/api/apiendpoints";
 import { apiRequest } from "../../../../lib/api/apiclient";
 
-export const useEvent = () => {
+export const useEvents = () => {
   const {
     data: events,
     isLoading,
@@ -11,7 +11,6 @@ export const useEvent = () => {
     queryKey: ["event"],
     queryFn: () => fetcher(),
   });
-
   
   return {
     events: events,

@@ -3,11 +3,10 @@ import { IEvent } from "../../../../interfaces/Event";
 import { getEventInfoAndAuthorProfileById } from "../../tanstack-query/event-route";
 
 interface IUseEventOutput {
-  eventDefination?: IEvent;
+  eventDefination?: IEvent | null;
   loading: boolean;
   error?: Error;
 }
-
 
 /**
  * 
@@ -32,14 +31,18 @@ interface IUseEventOutput {
     };
  */
 export const useEvent = (id: string): IUseEventOutput => {
-  const { data: eventInfo, isSuccess, isLoading, error } = useQuery({
+  const { data, isLoading, error } = useQuery({
     queryKey: ["event", id],
     queryFn: () => getEventInfoAndAuthorProfileById(id as string),
   });
 
   return {
-    eventDefination:eventInfo.result,
+    eventDefination: data
+      ? {
+          ...data,
+        }
+      : null,
     loading: isLoading,
-    error: error
+    error: error,
   };
 };

@@ -43,7 +43,6 @@ function EventTemplate({ events }: IEventTemplate) {
   const { user } = useAuthInfo();
   const [selected, setSelected] = useState<{ from?: Date; to?: Date }>();
 
-
   return (
     <StyledEventsLayout>
       <Box
@@ -51,7 +50,7 @@ function EventTemplate({ events }: IEventTemplate) {
           marginBlock: "1.8rem",
         }}
       >
-        <Typography variant="h2">Welcome's {user.name || 'Guest'}</Typography>
+        <Typography variant="h2">Welcome's {user.name || "Guest"}</Typography>
         <Typography>Events from your groups</Typography>
       </Box>
       <StyledEventAndCalendarLayout>

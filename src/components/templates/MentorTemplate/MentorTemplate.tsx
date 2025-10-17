@@ -43,7 +43,6 @@ const StyledCardController = styled("div")(({ theme }) => ({
   },
 }));
 
-
 function MentorTemplate({
   mentors,
   isLoading,
@@ -56,14 +55,16 @@ function MentorTemplate({
   return (
     <Box sx={{ minHeight: "100vh", height: "80vh" }}>
       {isLoading ? (
-        <Loading/>
+        <Loading />
       ) : (
         <StyledCardController>
           <>
+            {/* list will display even data is not complete */}
             {mentors.map((mentor) => (
               <MentorCard
                 key={mentor._id}
                 {...mentor}
+                loading={true}
                 navigator={(route) => navigate(route)}
               />
             ))}

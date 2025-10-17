@@ -1,9 +1,9 @@
 import Loading from "../../common/Loading";
 import EventTemplate from "../../templates/EventTemplate/EventTemplate";
-import { useEvent } from "../../../hooks/api/getters/useEvents/useEvents";
+import { useEvents } from "../../../hooks/api/getters/useEvents/useEvents";
 
 const Events = () => {
-  const { events, loading } = useEvent();
+  const { events, loading } = useEvents();
 
   if (loading) {
     return <Loading />;
