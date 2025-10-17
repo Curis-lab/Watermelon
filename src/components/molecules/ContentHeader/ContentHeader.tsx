@@ -1,11 +1,10 @@
-import React from "react";
 import { Box, Typography } from "@mui/material";
 interface IContentHeader {
   title: string;
   subtitle?: string;
 }
 
-function ContentHeader(props: IContentHeader) {
+function ContentHeader({title, subtitle}: IContentHeader) {
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: "0.2em" }}>
       <Typography
@@ -14,9 +13,9 @@ function ContentHeader(props: IContentHeader) {
           textWrap: "wrap",
         }}
       >
-        {props.title}
+        {title}
       </Typography>
-      {props.subtitle && <Typography>{props.subtitle}</Typography>}
+      {subtitle && <Typography>{subtitle}</Typography>}
     </Box>
   );
 }

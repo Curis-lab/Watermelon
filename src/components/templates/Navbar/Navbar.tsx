@@ -64,7 +64,13 @@ const StyledDivider = styled(Divider)({
   margin: "10px 0px",
 });
 
-const UserProfile = ({name, logout}:{name:string, logout:()=>void}) => {
+const UserProfile = ({
+  name,
+  logout,
+}: {
+  name: string;
+  logout: () => void;
+}) => {
   const [showProfile, setShowProfile] = useState(false);
 
   return (
@@ -134,12 +140,17 @@ const StyledLinked = styled(Link)({
 const MobileTemplate = () => {
   return (
     <List>
-      <UserInfo />
+      <UserInfo>
+        <UserInfo.Name />
+        <UserInfo.Description />
+      </UserInfo>
       <ListItem>
         <MetadataCard
           Icon={Home}
-          title="Home"
-          sub="Keep track your connections"
+          content={{
+            title: "Home",
+            sub: "Keep track your connections",
+          }}
         >
           <MetadataCard.Text />
         </MetadataCard>
@@ -152,7 +163,7 @@ const MobileTemplate = () => {
 const Navbar = () => {
   const registerModal = useRegisterModal();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const {user, isLoggedIn, logout} = useAuthInfo();
+  const { user, isLoggedIn, logout } = useAuthInfo();
   return (
     <NavbarWrapper>
       <div

@@ -1,9 +1,10 @@
 import {  styled} from "@mui/material";
+import React from "react";
 
 type RoundedButtonProps = {
     label:string,
-    href: string
-}
+    href: string,
+} &  React.ComponentPropsWithRef<'a'>
 
 const StyledButton = styled('a')({
     borderRadius: '25px',
@@ -18,7 +19,7 @@ const StyledButton = styled('a')({
 })
 
 const RoundedButton = ({label, href}:RoundedButtonProps) => {
-    return ( <StyledButton href={href}>{label}</StyledButton> );
+    return ( <StyledButton href={href} >{label}</StyledButton> );
 }
  
 export default RoundedButton;

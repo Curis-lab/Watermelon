@@ -1,29 +1,61 @@
-import React from "react";
+import React, { createContext, useContext} from "react";
 import { Avatar, Box, Typography } from "@mui/material";
+
+type TProfile = {
+  name: string;
+  position: string;
+  company: string;
+  url?: string;
+};
+
+type TProfileContent = {
+  profile: TProfile
+}
+
+const UserContext = createContext<TProfileContent | undefined>(undefined);
+
+function useUserContext() {
+  const context = useContext(UserContext);
+  if (!context) {
+    throw new Error("useUserContext must be used within UserInfoElement.");
+  }
+  return context.profile;
+}
 
 interface IUserInfo {
   children: React.ReactNode;
+  profile: TProfile;
 }
 
-function UserInfo({ children }: IUserInfo) {
+function UserInfo({ children, profile }: IUserInfo) {
   return (
-    <Box
-      sx={{
-        display: "flex",
-        gap: "10px",
-        alignContent: "center",
-      }}
-    >
-      <Avatar src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQyawVbjORfalGKAFdWZyJbg8cH12xX-MlLw&s" />
-      <Box>{children}</Box>
-    </Box>
+    <UserContext.Provider value={{ profile }}>
+      <Box
+        sx={{
+          display: "flex",
+          gap: "10px",
+          alignItems: "center",
+        }}
+      >
+        <Avatar src={profile.url || ""} alt="user profile" />
+        <Box>{children}</Box>
+      </Box>
+    </UserContext.Provider>
   );
 }
+
 function Name() {
-  return <Typography variant="h4">Emaily</Typography>;
+  const { name } = useUserContext();
+  return <Typography variant="h4">{name}</Typography>;
 }
+
 function Description() {
-  return <Typography variant="caption">Software Engineer at Google</Typography>;
+  const { position, company } = useUserContext();
+  return (
+    <Typography variant="caption">
+      {position} at {company}
+    </Typography>
+  );
 }
 
 UserInfo.Name = Name;

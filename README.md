@@ -34,6 +34,12 @@ Manages all data retrieval operations:
 - Use TypeScript for better type safety
 - Add JSDoc comments for complex hooks
 
+
+
+interfaces --> hooks
+use interface as output for hooks
+
+
 # 🧠 Project Mindmap
 
 ## 📋 Overview
@@ -41,3 +47,5 @@ Access our project's visual architecture and planning resources through our inte
 
 ## 🔗 Quick Access
 - [Interactive Mindmap](https://www.mindmeister.com/app/map/3840685327) - View full project structure and relationships
+
+

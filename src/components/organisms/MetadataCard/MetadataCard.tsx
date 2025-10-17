@@ -1,9 +1,10 @@
-import { Box, IconProps, Typography } from "@mui/material";
+import { SvgIconComponent } from "@mui/icons-material";
+import { Box, Typography } from "@mui/material";
 import React, { createContext, useContext } from "react";
 import { Link } from "react-router-dom";
 
 type Matadata = {
-  props: IMetadataCard;
+  sub:string
 };
 
 const MataContext = createContext<Matadata | undefined>(undefined);
@@ -16,14 +17,13 @@ function useMataContext() {
   return context;
 }
 interface IMetadataCard {
-  Icon: React.ComponentType<IconProps>;
-  title: string;
-  sub?: string;
+  Icon: SvgIconComponent;
+  content: Record<string, string>;
   children: React.ReactNode;
 }
 
-function MetadataCard(props: IMetadataCard) {
-  const { Icon, title } = props;
+function MetadataCard({ Icon, content, children }: IMetadataCard) {
+  const { title, sub } = content;
 
   const sizeOfIcon = {
     fontSize: 40,
@@ -31,7 +31,7 @@ function MetadataCard(props: IMetadataCard) {
   };
 
   return (
-    <MataContext.Provider value={{ props }}>
+    <MataContext.Provider value={{sub}}>
       <Box
         sx={{
           display: "flex",
@@ -42,7 +42,7 @@ function MetadataCard(props: IMetadataCard) {
         <Icon sx={{ sizeOfIcon }} />
         <Box>
           <Typography variant="body1">{title}</Typography>
-          {props.children}
+          {children}
         </Box>
       </Box>
     </MataContext.Provider>
@@ -50,7 +50,7 @@ function MetadataCard(props: IMetadataCard) {
 }
 
 const Text = () => {
-  const { sub } = useMataContext().props;
+  const { sub } = useMataContext();
   return (
     <Typography variant="body1" color="gray">
       {sub}

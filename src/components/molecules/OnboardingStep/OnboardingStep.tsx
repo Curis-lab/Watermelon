@@ -1,5 +1,5 @@
 import { FormControlLabel, styled, TextField } from "@mui/material";
-import Switch, { SwitchProps } from '@mui/material/Switch';
+import Switch, { SwitchProps } from "@mui/material/Switch";
 
 const AccountSetup = () => {
   return (
@@ -72,9 +72,9 @@ const MentorDetails = () => {
         border: "6px solid #fff",
       },
       "&.Mui-disabled .MuiSwitch-thumb": {
-        color: '#fff',
+        color: "#fff",
         ...theme.applyStyles("dark", {
-          color: '#fff',
+          color: "#fff",
         }),
       },
       "&.Mui-disabled + .MuiSwitch-track": {
@@ -128,19 +128,23 @@ const MentorDetails = () => {
   );
 };
 const LearnerInterest = () => {
-  return <div>
-    <h1>Define Your leaning Goals</h1>
-    <p>Seelct Topics to match with the right mentors and reouserces.</p>
-    <TextField label="What are you looking to learn?"/>
-  </div>;
+  return (
+    <div>
+      <h1>Define Your leaning Goals</h1>
+      <p>Seelct Topics to match with the right mentors and reouserces.</p>
+      <TextField label="What are you looking to learn?" />
+    </div>
+  );
 };
 const PersonalProfile = () => {
   return <div>Personal Profile</div>;
 };
 const Confirmation = () => {
-  return <div>
-    <h1>You're All Set! 🎉</h1>
-  </div>;
+  return (
+    <div>
+      <h1>You're All Set! 🎉</h1>
+    </div>
+  );
 };
 
 export const Template = (step: number) => {

@@ -1,11 +1,12 @@
 import { Box, Typography } from "@mui/material";
-import React from "react";
 
-function HeroHeader(props: {
+type HeroHeaderProps = {
   white?: boolean;
   heading: string;
   tagline: string;
-}) {
+};
+
+function HeroHeader({ heading, tagline, white = false }: HeroHeaderProps) {
   return (
     <Box
       sx={{
@@ -15,17 +16,17 @@ function HeroHeader(props: {
         gap: "1em",
       }}
     >
-      <Typography variant="h5" color={props.white ? "white" : "black"}>
-        {props.heading}
+      <Typography variant="h5" color={white ? "white" : "black"}>
+        {heading}
       </Typography>
       <Typography
         variant="body1"
-        color={props.white ? "white" : "black"}
+        color={white ? "white" : "black"}
         sx={{
           textAlign: "justify",
         }}
       >
-        {props.tagline}
+        {tagline}
       </Typography>
     </Box>
   );

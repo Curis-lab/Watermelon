@@ -1,4 +1,3 @@
-import React from "react";
 import { Box, styled } from "@mui/material";
 import MentorCard from "../../organisms/MentorCard/MentorCard";
 import { useNavigate } from "react-router-dom";
@@ -49,6 +48,7 @@ function MentorTemplate({
   mentors,
   isLoading,
 }: {
+  //this Imentor should be clean
   mentors: IMentor[];
   isLoading: boolean;
 }) {

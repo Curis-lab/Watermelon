@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Box, styled, Typography } from "@mui/material";
 import PaginatedEventList from "../../organisms/PaginatedEventList/PaginatedEventList";
 import { usePagination } from "../../../hooks/usePagination";

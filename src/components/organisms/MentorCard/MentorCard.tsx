@@ -14,24 +14,25 @@ const StyledContainerBox = styled("div")({
   minWidth: "100%",
   minHeight: "100%",
 });
-
-const StateItem = (props: { label: string; value: string }) => (
+type StateItemProps = { label: string; value: string };
+const StateItem = ({ label, value }: StateItemProps) => (
   <Box>
-    <Typography variant="caption">{props.label}</Typography>
-    <Typography variant="h4">{props.value}</Typography>
+    <Typography variant="caption">{label}</Typography>
+    <Typography variant="h4">{value}</Typography>
   </Box>
 );
 
-interface IMentor {
-  _id: string;
+type ids = string | object;
+type MentorCardProps = {
+  _id: ids;
   name: string;
-  navigator: () => void;
-}
+  navigator: (route: string) => void;
+};
 
-function MentorCard(user: IMentor) {
+function MentorCard({ _id, name, navigator }: MentorCardProps) {
   return (
     <StyledContainerBox
-      onClick={() => user.navigator(`/mentor/${user._id}`)}
+      onClick={() => navigator(`/mentor/${_id}`)}
       onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.8")}
       onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
     >
@@ -60,7 +61,7 @@ function MentorCard(user: IMentor) {
           gap: "10px",
         }}
       >
-        <ContentHeader title={user.name} />
+        <ContentHeader title={name} />
         <>
           <IconDescription
             Icon={WorkOutline}
