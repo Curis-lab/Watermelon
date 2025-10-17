@@ -8,7 +8,7 @@ function ContentHeader({title, subtitle}: IContentHeader) {
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: "0.2em" }}>
       <Typography
-        variant="h2"
+        variant="h3"
         sx={{
           textWrap: "wrap",
         }}

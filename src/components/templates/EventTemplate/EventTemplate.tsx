@@ -5,6 +5,8 @@ import { usePagination } from "../../../hooks/usePagination";
 import { DayPicker } from "react-day-picker";
 import "react-day-picker/style.css";
 import useAuthInfo from "../../../hooks/api/getters/useAuthInfo/useAuthInfo";
+import Loading from "../../common/Loading";
+import { IEvent } from "../../../interfaces/Event";
 
 const StyledEventsLayout = styled("div")(({ theme }) => ({
   paddingInline: "20px",
@@ -17,13 +19,20 @@ const StyledEventsLayout = styled("div")(({ theme }) => ({
 }));
 
 const StyledEventAndCalendarLayout = styled("div")(({ theme }) => ({
-  display: "flex",
-  flexDirection: "column-reverse",
-  [theme.breakpoints.up("md")]: {
-    flexDirection: "row",
+  display: "grid",
+  [theme.breakpoints.up("lg")]: {
+    gridTemplateColumns: "2fr 1fr",
   },
 }));
-
+const StyledFeatureLayout = styled(Box)(({ theme }) => ({
+  paddingInline: "1.5rem",
+  display: "flex",
+  [theme.breakpoints.up("lg")]: {
+    flexDirection: "column",
+  },
+  width: "100%",
+  gap: "1em",
+}));
 interface IEventTemplate {
   /** search props */
   searchQuery: string;
@@ -31,15 +40,26 @@ interface IEventTemplate {
   handleInputFocusChange: () => void;
   handleKeyPress: () => void;
   /** event props */
-  events: [];
-  isLoading: boolean;
+  events: IEvent[];
+  loading: boolean;
 }
 
-function EventTemplate({ events }: IEventTemplate) {
+function EventList({ events }: { events: IEvent[] }) {
   const { itemsPerPage, currentItems, handleChange, page } = usePagination({
     events: events,
     itemsPerPage: 5,
   });
+  return (
+    <PaginatedEventList
+      events={currentItems}
+      page={page}
+      count={Math.ceil(Object.values(events).length / itemsPerPage)}
+      handleChange={handleChange}
+    />
+  );
+}
+
+function EventTemplate({ events, loading }: IEventTemplate) {
   const { user } = useAuthInfo();
   const [selected, setSelected] = useState<{ from?: Date; to?: Date }>();
 
@@ -50,32 +70,20 @@ function EventTemplate({ events }: IEventTemplate) {
           marginBlock: "1.8rem",
         }}
       >
-        <Typography variant="h2">Welcome's {user.name || "Guest"}</Typography>
+        <Typography variant="h5" sx={{ fontWeight: "bold" }}>
+          Welcome's {user.name || "Guest"}
+        </Typography>
         <Typography>Events from your groups</Typography>
       </Box>
       <StyledEventAndCalendarLayout>
-        {events && (
-          <PaginatedEventList
-            events={currentItems}
-            page={page}
-            count={Math.ceil(Object.values(events).length / itemsPerPage)}
-            handleChange={handleChange}
-          />
-        )}
-        <Box
-          sx={{
-            paddingInline: "1.5rem",
-            display: "flex",
-            flexDirection: "column",
-            gap: "1em",
-            width: "100%",
-          }}
-        >
+        {loading ? <Loading size="md" /> : <EventList events={events} />}
+        <StyledFeatureLayout>
           <Box
             sx={{
               height: "12rem",
               borderRadius: "2rem",
               background: "blue",
+              width: '100%'
             }}
           ></Box>
           <DayPicker
@@ -91,7 +99,7 @@ function EventTemplate({ events }: IEventTemplate) {
                 : "Pick a date range."
             }
           />
-        </Box>
+        </StyledFeatureLayout>
       </StyledEventAndCalendarLayout>
     </StyledEventsLayout>
   );
