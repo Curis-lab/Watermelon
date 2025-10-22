@@ -9,30 +9,24 @@ import Loading from "../../common/Loading";
 import { IEvent } from "../../../interfaces/Event";
 
 const StyledEventsLayout = styled("div")(({ theme }) => ({
-  paddingInline: "20px",
-  [theme.breakpoints.up("md")]: {
-    paddingInline: "100px",
-  },
-  [theme.breakpoints.up("lg")]: {
-    paddingInline: "100px",
-  },
+  [theme.breakpoints.up('md')]:{}
 }));
 
 const StyledEventAndCalendarLayout = styled("div")(({ theme }) => ({
-  display: "grid",
-  [theme.breakpoints.up("lg")]: {
-    gridTemplateColumns: "2fr 1fr",
-  },
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  [theme.breakpoints.up('md')]:{}
 }));
 const StyledFeatureLayout = styled(Box)(({ theme }) => ({
-  paddingInline: "1.5rem",
-  display: "flex",
-  [theme.breakpoints.up("lg")]: {
-    flexDirection: "column",
-  },
+  background: "#000",
+  height: "400px",
   width: "100%",
-  gap: "1em",
+  [theme.breakpoints.down('sm')]:{
+    width:'452.62px'
+  }
 }));
+
 interface IEventTemplate {
   /** search props */
   searchQuery: string;
@@ -76,16 +70,17 @@ function EventTemplate({ events, loading }: IEventTemplate) {
         <Typography>Events from your groups</Typography>
       </Box>
       <StyledEventAndCalendarLayout>
-        {loading ? <Loading size="md" /> : <EventList events={events} />}
         <StyledFeatureLayout>
+          
           <Box
             sx={{
-              height: "12rem",
+              height: "400px",
+              width: "400px",
               borderRadius: "2rem",
               background: "blue",
-              width: '100%'
             }}
           ></Box>
+
           <DayPicker
             animate
             mode="range"
@@ -100,6 +95,7 @@ function EventTemplate({ events, loading }: IEventTemplate) {
             }
           />
         </StyledFeatureLayout>
+        {loading ? <Loading size="md" /> : <EventList events={events} />}
       </StyledEventAndCalendarLayout>
     </StyledEventsLayout>
   );

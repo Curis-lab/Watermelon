@@ -12,7 +12,6 @@ const EventCard = ({ props }: { props: Event }) => {
   const navigate = useNavigate();
   //this is render at least 2*10 times how can I reduce it
 
-  console.log("this is event render");
 
   return (
     <StyledCardWrapper onClick={() => navigate(`/event/${id}`)}>
@@ -22,8 +21,8 @@ const EventCard = ({ props }: { props: Event }) => {
         style={{
           width: "100%",
           height: "160px",
-          borderRadius: "3px",
-          objectFit: "cover",
+          // borderRadius: "3px",
+          objectFit: "",
         }}
       />
       {/* <Box sx={{width: '100%'}}>

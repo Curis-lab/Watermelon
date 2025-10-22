@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #6e93ca;
+  border-radius: 5px;
+  /* max-width: 220px; */
+  min-width: 190px;
+  max-height: 40px;
+  padding-block: 12px;
+  padding-inline: 10px;
+  position: relative;
+  overflow: clip;
+  cursor: pointer;
+}
+
+.icon_wrapper {
+  position: absolute;
+  right:5px;
+  color: #fff;
+  bottom: 2px;
+}

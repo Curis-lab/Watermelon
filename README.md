@@ -49,3 +49,12 @@ Access our project's visual architecture and planning resources through our inte
 - [Interactive Mindmap](https://www.mindmeister.com/app/map/3840685327) - View full project structure and relationships
 
 
+
+## 🔐 Development Credentials
+
+### Test User Account
+- **Email**: user@example.com
+- **Password**: string
+
+> ⚠️ Note: These credentials are for development purposes only. Never commit real production credentials to source control.
+

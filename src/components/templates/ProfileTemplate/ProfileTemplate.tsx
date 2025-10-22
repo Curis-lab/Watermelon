@@ -1,9 +1,18 @@
-import { Box, Tabs, Tab, Typography, IconButton, Chip } from "@mui/material";
+import {
+  Box,
+  Tabs,
+  Tab,
+  Typography,
+  IconButton,
+  Chip,
+  Tooltip,
+} from "@mui/material";
 import React from "react";
 import ProfileBanner from "../../molecules/ProfileBanner/ProfileBanner";
-import { LinkedIn, Settings } from "@mui/icons-material";
+import { Add, LinkedIn, Settings } from "@mui/icons-material";
 import ReviewCard from "../../organisms/ReviewCard/ReviewCard";
 import { useNavigate } from "react-router-dom";
+import RoundedButton from "../../atoms/Bottom/RoundedBottom";
 
 interface TabPanelProps<T> {
   children?: React.ReactNode;
@@ -56,14 +65,14 @@ const reviews = [
 
 function CustomTabPanel<T>(props: TabPanelProps<T>) {
   const { children, value, index, ...other } = props;
-  
+
   return (
     <div
-    role="tabpanel"
-    hidden={value !== index}
-    id={`simple-tabpanel-${index}`}
-    aria-labelledby={`simple-tab-${index}`}
-    {...other}
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
     >
       {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
     </div>
@@ -78,9 +87,12 @@ function a11yProps(index: number) {
 }
 
 function ProfileTemplate() {
+  //!only for authentaiction variable
+  const role = "organizer";
+
   const [value, setValue] = React.useState(0);
   const navigate = useNavigate();
-  
+
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
@@ -127,12 +139,30 @@ function ProfileTemplate() {
           <ProfileBanner.ExpertiseTags />
           <ProfileBanner.Location />
         </ProfileBanner>
-        <Box sx={{
-          padding: '15px'
-        }}>
-          <IconButton onClick={()=>{navigate('/settings')}}>
-            <Settings />
-          </IconButton>
+        <Box
+          sx={{
+            padding: "15px",
+            display: "flex",
+            alignItems: 'start',
+            gap:'10px'
+          }}
+        >
+          {role == "organizer" && (
+            <RoundedButton
+              label="Create an event"
+              fn={() => navigate("/start")}
+              icon={<Add />}
+            />
+          )}
+          <Tooltip title="Settings" arrow>
+            <IconButton
+              onClick={() => {
+                navigate("/settings");
+              }}
+            >
+              <Settings />
+            </IconButton>
+          </Tooltip>
         </Box>
       </Box>
       <Box sx={{ width: "100%" }}>

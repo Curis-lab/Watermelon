@@ -10,7 +10,6 @@ interface IPaginatedEventList {
 }
 
 function PaginatedEventList(props: IPaginatedEventList) {
-  console.log('this is Ipagenated Event LIst')
   return (
     <Box
       sx={{

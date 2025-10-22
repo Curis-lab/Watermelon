@@ -1,25 +1,62 @@
-import {  styled} from "@mui/material";
-import React from "react";
+import { useState } from "react";
+import { motion } from "framer-motion";
+import style from "./style.module.css";
 
-type RoundedButtonProps = {
-    label:string,
-    href: string,
-} &  React.ComponentPropsWithRef<'a'>
-
-const StyledButton = styled('a')({
-    borderRadius: '25px',
-    backgroundColor: '#fff',
-    color: '#000',
-    border: '1.2px solid #000',
-    padding: '10px 20px',
-    fontSize: '16px',
-    fontWeight: 'semibold',
-    cursor: 'pointer',
-    textDecoration: 'none'
-})
-
-const RoundedButton = ({label, href}:RoundedButtonProps) => {
-    return ( <StyledButton href={href} >{label}</StyledButton> );
+function RoundedBottom({ fn, label, icon }) {
+  const [ishover, setIshover] = useState(false);
+  return (
+    <div
+      onClick={() => fn()}
+      onMouseEnter={() => setIshover(true)}
+      onMouseLeave={() => setIshover(false)}
+      className={style.container}
+    >
+      <motion.div
+        animate={{
+          scale: ishover ? 70 : 1,
+          backgroundColor: ishover ? "#6366f1" : "#000",
+        }}
+        transition={{
+          ease: "easeIn",
+          duration: 0.2,
+        }}
+        style={{
+          width: "6px",
+          height: "6px",
+          backgroundColor: "#6366f1",
+          borderRadius: "50%",
+          position: "absolute",
+          left: "5px",
+        }}
+      ></motion.div>
+      <motion.div
+        animate={{
+          x: ishover ? -8 : 8,
+          color: ishover ? "#fff" : "#000",
+        }}
+        style={{
+          zIndex: 20,
+        }}
+      >
+        <p
+          style={{
+            fontSize: "14px",
+            letterSpacing: "-0.5px",
+          }}
+        >
+          {label}
+        </p>
+      </motion.div>
+      <motion.div
+        animate={{
+          x: ishover ? 0 : 24,
+        }}
+        className={style.icon_wrapper}
+      >
+        {icon}
+      </motion.div>
+    </div>
+  );
 }
- 
-export default RoundedButton;
+
+export default RoundedBottom;

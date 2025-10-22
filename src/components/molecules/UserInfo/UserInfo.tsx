@@ -37,7 +37,7 @@ function UserInfo({ children, profile }: IUserInfo) {
           alignItems: "center",
         }}
       >
-        <Avatar src={profile.url || ""} alt="user profile" />
+        <Avatar src={profile?.url || " "} alt="user profile" />
         <Box>{children}</Box>
       </Box>
     </UserContext.Provider>
@@ -45,12 +45,13 @@ function UserInfo({ children, profile }: IUserInfo) {
 }
 
 function Name() {
-  const { name } = useUserContext();
+  const name = useUserContext()?.name;
   return <Typography variant="h4">{name}</Typography>;
 }
 
 function Description() {
-  const { position, company } = useUserContext();
+  const position = useUserContext()?.position;
+  const company = useUserContext()?.company;
   return (
     <Typography variant="caption">
       {position} at {company}

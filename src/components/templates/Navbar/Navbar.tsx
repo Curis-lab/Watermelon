@@ -2,26 +2,21 @@ import { NavbarWrapper } from "./Navbar.styled";
 import logo from "../../../static/images/logo.svg";
 import { Link } from "react-router-dom";
 import {
-  Button,
-  ClickAwayListener,
-  Avatar,
   styled,
   Box,
-  Typography,
-  Paper,
   Divider,
   IconButton,
   Drawer,
   List,
   ListItem,
 } from "@mui/material";
-import { useState } from "react";
-import { ExpandLess, ExpandMore, Menu, Close, Home } from "@mui/icons-material";
-import { ConditionallyRender } from "../../common/ConditionallyRender";
+import React, { useState } from "react";
+import { Menu, Close, Home } from "@mui/icons-material";
 import UserInfo from "../../molecules/UserInfo/UserInfo";
 import MetadataCard from "../../organisms/MetadataCard/MetadataCard";
 import useRegisterModal from "../../../hooks/useRegisterModal";
 import useAuthInfo from "../../../hooks/api/getters/useAuthInfo/useAuthInfo";
+import { ProfilePopup } from "../../atoms/PopOver/PopOver";
 
 const StyledProfileContainer = styled("div")({
   position: "relative",
@@ -29,78 +24,11 @@ const StyledProfileContainer = styled("div")({
   cursor: "pointer",
 });
 
-const StyledPaper = styled(Paper)({
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  padding: "10px",
-  borderRadius: "5px",
-  boxShadow: "0px 0px 10px 0px rgba(0, 0, 0, 0.1)",
-  position: "absolute",
-  zIndex: 5000,
-  minWidth: "200px",
-  right: "0px",
-  marginTop: "10px",
-});
-
-const StyledLink = styled(Link)({
-  display: "flex",
-  alignItems: "center",
-  gap: "10px",
-  padding: "10px",
-  color: "black",
-  fontWeight: "500px",
-});
-
-const StyledLogoutButton = styled(Button)({
-  width: "100%",
-  height: "30px",
-  background: "red",
-});
-const StyledDivider = styled(Divider)({
-  width: "100%",
-  height: "2px",
-  backgroundColor: "black",
-  margin: "10px 0px",
-});
-
-const UserProfile = ({
-  name,
-  logout,
-}: {
-  name: string;
-  logout: () => void;
-}) => {
-  const [showProfile, setShowProfile] = useState(false);
-
+const UserProfile = () => {
   return (
-    <ClickAwayListener onClickAway={() => setShowProfile(false)}>
-      <StyledProfileContainer>
-        <Button
-          sx={{
-            display: "flex",
-            alignItems: "center",
-          }}
-          onClick={() => setShowProfile((prev) => !prev)}
-        >
-          <Avatar alt="name" src="" />
-          <Box>
-            <Typography>{name}</Typography>
-          </Box>
-          {showProfile ? <ExpandLess /> : <ExpandMore />}
-        </Button>
-        <ConditionallyRender
-          condition={showProfile}
-          show={
-            <StyledPaper>
-              <StyledLink to="/profile">View profile settings</StyledLink>
-              <StyledDivider />
-              <StyledLogoutButton onClick={logout}>Logout</StyledLogoutButton>
-            </StyledPaper>
-          }
-        />
-      </StyledProfileContainer>
-    </ClickAwayListener>
+    <StyledProfileContainer>
+      <ProfilePopup />
+    </StyledProfileContainer>
   );
 };
 const StyledShowProfileContainer = styled("div")(({ theme }) => ({
@@ -163,37 +91,17 @@ const MobileTemplate = () => {
 const Navbar = () => {
   const registerModal = useRegisterModal();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const { user, isLoggedIn, logout } = useAuthInfo();
+  const { isLoggedIn } = useAuthInfo();
   return (
     <NavbarWrapper>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          gap: "10px",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Link to="/" style={{ textDecoration: "none" }}>
-          <img src={logo} alt="logo" style={{ width: "50px" }} />
-        </Link>
-        <input
-          placeholder="Search.."
-          style={{
-            width: "200px",
-            height: "30px",
-            borderRadius: "5px",
-            border: "1px solid #000",
-            padding: "15px",
-          }}
-        />
-      </div>
+      <Link to="/" style={{ textDecoration: "none" }}>
+        <img src={logo} alt="logo" style={{ width: "50px" }} />
+      </Link>
       <StyledShowProfileContainer>
         <StyledLinked to="/mentors">Mentor</StyledLinked>
         <StyledLinked to="/events">Events</StyledLinked>
         {isLoggedIn ? (
-          <UserProfile name={user.name} logout={logout} />
+          <UserProfile />
         ) : (
           <StyledLoginBtn onClick={() => registerModal.onOpen()}>
             Login

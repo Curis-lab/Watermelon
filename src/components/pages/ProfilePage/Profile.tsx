@@ -1,8 +1,6 @@
-import { useEffect, useState } from "react";
-import { Box } from "@mui/material";
-// import ProfilePageLayout from "../../templates/ProfilePageLayout";
-import { useApi } from "../../../hooks/api";
 import ProfileTemplate from "../../templates/ProfileTemplate/ProfileTemplate";
+import { useEffect, useState } from "react";
+import { useApi } from "../../../hooks/api";
 
 interface User {
   name: string;
@@ -30,21 +28,7 @@ const ProfilePage = () => {
 
   
   return (
-    <Box>
-      {/* {user && (
-        <ProfilePageLayout
-          header={{
-            name: user.name,
-            imageUrl: user.profileImage,
-            expertise: user.expertise,
-          }}
-        />
-      )} */}
-      {
-        JSON.stringify(user)
-      }
       <ProfileTemplate/>
-    </Box>
   );
 };
 

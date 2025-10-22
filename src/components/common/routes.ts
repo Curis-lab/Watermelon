@@ -14,7 +14,9 @@ import {
   MentorProfile,
   Settings,
 } from "../pages";
-export const routes = [
+import { IRoute } from "../../interfaces/Route";
+
+export const routes: IRoute[] = [
   {
     path: "/events",
     title: "event list",
