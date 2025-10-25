@@ -6,3 +6,4 @@ export  interface IRoute {
   menu: object;
   isStandalone: boolean;
 }
+

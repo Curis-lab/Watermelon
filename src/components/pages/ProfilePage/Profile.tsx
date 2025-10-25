@@ -26,7 +26,7 @@ const ProfilePage = () => {
     fetchUser();
   }, [request]);
 
-  
+  console.log(user);
   return (
       <ProfileTemplate/>
   );

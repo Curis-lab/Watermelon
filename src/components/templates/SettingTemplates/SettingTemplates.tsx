@@ -1,20 +1,7 @@
-import { useEffect, useState } from "react";
 import { Typography, Box } from "@mui/material";
-import { setup2FA } from "../../../hooks/api/actions/useRegister/userRegister";
 import VerticalTabs from "./SettingTab";
 
 function SettingTemplates() {
-  const [response, setResponse] = useState({});
-
-  const fetchQRCode = async () => {
-    const { data } = await setup2FA();
-    setResponse(data);
-  };
-
-  useEffect(() => {
-    fetchQRCode();
-  }, []);
-
   return (
     <Box>
       <Typography variant="h6">Settings</Typography>

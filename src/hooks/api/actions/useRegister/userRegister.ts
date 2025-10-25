@@ -46,7 +46,7 @@ export const useLogin = () => {
 };
 
 const api = axios.create({
-  baseURL: `http://localhost:3000/api`,
+  baseURL: `https://event-2-h3bg.onrender.com/api`,
 });
 const fetcher = async (data) => {
   return await api.post("/auth/login", data, {

@@ -1,8 +1,8 @@
-import { useState } from "react";
+// import { useState } from "react";
 import { Box, styled, Typography } from "@mui/material";
 import PaginatedEventList from "../../organisms/PaginatedEventList/PaginatedEventList";
 import { usePagination } from "../../../hooks/usePagination";
-import { DayPicker } from "react-day-picker";
+// import { DayPicker } from "react-day-picker";
 import "react-day-picker/style.css";
 import useAuthInfo from "../../../hooks/api/getters/useAuthInfo/useAuthInfo";
 import Loading from "../../common/Loading";
@@ -18,14 +18,14 @@ const StyledEventAndCalendarLayout = styled("div")(({ theme }) => ({
   alignItems: "center",
   [theme.breakpoints.up('md')]:{}
 }));
-const StyledFeatureLayout = styled(Box)(({ theme }) => ({
-  background: "#000",
-  height: "400px",
-  width: "100%",
-  [theme.breakpoints.down('sm')]:{
-    width:'452.62px'
-  }
-}));
+// const StyledFeatureLayout = styled(Box)(({ theme }) => ({
+//   background: "#000",
+//   height: "400px",
+//   width: "100%",
+//   [theme.breakpoints.down('sm')]:{
+//     width:'452.62px'
+//   }
+// }));
 
 interface IEventTemplate {
   /** search props */
@@ -55,7 +55,7 @@ function EventList({ events }: { events: IEvent[] }) {
 
 function EventTemplate({ events, loading }: IEventTemplate) {
   const { user } = useAuthInfo();
-  const [selected, setSelected] = useState<{ from?: Date; to?: Date }>();
+  // const [selected, setSelected] = useState<{ from?: Date; to?: Date }>();
 
   return (
     <StyledEventsLayout>
@@ -70,7 +70,7 @@ function EventTemplate({ events, loading }: IEventTemplate) {
         <Typography>Events from your groups</Typography>
       </Box>
       <StyledEventAndCalendarLayout>
-        <StyledFeatureLayout>
+        {/* <StyledFeatureLayout>
           
           <Box
             sx={{
@@ -94,7 +94,7 @@ function EventTemplate({ events, loading }: IEventTemplate) {
                 : "Pick a date range."
             }
           />
-        </StyledFeatureLayout>
+        </StyledFeatureLayout> */}
         {loading ? <Loading size="md" /> : <EventList events={events} />}
       </StyledEventAndCalendarLayout>
     </StyledEventsLayout>
