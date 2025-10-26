@@ -1,20 +1,14 @@
 import { Box, Modal, styled } from "@mui/material";
 import HeroHeader from "../../molecules/HeroHeader/HeroHeader";
-import registerModalConfig from "../../../constants/register";
-// import FormHandler from "../../common/FormHandler";
+import { hero } from "../../../contents/loginModelConfig.json";
 
-/**
- * title, body, footer
- */
 interface MUIModelProps {
   body: React.ReactNode;
-
   open: boolean;
   onClose: () => void;
   title?: React.ReactNode;
   footer?: React.ReactNode;
 }
-//I will use Render Props on this component
 
 const StyledModelContainer = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -66,7 +60,7 @@ const MUIModel = ({ body, footer, open, onClose, title }: MUIModelProps) => {
     >
       <StyledModelContainer>
         <StyledImageBox>
-          <HeroHeader {...registerModalConfig.hero} />
+          <HeroHeader {...hero} />
         </StyledImageBox>
         <div
           style={{

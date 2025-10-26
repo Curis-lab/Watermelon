@@ -1,186 +1,90 @@
-import {
-  Close,
-  Facebook,
-  Google,
-  Visibility,
-  VisibilityOff,
-} from "@mui/icons-material";
+import { Close, Facebook, Google } from "@mui/icons-material";
 import MUIModel from "../../atoms/Models";
 import {
   Box,
   Button,
   Divider,
-  FormControl,
   IconButton,
-  InputAdornment,
-  InputLabel,
-  OutlinedInput,
   TextField,
   Typography,
 } from "@mui/material";
-// import logo from "../../../static/images/logo.svg";
-import React, { useState } from "react"; // Removed useEffect
-import { useNavigate } from "react-router-dom"; // Removed unused imports
+import { useNavigate } from "react-router-dom";
 import { useLogin } from "../../../hooks/api/actions/useRegister/userRegister";
 import { ISessionContextPros, useSession } from "../../../hooks/useSession";
 import useRegisterModal from "../../../hooks/useRegisterModal";
+import FormHandler, { IRender } from "../../common/FormHandler";
+import PasswordBox from "../../atoms/TextBox/PasswordBox/PasswordBox";
 
-// I need to pass the value
-const PasswordInput = ({
-  value,
-  fn,
-}: {
-  value: string;
-  fn: (value: string) => void;
-}) => {
-  const [showPassword, setShowPassword] = useState(false);
-  const _handleClickShowPassword = () => setShowPassword((show) => !show);
+interface ILoginFormData {
+  email: string;
+  password: string;
+}
 
-  const _handleMouseDownPassword = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    event.preventDefault();
-  };
+const LoginFormTemplate = ({
+  formData,
+  submitHandler,
+  inputHandler,
+}: IRender<ILoginFormData>) => (
+  <form
+    onSubmit={submitHandler}
+    style={{
+      display: "flex",
+      flexDirection: "column",
+      gap: "15px",
+      minWidth: "21.88rem",
+    }}
+  >
+    <TextField
+      name="email"
+      value={formData.email}
+      onChange={inputHandler}
+      placeholder="Email"
+      variant="outlined"
+      label="Email"
+      sx={{
+        minWidth: "80%",
+      }}
+    />
 
-  const _handleMouseUpPassword = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    event.preventDefault();
-  };
+    <PasswordBox
+      {...{ value: formData.password, handleChangeInput: inputHandler }}
+    />
+    <Button
+      type="submit"
+      sx={{
+        border: "1px solid #000",
+      }}
+    >
+      login
+    </Button>
+  </form>
+);
 
-  const handleChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    fn(e.target.value);
-  };
-
-  return (
-    <FormControl variant="outlined" sx={{ width: "100%" }}>
-      <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
-      <OutlinedInput
-        id="outlined-adornment-password"
-        type={showPassword ? "text" : "password"}
-        value={value}
-        sx={{
-          minWidth: "80%",
-        }}
-        onChange={handleChangePassword}
-        endAdornment={
-          <InputAdornment position="end">
-            <IconButton
-              aria-label={showPassword ? "Hide Password" : "Show Password"}
-              onClick={_handleClickShowPassword}
-              onMouseDown={_handleMouseDownPassword}
-              onMouseUp={_handleMouseUpPassword}
-              edge="end"
-            >
-              {showPassword ? <VisibilityOff /> : <Visibility />}
-            </IconButton>
-          </InputAdornment>
-        }
-      />
-    </FormControl>
-  );
-};
-
-type TRegisterFormHandler = {
-  render: ({ handleSubmit, formData, handleChange, handlePasswordChange, }: { handleSubmit: (e: React.FormEvent<HTMLFormElement>) => Promise<void>; formData: { email: string; password: string; }; handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void; handlePasswordChange: (value: string) => void; }) => React.ReactNode;
-url:string;
-closeModal:()=>void
-};
-const RegisterFormHandler = ({ render }: TRegisterFormHandler) => {
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
+const Body = () => {
   const navigate = useNavigate();
   const { login } = useSession() as ISessionContextPros;
   const loginToDB = useLogin();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
-  };
-
-  const handlePasswordChange = (value: string) => {
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      password: value,
-    }));
-  };
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    //
+  async function AuthenticationProcess(formData:ILoginFormData) {
     const res = await loginToDB(formData);
-
+  
     login(res.data);
     if (!res.data.isMfaActive) {
       navigate("/settings");
     } else {
       navigate("/");
     }
-    setFormData({
-      email: "",
-      password: "",
-    });
-  };
-  return render({handleSubmit, formData, handleChange, handlePasswordChange});
-};
-
-const Body = ({ closeModal }: { closeModal: () => void }) => {
+  }
+  
   return (
     <Box>
-      <RegisterFormHandler
-        url="http://localhost:3000/api/auth/login"
-        closeModal={closeModal}
-        render={({
-          handleSubmit,
-          formData,
-          handleChange,
-          handlePasswordChange,
-        }: {
-          handleSubmit: (e: React.FormEvent<HTMLFormElement>) => Promise<void>;
-          formData: {
-            email: string;
-            password: string;
-          };
-          handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-          handlePasswordChange: (value: string) => void;
-        }) => (
-          <form
-            onSubmit={handleSubmit}
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "15px",
-              minWidth: "21.88rem",
-            }}
-          >
-            <TextField
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="Email"
-              variant="outlined"
-              label="Email"
-              sx={{
-                minWidth: "80%",
-              }}
-            />
-
-            <PasswordInput
-              value={formData.password}
-              fn={handlePasswordChange}
-            />
-
-            <Button
-              type="submit"
-              sx={{
-                border: "1px solid #000",
-              }}
-            >
-              login
-            </Button>
-          </form>
-        )}
+      <FormHandler<ILoginFormData>
+        initial={{
+          email: "",
+          password: "",
+        }}
+        process={AuthenticationProcess}
+        render={LoginFormTemplate}
       />
       <Divider
         sx={{
@@ -235,8 +139,6 @@ const RegisterModal = () => {
           gap: "4px",
         }}
       >
-        {/* <img src={logo} alt="logo" style={{ width: "40px" }} /> */}
-        {/* <Typography variant="h2">Let's Get Started</Typography> */}
         <Typography variant="body1">
           Welcome back! Please enter your details.
         </Typography>
@@ -270,7 +172,7 @@ const RegisterModal = () => {
   return (
     <MUIModel
       title={title}
-      body={<Body closeModal={() => registerModal.onClose()} />}
+      body={<Body/>}
       footer={footer}
       open={registerModal.isOpen}
       onClose={() => {

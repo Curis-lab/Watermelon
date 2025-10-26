@@ -1,9 +1,9 @@
 import { Dispatch, SetStateAction, useCallback, useState } from "react";
-import { formatPath } from "../../../../utils/formatPath"; // Removed 'joinPaths' as it is unused
+import { formatPath } from "../../../../utils/formatPath";
 import { headers } from "../../../../utils/apiUtils";
 
 type ApiErrorHandler = (
-  setErrors: Dispatch<SetStateAction<object>>, // Changed '{}' to 'object' for better type safety
+  setErrors: Dispatch<SetStateAction<object>>, 
   res: Response,
   requestId: string
 ) => void;
@@ -17,7 +17,7 @@ export interface IUseAPI {
   propagateErrors?: boolean;
 }
 
-//complicated sound
+
 const useApi = () => {
   const [errors] = useState<Record<string, string>>({}); // Removed 'setErrors' as it is unused
   const [loading, setLoading] = useState<boolean>(false);

@@ -11,7 +11,7 @@ function SelectWithOptions({ values, render, textFieldProperties }:{
   textFieldProperties:{
     name:string,
     value:string,
-    onChange:()=>void,
+    onChange:(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void,
     helperText:string;
   },
   render:({val, idx}:{val:IValueWithLabel, idx:number|string})=>React.ReactNode

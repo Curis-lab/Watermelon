@@ -6,6 +6,7 @@ type HeroHeaderProps = {
   tagline: string;
 };
 
+
 function HeroHeader({ heading, tagline, white = false }: HeroHeaderProps) {
   return (
     <Box

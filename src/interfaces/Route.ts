@@ -1,7 +1,6 @@
-
 import type { LazyExoticComponent } from "react";
 import React from "react";
-export  interface IRoute {
+export interface IRoute {
   path: string;
   title: string;
   component: LazyExoticComponent<() => React.ReactNode>;
@@ -9,4 +8,3 @@ export  interface IRoute {
   menu: object;
   isStandalone: boolean;
 }
-
