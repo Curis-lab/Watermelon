@@ -1,5 +1,5 @@
 import { Navigate } from "react-router-dom";
-import { useSession } from "../../hooks/useSession";
+import { ISessionContextPros, useSession } from "../../hooks/useSession";
 import { IRoute } from "../../interfaces/Route";
 
 interface IProtectedRouteProps {
@@ -7,7 +7,7 @@ interface IProtectedRouteProps {
 }
 
 function ProtectedRoute({ route }: IProtectedRouteProps) {
-  const { isLoggedIn } = useSession();
+  const { isLoggedIn } = useSession() as ISessionContextPros;
 
   if (!isLoggedIn && route.type === "protected") {
     return <Navigate to="/" />;

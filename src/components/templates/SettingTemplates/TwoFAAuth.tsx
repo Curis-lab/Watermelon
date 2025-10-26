@@ -1,10 +1,9 @@
-import React from "react";
 import { useEffect, useState } from "react";
 import { Typography, Box, Button } from "@mui/material";
 import { setup2FA } from "../../../hooks/api/actions/useRegister/userRegister";
 
 function TwoFAAuth() {
-  const [response, setResponse] = useState({});
+  const [response, setResponse] = useState({qrCode:''});
 
   const fetchQRCode = async () => {
     const { data } = await setup2FA();

@@ -18,9 +18,9 @@ interface IMentor {
 }
 
 interface UseMentorsReturn {
-  mentors: { _id: number; name: string }[];
-  isLoading: boolean;
-  error: string | null;
+  mentors: IMentor[];
+  loading: boolean;
+  error: Error | null;
   status: "loading" | "error" | "success" | "pending";
 }
 

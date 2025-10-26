@@ -1,4 +1,4 @@
-import React, { createContext, useContext} from "react";
+import React, { createContext, useContext } from "react";
 import { Avatar, Box, Typography } from "@mui/material";
 
 type TProfile = {
@@ -9,8 +9,8 @@ type TProfile = {
 };
 
 type TProfileContent = {
-  profile: TProfile
-}
+  profile: TProfile;
+};
 
 const UserContext = createContext<TProfileContent | undefined>(undefined);
 

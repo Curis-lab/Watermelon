@@ -6,7 +6,7 @@ interface IReviewCard {
   userId: string;
   rating: number;
   comment: string;
-  createdAt: Date;
+  createdAt: Date | number | string;
 }
 
 function ReviewCard(p: IReviewCard) {
@@ -24,7 +24,13 @@ function ReviewCard(p: IReviewCard) {
         {new Date(p.createdAt).toLocaleDateString()}
       </Typography>
       <Typography>{p.comment}</Typography>
-      <UserInfo>
+      <UserInfo
+        profile={{
+          name: "Joneshtive",
+          position: "Web Developer",
+          company: "Google",
+        }}
+      >
         <UserInfo.Name />
         <UserInfo.Description />
       </UserInfo>

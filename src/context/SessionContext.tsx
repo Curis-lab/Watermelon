@@ -1,27 +1,38 @@
-import { useEffect, useState } from "react";
-import { SessionContext } from "../hooks/useSession";
+import React, { useEffect, useState } from "react";
+import {  SessionContext } from "../hooks/useSession";
+import { IMentor } from "../interfaces/Mentor";
 
-export const SessionProvider = ({ children }) => {
+export interface IUserLogin{
+  name:string;
+  email:string;
+  password:string;
+}
+export const SessionProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<IMentor|null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const storedUser = JSON.parse(sessionStorage.getItem("user"));
-    if (storedUser) {
-      setUser(storedUser);
+    const { data } = JSON.parse(sessionStorage.getItem("user") as string);
+
+    if (data) {
+      setUser(data.user);
       setIsLoggedIn(true);
     }
     setLoading(false);
   }, []);
 
-  const login = (userData) => {
+  const login = (userData:IUserLogin) => {
     setIsLoggedIn(true);
     setUser(user);
     sessionStorage.setItem("user", JSON.stringify(userData));
   };
-  const logout = (data) => {
-    if (data) {
+  const logout = () :void => {
+    if (user) {
       setIsLoggedIn(false);
       setUser(null);
       sessionStorage.removeItem("user");

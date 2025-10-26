@@ -8,6 +8,5 @@ export async function getEventInfoAndAuthorProfileById<T>(
     url: API_ENDPOINTS.events.getById(id),
   });
 
-  
   return response;
-};
+}

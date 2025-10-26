@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import UserList from "../../organisms/ChatAndNetwork/UserList";
 import { SendAndArchiveTwoTone } from "@mui/icons-material";
+import React from "react";
 
 export const LayoutWrapper = styled("div")(({ theme }) => ({
   [theme.breakpoints.up("md")]: {
@@ -35,7 +36,7 @@ export const ChatWrapper = styled("div")(({ theme }) => ({
   },
 }));
 
-function ChatBox({ render }) {
+function ChatBox({ render }:{render:()=>React.ReactNode}) {
   return render();
 }
 

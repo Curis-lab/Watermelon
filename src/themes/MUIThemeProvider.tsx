@@ -1,5 +1,4 @@
 import {
-  createTheme,
   CssBaseline,
   GlobalStyles,
   ThemeProvider,
@@ -12,13 +11,8 @@ interface MUIThemeProviderProps {
 }
 
 const MUIThemeProvider = ({ children }: MUIThemeProviderProps) => {
-  const { components, ...restTheme } = theme;
-  const mainTheme = createTheme({
-    ...restTheme,
-    components: components as React.ReactNode,
-  });
   return (
-    <ThemeProvider theme={mainTheme}>
+    <ThemeProvider theme={theme}>
       <CssBaseline />
       <GlobalStyles
         styles={{

@@ -9,7 +9,7 @@ interface IReview {
   createdAt: Date;
 }
 
-export const getReviews = async () => {
+export const getReviews = async ():Promise<IReview[]|undefined> => {
   const { data, success } = await apiRequest<{
     data: IReview[];
     success: boolean;

@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import { motion } from "framer-motion";
 import style from "./style.module.css";
 
-function RoundedBottom({ fn, label, icon }) {
+
+
+function RoundedBottom({ fn, label, icon }:{fn:()=>void, label:string, icon:ReactNode}) {
   const [ishover, setIshover] = useState(false);
   return (
     <div

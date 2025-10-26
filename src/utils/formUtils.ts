@@ -14,15 +14,20 @@ interface EventFormData {
     location:string;
 }
 export const createFormData = (
-  formData: OnboardingFormData | EventFormData| undefined,
+  formData: OnboardingFormData | EventFormData | undefined,
   imageFile: File | null
 ) => {
   const data = new FormData();
 
-  data.append("image", imageFile as Blob);
-  Object.getOwnPropertyNames(formData).map((name) => {
-    data.append(name, formData[name]);
-  });
+  if (imageFile) {
+    data.append("image", imageFile as Blob);
+  }
+
+  if (formData) {
+    Object.getOwnPropertyNames(formData).map((name) => {
+      data.append(name, formData[name as keyof typeof formData]);
+    });
+  }
 
   return data;
 };

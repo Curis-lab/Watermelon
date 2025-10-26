@@ -1,13 +1,13 @@
 import { Box, Typography } from "@mui/material";
 import { StyledCardWrapper, StyeldDecription } from "./EventCard.styled";
-import { Event } from "../../../types/Event";
 import { useNavigate } from "react-router-dom";
 import ContentHeader from "../../molecules/ContentHeader/ContentHeader";
 import defaultImage from "../../../assets/img/default.webp";
 import { memo } from "react";
+import { IEvent } from "../../../interfaces/Event";
 
 
-const EventCard = ({ props }: { props: Event }) => {
+const EventCard = ({ props }: { props: IEvent }) => {
   const { name, location, id, imageUrl, attendees } = props;
   const navigate = useNavigate();
   //this is render at least 2*10 times how can I reduce it
@@ -22,7 +22,6 @@ const EventCard = ({ props }: { props: Event }) => {
           width: "100%",
           height: "160px",
           // borderRadius: "3px",
-          objectFit: "",
         }}
       />
       {/* <Box sx={{width: '100%'}}>
@@ -43,7 +42,7 @@ const EventCard = ({ props }: { props: Event }) => {
           <Typography variant="caption">Suggestion</Typography>
         </Box>
         <ContentHeader {...{ title: name, subtitle: location }} />
-        <Typography variant="caption">{attendees.length} attendees</Typography>
+        <Typography variant="caption">{attendees?.length} attendees</Typography>
       </StyeldDecription>
     </StyledCardWrapper>
   );

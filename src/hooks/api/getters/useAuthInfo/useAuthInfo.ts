@@ -1,17 +1,14 @@
-import { useSession } from "../../../useSession";
-/**
- * responsity: collect all authentication requirement need.
- */
+import { ISessionContextPros, useSession } from "../../../useSession";
 
 
 function useAuthInfo() {
-  const { isLoggedIn, user, logout } = useSession();
+  const { isLoggedIn, user, logout } = useSession() as ISessionContextPros;
 
   return {
     isLoggedIn,
     logout,
     user: {
-      name:user?.data?.user?.name,
+      name:user?.name,
     },
   };
 }

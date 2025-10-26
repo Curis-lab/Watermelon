@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Box,
   InputAdornment,
@@ -58,11 +57,25 @@ const StyledContent = styled(Box)(({ theme }) => ({
   // padding: "2rem",
 }));
 
+interface IBaseFormRegister {
+  name:string;
+  email:string;
+  password:string;
+  role: "mentor",
+  bio:string;
+  availability:boolean;
+  expertise:string;
+}
 function OnboardingTemplate({
   formData,
   handleInputChange,
   handleSubmit,
   isSubmitButtonDisabled,
+}:{
+  isSubmitButtonDisabled:()=>boolean,
+  handleSubmit:()=>void,
+  handleInputChange:()=>void,
+  formData:IBaseFormRegister
 }) {
   return (
     <StyledContainer>
@@ -152,7 +165,7 @@ function OnboardingTemplate({
               { value: "organizer", label: "Organizer" },
               { value: "mentee", label: "Mentee" },
             ]}
-            render={(val, idx) => (
+            render={({val, idx}:{val:{value:string, label:string}, idx:number|string}) => (
               <MenuItem value={val.value} key={idx}>
                 {val.label}
               </MenuItem>
@@ -164,7 +177,7 @@ function OnboardingTemplate({
               value: formData.expertise,
               onChange: handleInputChange,
               helperText: "Select your expertise",
-              sx: { width: "100%" },
+              // sx: { width: "100%" },
             }}
             values={[
               { value: "web-development", label: "Web Development" },
@@ -173,7 +186,7 @@ function OnboardingTemplate({
               { value: "marketing", label: "Marketing" },
               { value: "business", label: "Business" },
             ]}
-            render={(val, idx) => (
+            render={({val, idx}:{val:{value:string, label:string}, idx:number|string}) => (
               <MenuItem value={val.value} key={idx}>
                 {val.label}
               </MenuItem>

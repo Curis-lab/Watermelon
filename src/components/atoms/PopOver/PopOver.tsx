@@ -8,9 +8,9 @@ export const ProfilePopup = () => {
     null
   );
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
+  // const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  //   setAnchorEl(event.currentTarget);
+  // };
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -23,8 +23,8 @@ export const ProfilePopup = () => {
       <Avatar
         alt="user profile iamge"
         src="https://cdn.dribbble.com/userupload/15513631/file/original-5bcae1f588c45e3ce423136072afe2a8.jpg?format=webp&resize=400x300&vertical=center"
-        aria-describedby={id}
-        onClick={handleClick}
+        // aria-describedby={id}
+        // onClick={handleClick}
       />
       <Popover
         id={id}

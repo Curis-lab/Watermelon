@@ -1,14 +1,12 @@
 import { Box, CircularProgress } from "@mui/material";
-import React from "react";
 
 type LoadingProps = {
-  size: "sm" | "md" | "lg";
+  size?: "sm" | "md" | "lg";
 };
 
 function Loading({ size = "lg" }: LoadingProps) {
   const sizeOfLoading: Record<string, object> = {
-    sm: {
-    },
+    sm: {},
     md: {
       height: "100%",
       width: "100%",

@@ -1,6 +1,15 @@
 import { Box, Typography } from "@mui/material";
 import style from "./style.module.css";
 // import { positionalKeys } from "framer-motion";
+
+const BallAnimation = () => (
+  <div className={style.energy}>
+    <span style={{ ["--clr" as string]: "#fbad04", ["--i" as string]: "18px", ["--d" as string]: "2.5s" }}></span>
+    <span style={{ ["--clr" as string]: "#03a1d9", ["--i" as string]: "13px", ["--d" as string]: "5s" }}></span>
+    <span style={{ ["--clr" as string]: "#f7036d", ["--i" as string]: "15px", ["--d" as string]: "7.5s" }}></span>
+    <span style={{ ["--clr" as string]: "#13ff16", ["--i" as string]: "20px", ["--d" as string]: "10s" }}></span>
+  </div>
+);
 const HomePage = () => {
   return (
     <Box>
@@ -12,27 +21,15 @@ const HomePage = () => {
           borderRadius: "10px",
         }}
       >
-        <Box sx={{
-          position: 'relative',
-          height: '90vh',
-          top: '40vh',
-          left: '40%'
-        }}>
-
-        <div className={style.energy}>
-          <span
-            style={{ "--clr": "#fbad04", "--i": "18px", "--d": "2.5s" }}
-          ></span>
-          <span
-            style={{ "--clr": "#03a1d9", "--i": "13px", "--d": "5s" }}
-          ></span>
-          <span
-            style={{ "--clr": "#f7036d", "--i": "15px", "--d": "7.5s" }}
-          ></span>
-          <span
-            style={{ "--clr": "#13ff16", "--i": "20px", "--d": "10s" }}
-          ></span>
-        </div>
+        <Box
+          sx={{
+            position: "relative",
+            height: "90vh",
+            top: "40vh",
+            left: "40%",
+          }}
+        >
+          <BallAnimation />
         </Box>
         <Box
           sx={{
@@ -41,10 +38,10 @@ const HomePage = () => {
             display: "flex",
             flexDirection: "column",
             maxWidth: "50rem",
-            position: 'absolute',
-            top:'25%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)'
+            position: "absolute",
+            top: "25%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
           }}
         >
           <Typography
@@ -80,7 +77,7 @@ const HomePage = () => {
       >
         <Typography variant="caption">Featured & Benefits topics</Typography>
         <div
-        className={style.autoShow}
+          className={style.autoShow}
           style={{
             fontSize: "30px",
           }}

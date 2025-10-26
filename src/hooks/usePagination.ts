@@ -1,7 +1,7 @@
 import { useState } from "react";
-
+import { IEvent } from "../interfaces/Event";
 interface PanginationProps {
-  events: Event[];
+  events: IEvent[];
   itemsPerPage: number;
 }
 
@@ -11,10 +11,9 @@ export const usePagination = ({ events, itemsPerPage }: PanginationProps) => {
   const startIndex = (page - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
 
-  //! big calculation
   const currentItems = [...events].slice(startIndex, endIndex);
   
-  const handleChange = (event, value) => {
+  const handleChange = ( value:number) => {
     setPage(value);
   };
 

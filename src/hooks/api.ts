@@ -4,9 +4,11 @@ export function useApi() {
     isAuthenticated: false,
   };
 
+
   async function request<T>(url: string, options: Record<string, T> = {}) {
-    const headers: Record<string, string> = {
+    const headers = {
       ...options.headers,
+      Authorization:''
     };
 
     if (isAuthenticated) {
@@ -36,13 +38,6 @@ export function useApi() {
     });
 
     const { body } = await response.json();
-
-    // Assuming setToken and clearToken are handled elsewhere
-    // setToken({
-    //   token: body.token,
-    //   expiresIn: 12,
-    // });
-
     return body;
   }
 

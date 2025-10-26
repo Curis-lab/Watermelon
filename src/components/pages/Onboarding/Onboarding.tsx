@@ -2,10 +2,20 @@ import { useState } from "react";
 import OnboardingTemplate from "../../templates/OnboardingTemplate/OnboardingTemplate";
 import { useRegister } from "../../../hooks/api/actions/useRegister/userRegister";
 
+interface IBaseFormRegister {
+  name:string;
+  email:string;
+  password:string;
+  role: "mentor",
+  bio:string;
+  availability:boolean;
+  expertise:string;
+}
+
 const Onboarding = () => {
   const register = useRegister();
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<IBaseFormRegister>({
     name: "",
     email: "",
     password: "",
@@ -40,8 +50,8 @@ const Onboarding = () => {
   return (
     <OnboardingTemplate
       formData={formData}
-      handleInputChange={handleInputChange}
-      handleSubmit={handleSubmit}
+      handleInputChange={()=>handleInputChange}
+      handleSubmit={()=>handleSubmit}
       isSubmitButtonDisabled={isSubmitButtonDisabled}
     />
   );

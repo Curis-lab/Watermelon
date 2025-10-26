@@ -29,12 +29,12 @@ const StyledEventAndCalendarLayout = styled("div")(({ theme }) => ({
 
 interface IEventTemplate {
   /** search props */
-  searchQuery: string;
-  handleSearchQuery: () => void;
-  handleInputFocusChange: () => void;
-  handleKeyPress: () => void;
+  searchQuery?: string;
+  handleSearchQuery?: () => void;
+  handleInputFocusChange?: () => void;
+  handleKeyPress?: () => void;
   /** event props */
-  events: IEvent[];
+  events: IEvent[] | [];
   loading: boolean;
 }
 
@@ -48,7 +48,7 @@ function EventList({ events }: { events: IEvent[] }) {
       events={currentItems}
       page={page}
       count={Math.ceil(Object.values(events).length / itemsPerPage)}
-      handleChange={handleChange}
+      handleChange={()=>handleChange}
     />
   );
 }

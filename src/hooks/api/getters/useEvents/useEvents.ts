@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import API_ENDPOINTS from "../../../../lib/api/apiendpoints";
 import { apiRequest } from "../../../../lib/api/apiclient";
+import { IEvent } from "../../../../interfaces/Event";
 
 export const useEvents = () => {
   const {
@@ -11,7 +12,7 @@ export const useEvents = () => {
     queryKey: ["event"],
     queryFn: () => fetcher(),
   });
-  
+
   return {
     events: events,
     loading: isLoading,
@@ -20,7 +21,7 @@ export const useEvents = () => {
 };
 
 async function fetcher(): Promise<IEvent[]> {
-  const response: AxiosResponse = await apiRequest<{ body: IEvent[] }>({
+  const response = await apiRequest<{ body: IEvent[] }>({
     url: `${API_ENDPOINTS.events.getAll}?page=1&limit=10`,
   });
 

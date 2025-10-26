@@ -41,7 +41,7 @@ function a11yProps(index: number) {
 export default function VerticalTabs() {
   const [value, setValue] = React.useState(0);
 
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+  const handleChange = ( newValue: number) => {
     setValue(newValue);
   };
 
@@ -51,7 +51,7 @@ export default function VerticalTabs() {
         orientation="vertical"
         variant="scrollable"
         value={value}
-        onChange={handleChange}
+        onChange={()=>handleChange}
         aria-label="Vertical tabs example"
         sx={{
           borderRight: 1,

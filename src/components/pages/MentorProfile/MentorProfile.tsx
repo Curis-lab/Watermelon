@@ -47,11 +47,11 @@ const StyledDescriptionContainer = styled("div")(({ theme }) => ({
 const MentorProfile = () => {
   const { id } = useParams();
   const navigator = useNavigate();
-  const { data: mentorProfile, isError: mentorProfileError } =
+  const { data: mentorProfile , isError: mentorProfileError } =
     useGetMentorProfile(id ? id : "");
-  const { reviews} = useReviews();
+  const { reviews } = useReviews();
 
-  if (mentorProfileError) {
+  if (mentorProfileError && mentorProfile) {
     return null;
   }
 
@@ -70,9 +70,9 @@ const MentorProfile = () => {
         >
           <ContentSection title="About me" description={mentorProfile.bio} />
           <Typography variant="h2">Reviews</Typography>
-          {reviews.length > 0 &&
+          {reviews && reviews.length > 0 &&
             reviews.map((review) => (
-              <ReviewCard {...review} key={review._id} />
+              <ReviewCard {...review} key={review.comment} />
             ))}
         </Box>
         <Paper

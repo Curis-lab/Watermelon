@@ -3,7 +3,6 @@ import { Box, Chip, Typography } from "@mui/material";
 import ProfileAvatar from "../../atoms/avatars";
 import { PersonPinCircle } from "@mui/icons-material";
 
-
 type ProfileBannerContent = {
   profile: IProfileBanner;
 };
@@ -19,7 +18,7 @@ function useProfileCardContext() {
       "useProfileCardContext must be used within a ProfileBanner."
     );
   }
-  return context;
+  return context.profile;
 }
 
 interface IProfileBanner {
@@ -28,12 +27,14 @@ interface IProfileBanner {
   role?: string;
   expertises?: string[];
   company?: string;
+  location?:string;
   children?: React.ReactNode;
+  title:string;
 }
 
 function ProfileBanner(props: IProfileBanner) {
   return (
-    <ProfileCardContext.Provider value={{ props }}>
+    <ProfileCardContext.Provider value={{profile:props}}>
       <Box
         sx={{
           display: "flex",
@@ -65,12 +66,12 @@ function ProfileBanner(props: IProfileBanner) {
 }
 
 const JobTitle = () => {
-  const { props } = useProfileCardContext();
-  return <Typography variant="body2">{props.title}</Typography>;
+  const { title } = useProfileCardContext();
+  return <Typography variant="body2">{title}</Typography>;
 };
 
 const Location = () => {
-  const { props } = useProfileCardContext();
+  const { location } = useProfileCardContext();
 
   return (
     <Box
@@ -80,13 +81,13 @@ const Location = () => {
       }}
     >
       <PersonPinCircle />
-      <Typography variant="body2">{props.location}</Typography>
+      <Typography variant="body2">{location}</Typography>
     </Box>
   );
 };
 
 const ExpertiseTags = () => {
-  const { props } = useProfileCardContext();
+  const { expertises } = useProfileCardContext();
   return (
     <Box
       sx={{
@@ -95,8 +96,8 @@ const ExpertiseTags = () => {
         flexWrap: "wrap",
       }}
     >
-      {props.expertise &&
-        props.expertise.map((v, idx) => (
+      {expertises &&
+        expertises.map((v, idx) => (
           <Chip key={idx} size="small" label={v} />
         ))}
     </Box>
@@ -104,8 +105,8 @@ const ExpertiseTags = () => {
 };
 
 const RoleBadge = () => {
-  const { props } = useProfileCardContext();
-  return <Chip color="primary" label={props.role} />;
+  const { role } = useProfileCardContext();
+  return <Chip color="primary" label={role} />;
 };
 
 const Rating = () => {

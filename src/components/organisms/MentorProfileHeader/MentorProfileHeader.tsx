@@ -3,7 +3,7 @@ import ProfileBanner from "../../molecules/ProfileBanner/ProfileBanner";
 
 interface IMentorProfileHeader {
   navigator: (path: string) => void;
-  expertise?: string[];
+  expertise?: string[]|string;
   imgURL?: string;
   company?: string;
   name?: string;
@@ -20,9 +20,7 @@ function MentorProfileHeader(props: IMentorProfileHeader) {
     >
       <ProfileBanner
         {...props}
-        title="
-Senior UX Designer at Tech Corporate, France
-      "
+        title="Senior UX Designer at Tech Corporate, France"
       >
         <ProfileBanner.JobTitle />
         <ProfileBanner.ExpertiseTags />

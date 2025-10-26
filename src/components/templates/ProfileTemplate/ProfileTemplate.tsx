@@ -93,7 +93,7 @@ function ProfileTemplate() {
   const [value, setValue] = React.useState(0);
   const navigate = useNavigate();
 
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+  const handleChange = (newValue: number) => {
     setValue(newValue);
   };
 
@@ -143,8 +143,8 @@ function ProfileTemplate() {
           sx={{
             padding: "15px",
             display: "flex",
-            alignItems: 'start',
-            gap:'10px'
+            alignItems: "start",
+            gap: "10px",
           }}
         >
           {role == "organizer" && (
@@ -169,7 +169,7 @@ function ProfileTemplate() {
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
           <Tabs
             value={value}
-            onChange={handleChange}
+            onChange={() => handleChange}
             aria-label="basic tabs example"
           >
             <Tab label="Overview" {...a11yProps(0)} />
@@ -261,7 +261,14 @@ function ProfileTemplate() {
         <CustomTabPanel value={value} index={1}>
           <Typography variant="h3">Reviews</Typography>
           {reviews.map((review, idx) => (
-            <ReviewCard {...review} key={idx} />
+            <ReviewCard
+              mentorId={review.mentorId}
+              userId={review.userId}
+              rating={review.rating}
+              comment={review.comment}
+              createdAt={review.createdAt}
+              key={idx}
+            />
           ))}
         </CustomTabPanel>
         <CustomTabPanel value={value} index={2}>

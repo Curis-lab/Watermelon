@@ -3,9 +3,9 @@ import { IEvent } from "../../../../interfaces/Event";
 import { getEventInfoAndAuthorProfileById } from "../../tanstack-query/event-route";
 
 interface IUseEventOutput {
-  eventDefination?: IEvent | null;
+  eventDefination: IEvent | null;
   loading: boolean;
-  error?: Error;
+  error?: Error | null;
 }
 
 /**
@@ -40,7 +40,7 @@ export const useEvent = (id: string): IUseEventOutput => {
     eventDefination: data
       ? {
           ...data,
-        }
+        } as IEvent
       : null,
     loading: isLoading,
     error: error,

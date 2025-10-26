@@ -53,7 +53,7 @@ const CreateEvent = () => {
   const [collectData, setCollectData] = useState({
     name: "",
     description: "",
-    date: "",
+    date: new Date(),
     location: "",
     hostedId: "", // Added hostedId to the state
   });
@@ -100,11 +100,11 @@ const CreateEvent = () => {
             size="small"
           />
           <Typography variant="h4">Date and time</Typography>
-          <input
-            type="date"
-            value={collectData.date}
-            onChange={(e) => handleInputChange(e, "date")}
-          />
+        {/* <input
+          type="date"
+          value={collectData.date}
+          onChange={(e) => handleInputChange(e, "date")}
+        /> */}
           <Typography variant="h4">Featured photo</Typography>
           {/* start file */}
           <Box

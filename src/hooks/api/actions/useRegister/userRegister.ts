@@ -48,7 +48,7 @@ export const useLogin = () => {
 const api = axios.create({
   baseURL: `https://event-2-h3bg.onrender.com/api`,
 });
-const fetcher = async (data) => {
+const fetcher = async (data:{email:string, password:string}) => {
   return await api.post("/auth/login", data, {
     withCredentials: true,
   });
@@ -65,7 +65,7 @@ export const logoutUser = async () => {
 export const setup2FA = async () => {
   return await api.get("/auth/2fa/setup",  { withCredentials: true });
 };
-export const verify2FA = async (token) => {
+export const verify2FA = async (token:string) => {
   return await api.post(
     "/auth/2fa/verify",
     { token },

@@ -1,9 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { Event } from "../types/Event";
 import { apiRequest } from "../lib/api/apiclient";
 import API_ENDPOINTS from "../lib/api/apiendpoints";
-import { AxiosResponse } from "axios";
 
 interface IEvent {
   _id: string;
@@ -38,8 +36,8 @@ interface UseEventSearchReturn extends SearchState {
   setSearchQuery: (query: string) => void;
 
   // Data
-  events: Event[] | undefined;
-  searchResults: Event[] | undefined;
+  events: IEvent[] | undefined;
+  searchResults: IEvent[] | undefined;
   isLoading: boolean;
   isSearchLoading: boolean;
 
@@ -95,7 +93,7 @@ export const useEventSearch = ({
   // Main events query
   const { data: events, isLoading } = useQuery({
     queryKey: ["event", page, date, search, location, limit],
-    queryFn: () => fetcher({ page, date, search, location, limit }),
+    queryFn: () => fetcher({ page,  search, location, limit }),
   });
 
   // Debounce search query
@@ -117,7 +115,6 @@ export const useEventSearch = ({
     queryFn: () =>
       fetcher({
         page: 1,
-        date,
         search: searchQuery,
         location: "",
         limit: 3,
@@ -125,7 +122,6 @@ export const useEventSearch = ({
     enabled: searchQuery.length > 0 && isFocused,
   });
 
-  // Event handlers
   const handleInputFocusChange = useCallback(
     (e: React.MouseEvent<HTMLInputElement>) => {
       e.stopPropagation();
@@ -137,9 +133,9 @@ export const useEventSearch = ({
   const handleFocusChange = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
       e.stopPropagation();
-      setIsFocused((prev) => !prev);
+      setIsFocused(!isFocused);
     },
-    [setIsFocused]
+    [setIsFocused, isFocused]
   );
 
   const handleKeyPress = useCallback(
@@ -217,7 +213,7 @@ export const fetcher = async ({
     ...(location && { location }),
   });
 
-  const response: AxiosResponse = await apiRequest<{ body: IEvent[] }>({
+  const response = await apiRequest<{ body: IEvent[] }>({
     url: `${API_ENDPOINTS.events.getAll}?${queryParams.toString()}`,
   });
 

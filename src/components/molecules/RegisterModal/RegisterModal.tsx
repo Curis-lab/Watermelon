@@ -22,7 +22,7 @@ import {
 import React, { useState } from "react"; // Removed useEffect
 import { useNavigate } from "react-router-dom"; // Removed unused imports
 import { useLogin } from "../../../hooks/api/actions/useRegister/userRegister";
-import { useSession } from "../../../hooks/useSession";
+import { ISessionContextPros, useSession } from "../../../hooks/useSession";
 import useRegisterModal from "../../../hooks/useRegisterModal";
 
 // I need to pass the value
@@ -82,7 +82,9 @@ const PasswordInput = ({
 };
 
 type TRegisterFormHandler = {
-  render: () => React.ReactNode;
+  render: ({ handleSubmit, formData, handleChange, handlePasswordChange, }: { handleSubmit: (e: React.FormEvent<HTMLFormElement>) => Promise<void>; formData: { email: string; password: string; }; handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void; handlePasswordChange: (value: string) => void; }) => React.ReactNode;
+url:string;
+closeModal:()=>void
 };
 const RegisterFormHandler = ({ render }: TRegisterFormHandler) => {
   const [formData, setFormData] = useState({
@@ -90,7 +92,7 @@ const RegisterFormHandler = ({ render }: TRegisterFormHandler) => {
     password: "",
   });
   const navigate = useNavigate();
-  const { login } = useSession();
+  const { login } = useSession() as ISessionContextPros;
   const loginToDB = useLogin();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -98,7 +100,7 @@ const RegisterFormHandler = ({ render }: TRegisterFormHandler) => {
     setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
   };
 
-  const handlePasswordChange = (value) => {
+  const handlePasswordChange = (value: string) => {
     setFormData((prevFormData) => ({
       ...prevFormData,
       password: value,
@@ -120,7 +122,7 @@ const RegisterFormHandler = ({ render }: TRegisterFormHandler) => {
       password: "",
     });
   };
-  return render(handleSubmit, formData, handleChange, handlePasswordChange);
+  return render({handleSubmit, formData, handleChange, handlePasswordChange});
 };
 
 const Body = ({ closeModal }: { closeModal: () => void }) => {
@@ -129,12 +131,20 @@ const Body = ({ closeModal }: { closeModal: () => void }) => {
       <RegisterFormHandler
         url="http://localhost:3000/api/auth/login"
         closeModal={closeModal}
-        render={(
+        render={({
           handleSubmit,
           formData,
           handleChange,
-          handlePasswordChange
-        ) => (
+          handlePasswordChange,
+        }: {
+          handleSubmit: (e: React.FormEvent<HTMLFormElement>) => Promise<void>;
+          formData: {
+            email: string;
+            password: string;
+          };
+          handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+          handlePasswordChange: (value: string) => void;
+        }) => (
           <form
             onSubmit={handleSubmit}
             style={{

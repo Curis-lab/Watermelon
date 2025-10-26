@@ -25,7 +25,7 @@ const EventDescriptionLayout = styled(Box)(({ theme }) => ({
 
 const EventDiscoveryPage = () => {
   const { id } = useParams<{ id: string }>();
-  const { eventDefination, loading } = useEvent(id);
+  const { eventDefination, loading } = useEvent(id as string);
 
   if (loading) {
     return <div>...Loading</div>;
@@ -33,21 +33,21 @@ const EventDiscoveryPage = () => {
 
   const c = {
     event: {
-      name: eventDefination.name,
-      description: eventDefination.description,
-      imgURL: eventDefination.imageUrl,
+      name: eventDefination?.name,
+      description: eventDefination?.description,
+      imgURL: eventDefination?.imageUrl,
       time: "Sunday, March 30, 2025, 8:15 to 10:15PM MMT every week on Sunday",
     },
     organizer: {
-      name: eventDefination?.hostedBy.name,
+      name: eventDefination?.hostedBy?.name,
       company: "Google",
       position: "Senior Web developer",
-      url: eventDefination?.hostedBy.profileImage,
+      url: eventDefination?.hostedBy?.profileImage,
     },
     speaker: {
-      name: eventDefination?.hostedBy.name,
+      name: eventDefination?.hostedBy?.name,
       company: "Facebook",
-      url: eventDefination?.hostedBy.profileImage,
+      url: eventDefination?.hostedBy?.profileImage,
       position: "Senior Web Engineer",
     },
   };
@@ -65,7 +65,11 @@ const EventDiscoveryPage = () => {
           {c.event.name}
         </Typography>
 
-        <UserInfo profile={c.organizer}>
+        <UserInfo profile={{
+          name:"file",
+          position: 'name',
+          company: 'name'
+        }}>
           <UserInfo.Description />
           <UserInfo.Name />
         </UserInfo>
@@ -91,11 +95,15 @@ const EventDiscoveryPage = () => {
 
           <ContentSection
             title="Description"
-            description={c.event.description}
+            description="title"
           />
           <Box sx={{ display: "flex" }}>
             <Typography>Speaker:</Typography>
-            <UserInfo profile={c.speaker}>
+            <UserInfo profile={{
+              name:'tuntunt',
+              position: 'dev',
+              company: 'google'
+            }}>
               <UserInfo.Name />
               <UserInfo.Description />
             </UserInfo>

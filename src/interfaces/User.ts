@@ -1,0 +1,48 @@
+/**
+ * 
+token
+: 
+"mock-jwt-token"
+user
+: 
+{_id: "68dc91305921f4c08d36fd59", name: "string", email: "user@example.com",…}
+availability
+: 
+true
+bio
+: 
+"No bio"
+createdAt
+: 
+"2025-10-01T02:25:52.243Z"
+email
+: 
+"user@example.com"
+expertise
+: 
+"No expertise"
+isMfaActive
+: 
+false
+name
+: 
+"string"
+password
+: 
+"$2b$10$fcbqwjZFPixcK.A0XI2jT.Hx093tbgOaqGiYix4dteHYKWSgkQSnm"
+profileImage
+: 
+"https://img.freepik.com/free-vector/smiling-young-man-illustration_1308-174669.jpg?semt=ais_hybrid&w=740"
+role
+: 
+"attendee"
+updatedAt
+: 
+"2025-10-01T02:25:52.243Z"
+__v
+: 
+0
+_id
+: 
+"68dc91305921f4c08d36fd59"
+ */

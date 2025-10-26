@@ -10,7 +10,7 @@ import {
   List,
   ListItem,
 } from "@mui/material";
-import React, { useState } from "react";
+import { useState } from "react";
 import { Menu, Close, Home } from "@mui/icons-material";
 import UserInfo from "../../molecules/UserInfo/UserInfo";
 import MetadataCard from "../../organisms/MetadataCard/MetadataCard";
@@ -68,7 +68,13 @@ const StyledLinked = styled(Link)({
 const MobileTemplate = () => {
   return (
     <List>
-      <UserInfo>
+      <UserInfo
+        profile={{
+          name: "",
+          company: "",
+          position: "",
+        }}
+      >
         <UserInfo.Name />
         <UserInfo.Description />
       </UserInfo>

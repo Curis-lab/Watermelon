@@ -1,7 +1,7 @@
 import { memo } from "react";
 import EventCard from "../../organisms/EventCard";
-import { Event } from "../../../types/Event";
 import { styled } from "@mui/material";
+import { IEvent } from "../../../interfaces/Event";
 
 const StyledEventList = styled("div")(({ theme }) => ({
   display: "grid",
@@ -15,7 +15,7 @@ const StyledEventList = styled("div")(({ theme }) => ({
   },
 }));
 
-const EventList = ({ events }: { events: Event[] }) => {
+const EventList = ({ events }: { events: IEvent[] }) => {
   return (
     <StyledEventList>
       {events && events.map((e, idx) => <EventCard key={idx} props={e} />)}

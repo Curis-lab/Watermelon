@@ -1,7 +1,12 @@
 import { Alert, Box } from "@mui/material";
-import React from "react";
 
-function Retry({ error, refetch }: { error: string; refetch: () => void }) {
+function Retry({
+  error,
+  refetch,
+}: {
+  error: null | Error;
+  refetch: () => void;
+}) {
   return (
     <Box
       sx={{
@@ -27,7 +32,7 @@ function Retry({ error, refetch }: { error: string; refetch: () => void }) {
           </button>
         }
       >
-        {error}
+        {typeof error === "string" ? error : ""}
       </Alert>
     </Box>
   );
