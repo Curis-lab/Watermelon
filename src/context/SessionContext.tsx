@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import {  SessionContext } from "../hooks/useSession";
+import { SessionContext } from "../hooks/useSession";
 import { IMentor } from "../interfaces/Mentor";
 
-export interface IUserLogin{
-  name:string;
-  email:string;
-  password:string;
+export interface IUserLogin {
+  name: string;
+  email: string;
+  password: string;
 }
 export const SessionProvider = ({
   children,
@@ -13,11 +13,13 @@ export const SessionProvider = ({
   children: React.ReactNode;
 }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState<IMentor|null>(null);
+  const [user, setUser] = useState<IMentor | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const { data } = JSON.parse(sessionStorage.getItem("user") as string || "{}");
+    const { data } = JSON.parse(
+      (sessionStorage.getItem("user") as string) || "{}"
+    );
 
     if (data) {
       setUser(data.user);
@@ -26,12 +28,12 @@ export const SessionProvider = ({
     setLoading(false);
   }, []);
 
-  const login = (userData:IUserLogin) => {
+  const login = (userData: IUserLogin) => {
     setIsLoggedIn(true);
     setUser(user);
     sessionStorage.setItem("user", JSON.stringify(userData));
   };
-  const logout = () :void => {
+  const logout = (): void => {
     if (user) {
       setIsLoggedIn(false);
       setUser(null);

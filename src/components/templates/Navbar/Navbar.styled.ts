@@ -9,10 +9,11 @@ export const NavbarWrapper = styled("div")(({ theme }) => ({
   top: 0,
   left: 0,
   zIndex: 1000,
-  backgroundColor: '#fff',
+  backgroundColor: '#c5c5c4',
   paddingInline: theme.spacing(2),
   [theme.breakpoints.up('md')]:{   
     paddingInline: theme.spacing(12),
   },
-  minWidth: '100vw'
+  minWidth: '100vw',
+  paddingBlock: '2px'
 }));

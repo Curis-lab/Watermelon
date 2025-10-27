@@ -17,6 +17,7 @@ import MetadataCard from "../../organisms/MetadataCard/MetadataCard";
 import useRegisterModal from "../../../hooks/useRegisterModal";
 import useAuthInfo from "../../../hooks/api/getters/useAuthInfo/useAuthInfo";
 import { ProfilePopup } from "../../atoms/PopOver/PopOver";
+import ShinyButton from "../../atoms/Bottom/Funcy/Shiny/ShinyButton";
 
 const StyledProfileContainer = styled("div")({
   position: "relative",
@@ -42,19 +43,7 @@ const StyledShowProfileContainer = styled("div")(({ theme }) => ({
   },
 }));
 
-const StyledLoginBtn = styled("div")`
-  border-radius: 20px;
-  width: 100px;
-  text-align: center;
-  padding-block: ${({ theme }) => theme?.spacing(1) || "8px"};
-  padding-inline: ${({ theme }) => theme?.spacing(2) || "16px"};
-  font-size: ${({ theme }) => theme?.typography?.h3?.fontSize || "1.5rem"};
-  font-weight: ${({ theme }) => theme?.typography?.fontWeightBold || "bold"};
-  cursor: pointer;
-  &:hover {
-    color: "#fff";
-  }
-`;
+
 const StyledLinked = styled(Link)({
   textDecoration: "none",
   color: "#000",
@@ -109,9 +98,7 @@ const Navbar = () => {
         {isLoggedIn ? (
           <UserProfile />
         ) : (
-          <StyledLoginBtn onClick={() => registerModal.onOpen()}>
-            Login
-          </StyledLoginBtn>
+          <ShinyButton handleClick={()=>registerModal.onOpen()}/>
         )}
       </StyledShowProfileContainer>
       <Box sx={{ display: { xs: "flex", md: "none" } }}>
