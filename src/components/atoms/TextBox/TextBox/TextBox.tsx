@@ -9,12 +9,13 @@ interface IProperties {
   name: string;
   label: string;
   helperText?: string;
+  error?: boolean;
   type?: string;
-  multiline?:boolean
-  rows?:number
+  multiline?: boolean;
+  rows?: number;
 }
 
-function TextBox({ properties}: { properties: IProperties}) {
+function TextBox({ properties }: { properties: IProperties }) {
   return (
     <TextField
       {...properties}

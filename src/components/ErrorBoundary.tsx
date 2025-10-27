@@ -1,3 +1,4 @@
+import { Button } from "@mui/material";
 import React, { ErrorInfo, ReactNode } from "react";
 
 interface Props {
@@ -25,6 +26,7 @@ class ErrorBoundary extends React.Component<Props, State> {
         <div style={{ textAlign: "center", marginTop: "20%" }}>
           <h1 style={{ color: "#ff0000" }}>Oops! Something went wrong.</h1>
           <p>We're working on getting this fixed as soon as we can.</p>
+          <Button onClick={()=>{}}>Retry</Button>
         </div>
       );
     }

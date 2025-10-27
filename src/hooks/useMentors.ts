@@ -1,21 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { apiRequest } from "../lib/api/apiclient";
 import API_ENDPOINTS from "../lib/api/apiendpoints";
-
-interface IMentor {
-  _id: string;
-  name: string;
-  email: string;
-  password: string;
-  bio: string;
-  expertise: string;
-  availability: boolean;
-  profileImage: string;
-  role: string;
-  createdAt: string;
-  updatedAt: string;
-  __v: number;
-}
+import { IMentor } from "../interfaces/Mentor";
 
 interface UseMentorsReturn {
   mentors: IMentor[];

@@ -2,21 +2,8 @@ import { Box, styled } from "@mui/material";
 import MentorCard from "../../organisms/MentorCard/MentorCard";
 import { useNavigate } from "react-router-dom";
 import Loading from "../../common/Loading";
+import {IMentor} from '../../../interfaces/Mentor';
 
-interface IMentor {
-  _id: string;
-  name: string;
-  email: string;
-  password: string;
-  bio: string;
-  expertise: string;
-  availability: boolean;
-  profileImage: string;
-  role: string;
-  createdAt: string;
-  updatedAt: string;
-  __v: number;
-}
 const StyledCardController = styled("div")(({ theme }) => ({
   display: "grid",
   gap: "15px",

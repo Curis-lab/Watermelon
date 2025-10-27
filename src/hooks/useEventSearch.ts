@@ -2,16 +2,8 @@ import { useState, useEffect, useCallback } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { apiRequest } from "../lib/api/apiclient";
 import API_ENDPOINTS from "../lib/api/apiendpoints";
+import {IEvent} from '../interfaces/Event';
 
-interface IEvent {
-  _id: string;
-  name: string;
-  date: string;
-  location: string;
-  description: string;
-  imageUrl: string;
-  attendees: string[];
-}
 interface UseEventSearchProps {
   initialPage?: number;
   initialLimit?: number;

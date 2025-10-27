@@ -1,5 +1,6 @@
 import { Box } from "@mui/material";
 import ProfileBanner from "../../molecules/ProfileBanner/ProfileBanner";
+import { TRoles } from "../../../types/role";
 
 interface IMentorProfileHeader {
   navigator: (path: string) => void;
@@ -7,7 +8,7 @@ interface IMentorProfileHeader {
   imgURL?: string;
   company?: string;
   name?: string;
-  role?: string;
+  role?: TRoles;
 }
 
 function MentorProfileHeader(props: IMentorProfileHeader) {

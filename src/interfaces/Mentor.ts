@@ -1,4 +1,4 @@
-
+import { TRoles } from "../types/role";
 
 export interface IMentor {
   _id: string;
@@ -9,7 +9,7 @@ export interface IMentor {
   expertise: string;
   availability: boolean;
   profileImage: string;
-  role: string;
+  role: TRoles;
   createdAt: string;
   updatedAt: string;
   __v: number;

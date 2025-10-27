@@ -17,7 +17,7 @@ export const SessionProvider = ({
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const { data } = JSON.parse(sessionStorage.getItem("user") as string);
+    const { data } = JSON.parse(sessionStorage.getItem("user") as string || "{}");
 
     if (data) {
       setUser(data.user);

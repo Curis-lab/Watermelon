@@ -1,17 +1,19 @@
+import { TRoles } from "../types/role";
+
 interface OnboardingFormData {
   name: string;
   email: string;
   password: string;
-  role: string;
+  role: TRoles;
   bio: string;
   availability: boolean;
   expertise: string;
 }
 interface EventFormData {
-    name:string;
-    description:string;
-    date: Date;
-    location:string;
+  name: string;
+  description: string;
+  date: Date;
+  location: string;
 }
 export const createFormData = (
   formData: OnboardingFormData | EventFormData | undefined,
