@@ -1,8 +1,8 @@
 import { Box, styled } from "@mui/material";
 import MentorCard from "../../organisms/MentorCard/MentorCard";
 import { useNavigate } from "react-router-dom";
-import Loading from "../../common/Loading";
-import {IMentor} from '../../../interfaces/Mentor';
+import { IMentor } from "../../../interfaces/Mentor";
+import componentWithLoading from "../../common/componentWithLoading";
 
 const StyledCardController = styled("div")(({ theme }) => ({
   display: "grid",
@@ -30,34 +30,34 @@ const StyledCardController = styled("div")(({ theme }) => ({
   },
 }));
 
+function MentorList({ mentors }: { mentors: IMentor[] }) {
+  const navigate = useNavigate();
+  return (
+    <StyledCardController>
+      <>
+        {/* list will display even data is not complete */}
+        {mentors.map((mentor) => (
+          <MentorCard
+            key={mentor._id}
+            {...mentor}
+            loading={true}
+            navigator={(route) => navigate(route)}
+          />
+        ))}
+      </>
+    </StyledCardController>
+  );
+}
 function MentorTemplate({
   mentors,
   isLoading,
 }: {
-  //this Imentor should be clean
   mentors: IMentor[];
   isLoading: boolean;
 }) {
-  const navigate = useNavigate();
   return (
     <Box sx={{ minHeight: "100vh", height: "80vh" }}>
-      {isLoading ? (
-        <Loading />
-      ) : (
-        <StyledCardController>
-          <>
-            {/* list will display even data is not complete */}
-            {mentors.map((mentor) => (
-              <MentorCard
-                key={mentor._id}
-                {...mentor}
-                loading={true}
-                navigator={(route) => navigate(route)}
-              />
-            ))}
-          </>
-        </StyledCardController>
-      )}
+      {componentWithLoading(MentorList)({ loading: isLoading, mentors })}
     </Box>
   );
 }

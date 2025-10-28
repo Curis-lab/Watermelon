@@ -20,6 +20,8 @@ interface SearchState {
   searchQuery: string;
 }
 
+
+//there is so much parameter
 interface UseEventSearchReturn extends SearchState {
   // Setters
   setPage: (page: number) => void;
@@ -40,6 +42,8 @@ interface UseEventSearchReturn extends SearchState {
   handleLocationSelect: (selectedLocation: string) => void;
   handleEventSelect: (eventId: string) => void;
 }
+
+
 
 export const useEventSearch = ({
   initialPage = 1,

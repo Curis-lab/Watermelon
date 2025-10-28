@@ -66,7 +66,6 @@ export default function VerticalTabs() {
           textAlign: "start",
           fontWeight: '500',
           textTransform: 'lowercase',
-          background: '#f00'
         }}
         label="Organizer Profile Information" {...a11yProps(0)} />
         <Tab
@@ -74,7 +73,6 @@ export default function VerticalTabs() {
           // textAlign: "start",
           fontWeight: '500',
           textTransform: 'lowercase',
-          background: '#f00'
         }}
         label="Account Settings" {...a11yProps(1)} />
         <Tab

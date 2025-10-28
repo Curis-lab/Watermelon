@@ -5,8 +5,8 @@ import { usePagination } from "../../../hooks/usePagination";
 // import { DayPicker } from "react-day-picker";
 import "react-day-picker/style.css";
 import useAuthInfo from "../../../hooks/api/getters/useAuthInfo/useAuthInfo";
-import Loading from "../../common/Loading";
 import { IEvent } from "../../../interfaces/Event";
+import componentWithLoading from "../../common/componentWithLoading";
 
 const StyledEventsLayout = styled("div")(({ theme }) => ({
   [theme.breakpoints.up('md')]:{}
@@ -95,7 +95,7 @@ function EventTemplate({ events, loading }: IEventTemplate) {
             }
           />
         </StyledFeatureLayout> */}
-        {loading ? <Loading size="md" /> : <EventList events={events} />}
+        {componentWithLoading<{events:IEvent[]}>(EventList)({loading, events})}
       </StyledEventAndCalendarLayout>
     </StyledEventsLayout>
   );

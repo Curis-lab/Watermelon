@@ -30,4 +30,6 @@ function Loading({ size = "lg" }: LoadingProps) {
   );
 }
 
+
+
 export default Loading;

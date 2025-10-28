@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Avatar, Divider, Popover } from "@mui/material";
+import { Avatar, Divider, IconButton, Popover } from "@mui/material";
 import { Link } from "react-router-dom";
 
 export const ProfilePopup = () => {
@@ -20,12 +20,15 @@ export const ProfilePopup = () => {
   const id = open ? "simple-popover" : undefined;
   return (
     <div>
-      <Avatar
+      <IconButton
+      onClick={handleClick}
+      aria-describedby={id}
+      >
+        <Avatar
         alt="user profile iamge"
         src="https://cdn.dribbble.com/userupload/15513631/file/original-5bcae1f588c45e3ce423136072afe2a8.jpg?format=webp&resize=400x300&vertical=center"
-        aria-describedby={id}
-        onClick={()=>handleClick}
       />
+      </IconButton>
       <Popover
         id={id}
         open={open}
