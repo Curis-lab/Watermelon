@@ -1,14 +1,11 @@
 import { useMentors } from "../../../hooks/useMentors";
-import Retry from "../../common/Retry";
 import MentorTemplate from "../../templates/MentorTemplate/MentorTemplate";
 
 const Mentors = () => {
-  const { mentors, loading, error, status } = useMentors();
-
-  if (status === "error") {
-    <Retry error={error} refetch={() => {}} />;
+  const { mentors, loading } = useMentors();
+  if (!mentors) {
+    return null;
   }
-
   return <MentorTemplate isLoading={loading} mentors={mentors} />;
 };
 

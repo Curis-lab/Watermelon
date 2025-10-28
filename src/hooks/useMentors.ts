@@ -3,37 +3,27 @@ import { apiRequest } from "../lib/api/apiclient";
 import API_ENDPOINTS from "../lib/api/apiendpoints";
 import { IMentor } from "../interfaces/Mentor";
 
-interface UseMentorsReturn {
-  mentors: IMentor[];
-  loading: boolean;
-  error: Error | null;
-  status: "loading" | "error" | "success" | "pending";
-}
-
-export const useMentors = (): UseMentorsReturn => {
+export const useMentors = () => {
   const {
     data: mentors,
     isLoading,
     error,
-    status,
   } = useQuery({
     queryKey: ["mentors"],
     queryFn: () => fetcher(),
-    staleTime: 600000,
   });
-
+  
   return {
-    mentors: mentors || [],
+    mentors: mentors,
     loading: isLoading,
     error,
-    status,
   };
 };
 
-const fetcher = async () => {
-  const { data } = await apiRequest<{ data: Array<IMentor> }>({
+async function  fetcher():Promise<IMentor[]> {
+  const body = await apiRequest<{ data:IMentor[] }>({
     url: `${API_ENDPOINTS.mentors.getAll}`,
   });
 
-  return data;
+  return body.data;
 };

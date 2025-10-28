@@ -1,19 +1,11 @@
-import { Box, styled, Typography } from "@mui/material";
+import { Box, Skeleton,Typography } from "@mui/material";
 import { ChatBubbleOutline, WorkOutline } from "@mui/icons-material";
 import ContentHeader from "../../molecules/ContentHeader/ContentHeader";
 import IconDescription from "../../molecules/IconDescription/IconDescription";
+import React from "react";
+import { StyledMentorCardContainerBox } from "./MentorCard.style";
 
-const StyledContainerBox = styled("div")({
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "space-between",
-  backgroundColor: "rgba(255, 255, 255)",
-  padding: "8px",
-  transition: "opacity 0.3s",
-  borderRadius: "4px",
-  minWidth: "100%",
-  minHeight: "100%",
-});
+
 type StateItemProps = { label: string; value: string };
 const StateItem = ({ label, value }: StateItemProps) => (
   <Box>
@@ -27,12 +19,22 @@ type MentorCardProps = {
   _id: ids;
   name: string;
   navigator: (route: string) => void;
-  loading:boolean
+  loading: boolean;
 };
+
+function skeletonWrapper<T>(Component: React.ComponentType<T>) {
+  return ({ loading, ...props }: { loading: boolean } & T) =>
+    loading ? (
+      <Skeleton variant="rectangular" width="100%" height="auto" />
+    ) : (
+      <Component {...(props as React.JSX.Element & T)} />
+    );
+}
+
 
 function MentorCard({ _id, name, navigator }: MentorCardProps) {
   return (
-    <StyledContainerBox
+    <StyledMentorCardContainerBox
       onClick={() => navigator(`/mentor/${_id}`)}
       onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.8")}
       onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
@@ -82,11 +84,14 @@ function MentorCard({ _id, name, navigator }: MentorCardProps) {
             borderRadius: "3px",
           }}
         >
-          <StateItem {...{ label: "Experiences", value: "4 years" }} />
+          {skeletonWrapper(StateItem)({
+            loading: true,
+            ...{ label: "Sessions", value: "100%" },
+          })}
           <StateItem {...{ label: "Avg.Attendees", value: "100%" }} />
         </div>
       </div>
-    </StyledContainerBox>
+    </StyledMentorCardContainerBox>
   );
 }
 

@@ -1,53 +1,49 @@
-import { Box, styled } from "@mui/material";
-import MentorCard from "../../organisms/MentorCard/MentorCard";
+import React from "react";
+import { Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { IMentor } from "../../../interfaces/Mentor";
-import componentWithLoading from "../../common/componentWithLoading";
+import { StyledMentorCardLayoutController } from "./MentorTemplate.style";
+import { MentorCardSkeletion } from "../../molecules/Skeletons/MentorCardSkeleton/MentorCardSkeleton";
+import MentorCard from "../../organisms/MentorCard/MentorCard";
 
-const StyledCardController = styled("div")(({ theme }) => ({
-  display: "grid",
-  gap: "15px",
-  /**
-   * sm: 600px
-   */
-  [theme.breakpoints.up("sm")]: {
-    gridTemplateColumns: "repeat(2, 1fr)",
-  },
-  /**
-   * md: 960px
-   */
-  [theme.breakpoints.up("md")]: {
-    paddingOutlined: "10px",
-    gridTemplateColumns: "repeat(3, 1fr)",
-  },
-  /**
-   * lg: 1280px
-   */
-  [theme.breakpoints.up("lg")]: {
-    paddingInline: "20px",
-    gridTemplateColumns: "repeat(4, 1fr)",
-    gridAutoRows: "370px",
-  },
-}));
+function LoadingAllCardDisplay() {
+  return <>{Array(8).fill(<MentorCardSkeletion />)}</>;
+}
+
+function commonLoadingTemplate<TComponentProps>(
+  SkeletonTemplate: React.ComponentType
+) {
+  return (ComponentTemplate: React.ComponentType<TComponentProps>) =>
+    ({
+      loadingStatus,
+      ...props
+    }: { loadingStatus: boolean } & TComponentProps) =>
+      loadingStatus ? (
+        <SkeletonTemplate />
+      ) : (
+        <ComponentTemplate
+          {...(props as React.JSX.Element & TComponentProps)}
+        />
+      );
+}
 
 function MentorList({ mentors }: { mentors: IMentor[] }) {
   const navigate = useNavigate();
+
   return (
-    <StyledCardController>
-      <>
-        {/* list will display even data is not complete */}
-        {mentors.map((mentor) => (
-          <MentorCard
-            key={mentor._id}
-            {...mentor}
-            loading={true}
-            navigator={(route) => navigate(route)}
-          />
-        ))}
-      </>
-    </StyledCardController>
+    <>
+      {mentors.map((mentor) => (
+        <MentorCard
+          key={mentor._id}
+          {...mentor}
+          loading={true}
+          navigator={(route) => navigate(route)}
+        />
+      ))}
+    </>
   );
 }
+
 function MentorTemplate({
   mentors,
   isLoading,
@@ -57,7 +53,14 @@ function MentorTemplate({
 }) {
   return (
     <Box sx={{ minHeight: "100vh", height: "80vh" }}>
-      {componentWithLoading(MentorList)({ loading: isLoading, mentors })}
+      <StyledMentorCardLayoutController>
+        {commonLoadingTemplate<{ mentors: IMentor[] }>(LoadingAllCardDisplay)(
+          MentorList
+        )({
+          loadingStatus: isLoading || !Array.isArray(mentors),
+          mentors: mentors,
+        })}
+      </StyledMentorCardLayoutController>
     </Box>
   );
 }
