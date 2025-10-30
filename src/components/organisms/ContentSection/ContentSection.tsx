@@ -1,12 +1,11 @@
 import { Box, Typography } from "@mui/material";
 
-function ContentSection({
-  title,
-  description,
-}: {
+interface IContentSection {
   title: string;
   description: string;
-}) {
+}
+
+function ContentSection({ title, description }: IContentSection) {
   return (
     <Box
       sx={{

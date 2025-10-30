@@ -6,7 +6,7 @@ export const CreateEvent = lazy(() => import("./CreateEvent"));
 export const EventDiscoveryPage = lazy(() => import("./EventDiscoveryPage"));
 export const Events = lazy(() => import("./Events"));
 export const Home = lazy(() => import("./HomePage"));
-export const MentorProfile = lazy(() => import("./MentorProfile"));
+export const DisplayProfile = lazy(() => import("./DisplayProfile"));
 export const Mentors = lazy(() => import("./Mentors"));
 export const NotFoundPage = lazy(() => import("./NotFoundPage"));
 export const Onboarding = lazy(() => import("./Onboarding"));

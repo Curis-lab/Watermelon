@@ -1,7 +1,6 @@
 import React, { createContext, useContext } from "react";
-import { Box, Chip, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import ProfileAvatar from "../../atoms/avatars";
-import { PersonPinCircle } from "@mui/icons-material";
 
 type ProfileBannerContent = {
   profile: IProfileBanner;
@@ -21,20 +20,42 @@ function useProfileCardContext() {
   return context.profile;
 }
 
-interface IProfileBanner {
-  imgURL?: string;
-  name?: string;
-  role?: string;
-  expertises?: string[];
-  company?: string;
-  location?:string;
-  children?: React.ReactNode;
-  title:string;
+interface IMentorProfileHeader {
+  profilePic: string;
+  name: string;
+  headline: string;
+  starRating: string;
+  sessionInfo: string;
+  ctaButton: "Book a Session";
+  quickActions: string[];
 }
 
-function ProfileBanner(props: IProfileBanner) {
+interface IMemberProfileHeader {
+  profilePic: string;
+  tagline: string;
+  memberSince: Date | string;
+  engagementLevel: "active_member" | "new_member";
+  lookingFor: string;
+  name: string;
+}
+
+export interface IOrganizerProfileHeader {
+  profilePic: string;
+  name: string;
+  hostBadge: string;
+  tagline: string;
+  verified: boolean;
+  memberSatisfication: string;
+}
+
+export type IProfileBanner =
+  | IMemberProfileHeader
+  | IOrganizerProfileHeader
+  | IMentorProfileHeader;
+
+function ProfileBanner(props: IProfileBanner & { children: React.ReactNode }) {
   return (
-    <ProfileCardContext.Provider value={{profile:props}}>
+    <ProfileCardContext.Provider value={{ profile: props }}>
       <Box
         sx={{
           display: "flex",
@@ -43,8 +64,8 @@ function ProfileBanner(props: IProfileBanner) {
       >
         <ProfileAvatar
           imageurl={
-            props.imgURL
-              ? props.imgURL
+            props.profilePic
+              ? props.profilePic
               : "https://www.perfocal.com/blog/content/images/2021/01/Perfocal_17-11-2019_TYWFAQ_100_standard-3.jpg"
           }
           size="lg"
@@ -61,79 +82,80 @@ function ProfileBanner(props: IProfileBanner) {
           {props.children}
         </Box>
       </Box>
+      <Box>hello</Box>
     </ProfileCardContext.Provider>
   );
 }
 
-const JobTitle = () => {
-  const { title } = useProfileCardContext();
-  return <Typography variant="body2">{title}</Typography>;
-};
-
-const Location = () => {
-  const { location } = useProfileCardContext();
-
-  return (
-    <Box
-      sx={{
-        display: "flex",
-        alignItems: "center",
-      }}
-    >
-      <PersonPinCircle />
-      <Typography variant="body2">{location}</Typography>
-    </Box>
-  );
-};
-
-const ExpertiseTags = () => {
-  const { expertises } = useProfileCardContext();
-  return (
-    <Box
-      sx={{
-        display: "flex",
-        gap: "3px",
-        flexWrap: "wrap",
-      }}
-    >
-      {expertises &&
-        expertises.map((v, idx) => (
-          <Chip key={idx} size="small" label={v} />
-        ))}
-    </Box>
-  );
-};
-
-const RoleBadge = () => {
-  const { role } = useProfileCardContext();
-  return <Chip color="primary" label={role} />;
+/** mentor's components */
+const Headline = () => {
+  const { headline } = useProfileCardContext() as IMentorProfileHeader;
+  return <Typography variant="body2">{headline}</Typography>;
 };
 
 const Rating = () => {
-  return <div>Rating</div>;
-};
-const VerifiedBadge = () => {
-  return <div>Varified</div>;
-};
-const Joined = () => {
-  return <div>Joined</div>;
+  const { starRating } = useProfileCardContext() as IMentorProfileHeader;
+  return <Typography>{starRating}</Typography>;
 };
 
 const SessionCompleted = () => {
-  return <div>Session Completed</div>;
+  const { sessionInfo } = useProfileCardContext() as IMentorProfileHeader;
+  return <Typography>{sessionInfo}</Typography>;
 };
-const ResponseTime = () => {
-  return <div>ResponseTime</div>;
+/** end of mentor's components */
+
+/**member's components */
+const Tagline = () => {
+  const { tagline } = useProfileCardContext() as IMemberProfileHeader;
+  return <div>{tagline}</div>;
+};
+const Joined = () => {
+  const { memberSince } = useProfileCardContext() as IMemberProfileHeader;
+  return <div>{` ${memberSince}`}</div>;
 };
 
-ProfileBanner.JobTitle = JobTitle;
-ProfileBanner.Location = Location;
-ProfileBanner.ExpertiseTags = ExpertiseTags;
-ProfileBanner.RoleBadge = RoleBadge;
+const EngagementLevel = () => {
+  const { engagementLevel } = useProfileCardContext() as IMemberProfileHeader;
+  return <div>{engagementLevel}</div>;
+};
+const LookingFor = () => {
+  const { lookingFor } = useProfileCardContext() as IMemberProfileHeader;
+  return <div>{lookingFor}</div>;
+};
+
+/** end of member's components */
+
+/** start of organizer */
+const HostBadge = () => {
+  const { hostBadge } = useProfileCardContext() as IOrganizerProfileHeader;
+  return <div>{hostBadge}</div>;
+};
+
+const Verified = () => {
+  const { verified } = useProfileCardContext() as IOrganizerProfileHeader;
+  return <div>{verified}</div>;
+};
+const MemberSatisfaction = () => {
+  const { memberSatisfication } =
+    useProfileCardContext() as IOrganizerProfileHeader;
+  return <div>{memberSatisfication}</div>;
+};
+/** end of organizer */
+
+ProfileBanner.Headline = Headline;
 ProfileBanner.Rating = Rating;
-ProfileBanner.Joined = Joined;
 ProfileBanner.SessionCompleted = SessionCompleted;
-ProfileBanner.ResponseTime = ResponseTime;
-ProfileBanner.VerfriedBadge = VerifiedBadge;
+
+/**member's */
+
+ProfileBanner.Joined = Joined;
+ProfileBanner.Tagline = Tagline;
+ProfileBanner.EngagementLevel = EngagementLevel;
+ProfileBanner.LookingFor = LookingFor;
+
+/** organizer */
+ProfileBanner.Verified = Verified;
+ProfileBanner.HostBadge = HostBadge;
+ProfileBanner.MemberSatisfaction = MemberSatisfaction;
 
 export default ProfileBanner;

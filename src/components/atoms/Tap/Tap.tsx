@@ -1,74 +1,74 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
+import * as React from "react";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Box from "@mui/material/Box";
 
-function samePageLinkNavigation(
-  event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
-) {
-  if (
-    event.defaultPrevented ||
-    event.button !== 0 || // ignore everything but left-click
-    event.metaKey ||
-    event.ctrlKey ||
-    event.altKey ||
-    event.shiftKey
-  ) {
-    return false;
-  }
-  return true;
+interface TabPanelProps {
+  children?: React.ReactNode;
+  index: number;
+  value: number;
 }
 
-interface LinkTabProps {
-  label?: string;
-  href?: string;
-  selected?: boolean;
-}
+function CustomTabPanel(props: TabPanelProps) {
+  const { children, value, index, ...other } = props;
 
-function LinkTab(props: LinkTabProps) {
   return (
-    <Tab
-      component="a"
-      onClick={(event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
-        // Routing libraries handle this, you can remove the onClick handle when using them.
-        if (samePageLinkNavigation(event)) {
-          event.preventDefault();
-        }
-      }}
-      aria-current={props.selected && 'page'}
-      {...props}
-    />
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
+    </div>
   );
 }
 
-export default function MUITabs() {
+function a11yProps(index: number) {
+  return {
+    id: `simple-tab-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
+  };
+}
+
+export default function MUITabs(props: Record<string, React.ReactNode>) {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    // event.type can be equal to focus with selectionFollowsFocus.
-    if (
-      event.type !== 'click' ||
-      (event.type === 'click' &&
-        samePageLinkNavigation(
-          event as React.MouseEvent<HTMLAnchorElement, MouseEvent>,
-        ))
-    ) {
-      setValue(newValue);
-    }
+    setValue(newValue);
+    console.log(event);
   };
 
   return (
-    <Box sx={{ width: '100%' }}>
-      <Tabs
-        value={value}
-        onChange={handleChange}
-        aria-label="nav tabs example"
-        role="navigation"
-      >
-        <LinkTab label="Page One" href="/drafts" />
-        <LinkTab label="Page Two" href="/trash" />
-        <LinkTab label="Page Three" href="/spam" />
-      </Tabs>
+    <Box sx={{ width: "100%" }}>
+      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          aria-label="basic tabs example"
+        >
+          {Object.keys({ ...props }).map((label, idx) => (
+            <Tab
+              label={label}
+              key={idx}
+              {...a11yProps(idx)}
+              sx={{
+                textTransform: "capitalize",
+                letterSpacing: "0.5px",
+                fontSize: "15px",
+                fontWeight: "500",
+                color: "#333",
+              }}
+            />
+          ))}
+        </Tabs>
+      </Box>
+      {Object.values({ ...props }).map((children, idx) => (
+        <CustomTabPanel key={idx} value={value} index={idx}>
+          {children}
+        </CustomTabPanel>
+      ))}
     </Box>
   );
 }

@@ -26,7 +26,7 @@ export const theme = createTheme({
     reverseFooter: "inset 0px -2px 4px rgba(32, 32, 33, 0.05)",
   },
   typography: {
-    fontFamily: "Sen, Roboto, sans-serif",
+    fontFamily: "sans-serif",
     fontWeightBold: "700",
     fontWeightMedium: "700",
     allVariants: { lineHeight: 1.4 },

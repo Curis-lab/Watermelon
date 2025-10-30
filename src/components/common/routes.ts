@@ -11,7 +11,7 @@ import {
   ProfileSetup,
   Events,
   Mentors,
-  MentorProfile,
+  DisplayProfile,
   Settings,
 } from "../pages";
 import { IRoute } from "../../interfaces/Route";
@@ -67,8 +67,8 @@ export const routes: IRoute[] = [
   },
   {
     path: "/mentor/:id",
-    title: "Mentor Profile",
-    component: MentorProfile,
+    title: "Display Profile",
+    component: DisplayProfile,
     type: "unproteted",
     menu: {},
     isStandalone: true,

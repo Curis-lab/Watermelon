@@ -8,11 +8,12 @@ import {
   Tooltip,
 } from "@mui/material";
 import React from "react";
-import ProfileBanner from "../../molecules/ProfileBanner/ProfileBanner";
+// import ProfileBanner from "../../molecules/ProfileBanner/ProfileBanner";
 import { Add, LinkedIn, Settings } from "@mui/icons-material";
 import ReviewCard from "../../organisms/ReviewCard/ReviewCard";
 import { useNavigate } from "react-router-dom";
 import RoundedButton from "../../atoms/Bottom/RoundedBottom";
+
 
 interface TabPanelProps<T> {
   children?: React.ReactNode;
@@ -87,7 +88,7 @@ function a11yProps(index: number) {
 }
 
 function ProfileTemplate() {
-  //!only for authentaiction variable
+
   const role = "organizer";
 
   const [value, setValue] = React.useState(0);
@@ -119,7 +120,7 @@ function ProfileTemplate() {
           justifyContent: "space-between",
         }}
       >
-        <ProfileBanner
+        {/* <ProfileBanner
           {...{
             name: "Min Min",
             title: "Seniro UX Designer at Tech Coorporate, France",
@@ -136,9 +137,9 @@ function ProfileTemplate() {
           }}
         >
           <ProfileBanner.JobTitle />
-          <ProfileBanner.ExpertiseTags />
+          <ProfileBaPnner.ExpertiseTags />
           <ProfileBanner.Location />
-        </ProfileBanner>
+        </ProfileBanner> */}
         <Box
           sx={{
             padding: "15px",

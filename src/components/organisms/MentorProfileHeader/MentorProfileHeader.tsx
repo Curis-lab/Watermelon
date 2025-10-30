@@ -3,15 +3,42 @@ import ProfileBanner from "../../molecules/ProfileBanner/ProfileBanner";
 import { TRoles } from "../../../types/role";
 
 interface IMentorProfileHeader {
-  navigator: (path: string) => void;
-  expertise?: string[]|string;
-  imgURL?: string;
-  company?: string;
-  name?: string;
-  role?: TRoles;
+  profilePic: string;
+  name: string;
+  headline: string;
+  starRating: string;
+  sessionInfo: string;
+  ctaButton: "Book a Session";
+  quickActions: string[];
 }
 
-function MentorProfileHeader(props: IMentorProfileHeader) {
+interface IMemberProfileHeader {
+  profilePic: string;
+  tagline: string;
+  memberSince: Date | string;
+  engagementLevel: "active_member" | "new_member";
+  lookingFor: string;
+  name: string;
+}
+
+interface IOrganizerProfileHeader {
+  profilePic: string;
+  name: string;
+  hostBadge: string;
+  tagline: string;
+  verified: boolean;
+  memberSatisfication: string;
+}
+
+interface IMentorProfileHeaderProps {
+  userInfo?:
+    | IMemberProfileHeader
+    | IOrganizerProfileHeader
+    | IMentorProfileHeader;
+  role: TRoles;
+}
+
+function MentorProfileHeader(props: IMentorProfileHeaderProps) {
   return (
     <Box
       sx={{
@@ -19,35 +46,31 @@ function MentorProfileHeader(props: IMentorProfileHeader) {
         justifyContent: "space-between",
       }}
     >
-      <ProfileBanner
-        {...props}
-        title="Senior UX Designer at Tech Corporate, France"
-      >
-        <ProfileBanner.JobTitle />
-        <ProfileBanner.ExpertiseTags />
-        <ProfileBanner.RoleBadge />
-      </ProfileBanner>
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "flex-end",
-        }}
-      >
-        <div
-          style={{
-            backgroundColor: "#333",
-            color: "#efefef",
-            padding: "10px 20px",
-            borderRadius: "20px",
-            cursor: "pointer",
-          }}
-          onClick={() => props.navigator("/inbox")}
-        >
-          Message
-        </div>
-      </Box>
+      {props.role === "mentor" && (
+        <ProfileBanner {...(props.userInfo as IMentorProfileHeader)}>
+          <ProfileBanner.Headline />
+          <ProfileBanner.Rating />
+          <ProfileBanner.SessionCompleted />
+        </ProfileBanner>
+      )}
+      {props.role === "attendee" && (
+        <ProfileBanner {...(props.userInfo as IMemberProfileHeader)}>
+          <ProfileBanner.Tagline />
+          <ProfileBanner.Joined />
+          <ProfileBanner.EngagementLevel />
+          <ProfileBanner.LookingFor />
+        </ProfileBanner>
+      )}
+      {props.role === "organizer" && (
+        <ProfileBanner {...(props.userInfo as IOrganizerProfileHeader)}>
+          <ProfileBanner.HostBadge />
+          <ProfileBanner.Tagline />
+          <ProfileBanner.Verified />
+          <ProfileBanner.MemberSatisfaction />
+        </ProfileBanner>
+      )}
     </Box>
-  );
+  ) 
 }
 
 export default MentorProfileHeader;

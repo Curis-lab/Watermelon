@@ -1,8 +1,8 @@
+import React from "react";
 import { Box, Skeleton,Typography } from "@mui/material";
 import { ChatBubbleOutline, WorkOutline } from "@mui/icons-material";
 import ContentHeader from "../../molecules/ContentHeader/ContentHeader";
 import IconDescription from "../../molecules/IconDescription/IconDescription";
-import React from "react";
 import { StyledMentorCardContainerBox } from "./MentorCard.style";
 
 
