@@ -1,25 +1,10 @@
-import {
-  Box,
-  Tabs,
-  Tab,
-  Typography,
-  IconButton,
-  Chip,
-  Tooltip,
-} from "@mui/material";
-import React from "react";
-// import ProfileBanner from "../../molecules/ProfileBanner/ProfileBanner";
+import { Box, Typography, IconButton, Chip, Tooltip } from "@mui/material";
 import { Add, LinkedIn, Settings } from "@mui/icons-material";
 import ReviewCard from "../../organisms/ReviewCard/ReviewCard";
 import { useNavigate } from "react-router-dom";
 import RoundedButton from "../../atoms/Bottom/RoundedBottom";
-
-
-interface TabPanelProps<T> {
-  children?: React.ReactNode;
-  index: T;
-  value: number;
-}
+import MUITabs from "../../atoms/Tap/Tap";
+import ProfileBanner from "../../molecules/ProfileBanner/ProfileBanner";
 
 const reviews = [
   {
@@ -64,39 +49,112 @@ const reviews = [
   },
 ];
 
-function CustomTabPanel<T>(props: TabPanelProps<T>) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
-    </div>
-  );
-}
-
-function a11yProps(index: number) {
-  return {
-    id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`,
-  };
-}
+const authenticatedUserProfile = {
+  overview: (
+    <>
+      <Typography variant="body1">
+        I am a passionate mentee interested in web development. Currently
+        working at Google, I enjoy learning new technologies and building
+        innovative solutions. I'm excited to connect with mentors who can guide
+        me on my software development journey.
+      </Typography>
+      <IconButton color="primary">
+        <LinkedIn />
+      </IconButton>
+      <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+        <Typography variant="h3">Profile insights</Typography>
+        <Typography color="primary">How do I get these?</Typography>
+      </Box>
+      <Box
+        sx={{
+          height: "200px",
+          width: "100%",
+          background: "blue",
+          borderRadius: "20px",
+        }}
+      ></Box>
+      <Typography variant="h3">Background</Typography>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "10px",
+          border: "1px solid blue",
+          padding: "20px",
+          marginBlock: "10px",
+          borderRadius: "10px",
+        }}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
+          <Typography>Expertise</Typography>
+          <Box
+            sx={{
+              display: "flex",
+              gap: "10px",
+              flexWrap: "wrap",
+            }}
+          >
+            {[
+              "web development",
+              "react",
+              "typescript",
+              "javascript",
+              "html",
+              "css",
+            ].map((skill, idx) => (
+              <Chip label={skill} key={idx} />
+            ))}
+          </Box>
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
+          <Typography>Fluent</Typography>
+          <Box
+            sx={{
+              display: "flex",
+              gap: "10px",
+            }}
+          >
+            {["English"].map((skill, idx) => (
+              <Chip label={skill} key={idx} />
+            ))}
+          </Box>
+        </Box>
+      </Box>
+    </>
+  ),
+  Reviews: (
+    <>
+      <Typography variant="h3">Reviews</Typography>
+      {reviews.map((review, idx) => (
+        <ReviewCard
+          mentorId={review.mentorId}
+          userId={review.userId}
+          rating={review.rating}
+          comment={review.comment}
+          createdAt={review.createdAt}
+          key={idx}
+        />
+      ))}
+    </>
+  ),
+  Achivemets: <div>Acheivement</div>,
+  GroupSession: <div>Group Session</div>,
+};
 
 function ProfileTemplate() {
-
   const role = "organizer";
 
-  const [value, setValue] = React.useState(0);
   const navigate = useNavigate();
-
-  const handleChange = (newValue: number) => {
-    setValue(newValue);
-  };
 
   return (
     <Box
@@ -120,26 +178,22 @@ function ProfileTemplate() {
           justifyContent: "space-between",
         }}
       >
-        {/* <ProfileBanner
+        <ProfileBanner
           {...{
-            name: "Min Min",
-            title: "Seniro UX Designer at Tech Coorporate, France",
-            role: "mentee",
-            expertise: [
-              "web development",
-              "UX design",
-              "UI design",
-              "user research",
-              "accessibility",
-            ],
-            company: "Google",
-            location: "Bangkok.TH",
+            profilePic: "",
+            name: "Joohn",
+            hostBadge: "name",
+            tagline: "12",
+            verified: true,
+            memberSatisfication: "very satified",
           }}
         >
-          <ProfileBanner.JobTitle />
-          <ProfileBaPnner.ExpertiseTags />
-          <ProfileBanner.Location />
-        </ProfileBanner> */}
+          <ProfileBanner.HostBadge />
+          <ProfileBanner.Verified/>
+          <ProfileBanner.MemberSatisfaction/>
+          <ProfileBanner.Tagline/>
+        </ProfileBanner>
+
         <Box
           sx={{
             padding: "15px",
@@ -167,117 +221,7 @@ function ProfileTemplate() {
         </Box>
       </Box>
       <Box sx={{ width: "100%" }}>
-        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-          <Tabs
-            value={value}
-            onChange={() => handleChange}
-            aria-label="basic tabs example"
-          >
-            <Tab label="Overview" {...a11yProps(0)} />
-            <Tab label="Reviews" {...a11yProps(1)} />
-            <Tab label="Achievements" {...a11yProps(2)} />
-            <Tab label="Group sessions" {...a11yProps(3)} />
-          </Tabs>
-        </Box>
-        <CustomTabPanel<number> value={value} index={0}>
-          <Typography variant="body1">
-            I am a passionate mentee interested in web development. Currently
-            working at Google, I enjoy learning new technologies and building
-            innovative solutions. I'm excited to connect with mentors who can
-            guide me on my software development journey.
-          </Typography>
-          <IconButton color="primary">
-            <LinkedIn />
-          </IconButton>
-          <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-            <Typography variant="h3">Profile insights</Typography>
-            <Typography color="primary">How do I get these?</Typography>
-          </Box>
-          <Box
-            sx={{
-              height: "200px",
-              width: "100%",
-              background: "blue",
-              borderRadius: "20px",
-            }}
-          ></Box>
-          <Typography variant="h3">Background</Typography>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "10px",
-              border: "1px solid blue",
-              padding: "20px",
-              marginBlock: "10px",
-              borderRadius: "10px",
-            }}
-          >
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "space-between",
-              }}
-            >
-              <Typography>Expertise</Typography>
-              <Box
-                sx={{
-                  display: "flex",
-                  gap: "10px",
-                  flexWrap: "wrap",
-                }}
-              >
-                {[
-                  "web development",
-                  "react",
-                  "typescript",
-                  "javascript",
-                  "html",
-                  "css",
-                ].map((skill, idx) => (
-                  <Chip label={skill} key={idx} />
-                ))}
-              </Box>
-            </Box>
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "space-between",
-              }}
-            >
-              <Typography>Fluent</Typography>
-              <Box
-                sx={{
-                  display: "flex",
-                  gap: "10px",
-                }}
-              >
-                {["English"].map((skill, idx) => (
-                  <Chip label={skill} key={idx} />
-                ))}
-              </Box>
-            </Box>
-          </Box>
-        </CustomTabPanel>
-        <CustomTabPanel value={value} index={1}>
-          <Typography variant="h3">Reviews</Typography>
-          {reviews.map((review, idx) => (
-            <ReviewCard
-              mentorId={review.mentorId}
-              userId={review.userId}
-              rating={review.rating}
-              comment={review.comment}
-              createdAt={review.createdAt}
-              key={idx}
-            />
-          ))}
-        </CustomTabPanel>
-        <CustomTabPanel value={value} index={2}>
-          Item Three
-        </CustomTabPanel>
-        <CustomTabPanel value={value} index={3}>
-          Item Three
-        </CustomTabPanel>
+        <MUITabs props={authenticatedUserProfile} />
       </Box>
     </Box>
   );

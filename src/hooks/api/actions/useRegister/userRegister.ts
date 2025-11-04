@@ -1,16 +1,13 @@
 import axios from "axios";
 import { apiRequest } from "../../../../lib/api/apiclient";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { IBaseFormRegister } from "../../../../components/templates/OnboardingTemplate/OnboardingTemplate";
 
 export const useRegister = () => {
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
-    mutationFn: (userData: {
-      name: string;
-      email: string;
-      password: string;
-    }) => {
+    mutationFn: (userData: IBaseFormRegister) => {
       return apiRequest({
         url: "/auth/register",
         method: "POST",
@@ -25,7 +22,7 @@ export const useRegister = () => {
     },
   });
 
-  return mutation.mutateAsync;
+  return mutation;
 };
 
 export const useLogin = () => {

@@ -17,6 +17,7 @@ interface IFormHandlerProps<T> {
   initial: T;
   process?: (formData: T) => void;
 }
+
 function FormHandler<TInitial>({
   initial,
   render,
@@ -24,14 +25,16 @@ function FormHandler<TInitial>({
 }: IFormHandlerProps<TInitial>) {
   const [storage, setStorage] = useState<TInitial>(initial);
 
+
+  /** I use flag if I can't set name on components such as Autocomplete */
   const inputHandler = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement >, newValue?:string[], flag?:string
   ) => {
     const { name, type, value } = e.target;
     const checked = (e.target as HTMLInputElement).checked;
     setStorage((prevData) => ({
       ...prevData,
-      [name]: type === "checkbox" ? checked : value,
+    [flag ? flag: name]: type === 'checkbox' ? checked: newValue? [...newValue]: value
     }));
   };
 
@@ -40,9 +43,9 @@ function FormHandler<TInitial>({
     if (process) {
       await process(storage);
     }
-    console.log("this is data from register", storage);
   };
 
+  
   return render({ formData: storage, submitHandler, inputHandler });
 }
 

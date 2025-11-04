@@ -1,5 +1,5 @@
 import React from "react";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { IMentor } from "../../../interfaces/Mentor";
 import { StyledMentorCardLayoutController } from "./MentorTemplate.style";
@@ -53,14 +53,31 @@ function MentorTemplate({
 }) {
   return (
     <Box sx={{ minHeight: "100vh", height: "80vh" }}>
-      <StyledMentorCardLayoutController>
-        {commonLoadingTemplate<{ mentors: IMentor[] }>(LoadingAllCardDisplay)(
-          MentorList
-        )({
-          loadingStatus: isLoading || !Array.isArray(mentors),
-          mentors: mentors,
-        })}
-      </StyledMentorCardLayoutController>
+      {mentors.length > 0 ? (
+        <StyledMentorCardLayoutController>
+          {commonLoadingTemplate<{ mentors: IMentor[] }>(LoadingAllCardDisplay)(
+            MentorList
+          )({
+            loadingStatus: isLoading || !Array.isArray(mentors),
+            mentors: mentors,
+          })}
+        </StyledMentorCardLayoutController>
+      ) : (
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: 'center',
+            height: '100%'
+          }}
+        >
+          <Typography
+            variant="h2"
+          >
+            There is no mentors
+          </Typography>
+        </Box>
+      )}
     </Box>
   );
 }

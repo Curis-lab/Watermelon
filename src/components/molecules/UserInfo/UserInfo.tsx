@@ -1,11 +1,13 @@
 import React, { createContext, useContext } from "react";
 import { Avatar, Box, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 type TProfile = {
   name: string;
   position: string;
   company: string;
   url?: string;
+  _id?: string;
 };
 
 type TProfileContent = {
@@ -28,6 +30,7 @@ interface IUserInfo {
 }
 
 function UserInfo({ children, profile }: IUserInfo) {
+  const navigate = useNavigate();
   return (
     <UserContext.Provider value={{ profile }}>
       <Box
@@ -35,6 +38,10 @@ function UserInfo({ children, profile }: IUserInfo) {
           display: "flex",
           gap: "10px",
           alignItems: "center",
+          cursor: "pointer",
+        }}
+        onClick={() => {
+          navigate(`/mentor/${profile._id}`);
         }}
       >
         <Avatar src={profile?.url || " "} alt="user profile" />

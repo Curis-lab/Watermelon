@@ -18,7 +18,7 @@ import {
 import TextBox from "../../atoms/TextBox/TextBox/TextBox";
 import FormHandler, { IRender } from "../../common/FormHandler";
 
-interface IBaseFormRegister {
+export interface IBaseFormRegister {
   name: string;
   email: string;
   password: string;
@@ -28,8 +28,11 @@ interface IBaseFormRegister {
   expertise: string;
 }
 
-
-const RegisterFormTemplate = ({ submitHandler, inputHandler, formData }:IRender<IBaseFormRegister>) => (
+const RegisterFormTemplate = ({
+  submitHandler,
+  inputHandler,
+  formData,
+}: IRender<IBaseFormRegister>) => (
   <StyledForm onSubmit={submitHandler}>
     <TextBox
       properties={{
@@ -93,9 +96,8 @@ const RegisterFormTemplate = ({ submitHandler, inputHandler, formData }:IRender<
       }}
       values={[
         { value: "mentor", label: "Mentor" },
-        { value: "attendee", label: "Attendee" },
+        { value: "member", label: "Member" },
         { value: "organizer", label: "Organizer" },
-        { value: "mentee", label: "Mentee" },
       ]}
       render={({
         val,
@@ -162,7 +164,7 @@ const RegisterFormTemplate = ({ submitHandler, inputHandler, formData }:IRender<
   </StyledForm>
 );
 
-function OnboardingTemplate() {
+function OnboardingTemplate({processHandler} :{processHandler:(data:IBaseFormRegister)=>void}) {
   return (
     <StyledContainer>
       <StyledContent>
@@ -186,8 +188,9 @@ function OnboardingTemplate() {
             role: "mentor",
             bio: "",
             availability: false,
-            expertise: "",
+            expertise: "design",
           }}
+          process={processHandler}
           render={RegisterFormTemplate}
         />
       </Box>

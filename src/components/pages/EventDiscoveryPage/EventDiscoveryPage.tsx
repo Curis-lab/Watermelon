@@ -68,7 +68,8 @@ const EventDiscoveryPage = () => {
         <UserInfo profile={{
           name:"file",
           position: 'name',
-          company: 'name'
+          company: 'name',
+          _id:'67cbf0f7a9a9b1e660780438'
         }}>
           <UserInfo.Description />
           <UserInfo.Name />
@@ -81,6 +82,7 @@ const EventDiscoveryPage = () => {
             display: "flex",
             flexDirection: "column",
             gap: "20px",
+            minWidth: '60%'
           }}
         >
           <img
@@ -102,7 +104,8 @@ const EventDiscoveryPage = () => {
             <UserInfo profile={{
               name:'tuntunt',
               position: 'dev',
-              company: 'google'
+              company: 'google',
+              _id:'67cbf0f7a9a9b1e660780438'
             }}>
               <UserInfo.Name />
               <UserInfo.Description />

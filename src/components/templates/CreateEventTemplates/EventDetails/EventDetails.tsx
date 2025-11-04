@@ -1,15 +1,29 @@
 import React from "react";
-import { Box, TextField, Button, Typography } from "@mui/material";
+import { Box, TextField, Button, Typography, Autocomplete } from "@mui/material";
+import { IEventAPIAcceptor } from "../../../../interfaces/Event";
+import LimitTags from "../../../atoms/AutocompleteLimitTags/AutocompleteLimitTags";
 
-
-const ContentWrapper = ({ title, children }:{title:string, children: React.ReactNode}) => {
+const ContentWrapper = ({
+  title,
+  children,
+}: {
+  title: string;
+  children: React.ReactNode;
+}) => {
   return (
-    <Box sx={{
-        padding: '4px'
-    }}>
-      <Typography variant="h2" sx={{
-        marginBottom: '8px'
-      }}>{title}</Typography>
+    <Box
+      sx={{
+        padding: "4px",
+      }}
+    >
+      <Typography
+        variant="h2"
+        sx={{
+          marginBottom: "8px",
+        }}
+      >
+        {title}
+      </Typography>
       <Box
         sx={{
           display: "flex",
@@ -23,7 +37,15 @@ const ContentWrapper = ({ title, children }:{title:string, children: React.React
   );
 };
 
-function EventDetails() {
+function EventDetails({
+  formData,
+  inputHandler,
+}: {
+  formData: IEventAPIAcceptor;
+  inputHandler: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>|React.SyntheticEvent<Element, Event>
+  ) => void;
+}) {
   return (
     <Box
       sx={{
@@ -38,6 +60,9 @@ function EventDetails() {
       <ContentWrapper title="Event Details">
         <>
           <TextField
+            value={formData.title}
+            onChange={inputHandler}
+            name="title"
             fullWidth
             label="Event Title"
             placeholder="Enter a clear, descriptive name"
@@ -47,29 +72,12 @@ function EventDetails() {
             multiline
             rows={4}
             label="Description"
+            name="description"
             placeholder="What is this event about?"
+            value={formData.description}
+            onChange={inputHandler}
           />
-          <TextField
-            select
-            fullWidth
-            label="Category"
-            SelectProps={{
-              native: true,
-            }}
-          >
-            <option value="">Select a category</option>
-            <option value="conference">Conference</option>
-            <option value="workshop">Workshop</option>
-            <option value="meetup">Meetup</option>
-            <option value="concert">Concert</option>
-            <option value="festival">Festival</option>
-            <option value="online">Online Event</option>
-          </TextField>
-          <TextField
-            fullWidth
-            label="Tags"
-            placeholder="Enter tags separated by commas (e.g. tech, startup, design)"
-          />
+          <LimitTags tagsValue={formData.tags} inputHandler={inputHandler}/>
         </>
       </ContentWrapper>
       <ContentWrapper title="Timing & Schedule">
@@ -89,18 +97,21 @@ function EventDetails() {
       </ContentWrapper>
       <ContentWrapper title="Location Details">
         <>
-          <TextField
+          {/* <TextField
             select
             fullWidth
             label="Location Type"
             SelectProps={{
               native: true,
             }}
+            defaultValue="online"
           >
-            <option value="">Select location type</option>
             <option value="physical">Physical Location</option>
             <option value="online">Online</option>
-          </TextField>
+          </TextField> */}
+          <Autocomplete value={formData.location} onChange={inputHandler} options={["Physical Location","Online"]} defaultValue={"Online"} renderInput={(params)=>(
+            <TextField {...params}/>
+          )}/>
           <TextField
             fullWidth
             label="Location Details"

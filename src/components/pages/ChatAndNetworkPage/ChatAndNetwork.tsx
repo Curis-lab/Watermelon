@@ -6,9 +6,9 @@
   // ListOfUserWrapper,
 // } from "./ChatAndNetwork.styled";
 // import { useFormActivity } from "../../../hooks/useFormActivity";
+// import { useState } from "react";
 // import { socket } from "../../../server";
 import ChatAndNetworkTemplate from "../../templates/ChatAndNetworkTemplate/ChatAndNetworkTemplate";
-
 // interface FormData {
 //   message: string;
 //   room: string;
@@ -35,14 +35,11 @@ const ChatAndNetwork = () => {
   //   };
   //   connectSocket();
 
-  //   return () => {
-  //     socket.off("connect");
-  //     socket.off("messages");
-  //   };
+    
   // }, []);
 
   // const submitCallback = async () => {
-    // socket.emit("message", 'hello');
+  //   socket.emit("message", 'hello');
   // };
 
   return (

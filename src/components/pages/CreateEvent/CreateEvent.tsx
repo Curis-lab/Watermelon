@@ -12,9 +12,9 @@ import { OpenInNew } from "@mui/icons-material";
 import { useApi } from "../../../hooks/api";
 import { createFormData } from "../../../utils/formUtils";
 import HorizontalLinearStepper from "../../atoms/Stepper/Stepper";
-import EventDetails from "../../templates/CreateEventTemplates/EventDetails/EventDetails";
-import TicketsAndRegistration from "../../templates/CreateEventTemplates/TicketsAndRegistration/TicketsAndRegistration";
-import SettingAndPublish from "../../templates/CreateEventTemplates/SettingAndPublish/SettingAndPublish";
+// import EventDetails from "../../templates/CreateEventTemplates/EventDetails/EventDetails";
+// import TicketsAndRegistration from "../../templates/CreateEventTemplates/TicketsAndRegistration/TicketsAndRegistration";
+// import SettingAndPublish from "../../templates/CreateEventTemplates/SettingAndPublish/SettingAndPublish";
 
 const StyledForm = styled("form")({
   display: "flex",
@@ -46,11 +46,6 @@ const StyledPaper = styled(Paper)({
 });
 
 
-const combineTemplates = {
-  1: <EventDetails/>,
-  2: <TicketsAndRegistration/>,
-  3: <SettingAndPublish/>,
-};
 
 const CreateEvent = () => {
   const [imageFile, setImageFile] = useState<File | null>(null);
@@ -95,7 +90,7 @@ const CreateEvent = () => {
     <>
       {v2_flag ? (
         <StyledCreateEventWrapper>
-          <HorizontalLinearStepper templates={combineTemplates} />
+          <HorizontalLinearStepper />
         </StyledCreateEventWrapper>
       ) : (
         <StyledCreateEventWrapper>

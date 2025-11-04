@@ -9,14 +9,14 @@ import { IEvent } from "../../../interfaces/Event";
 import componentWithLoading from "../../common/componentWithLoading";
 
 const StyledEventsLayout = styled("div")(({ theme }) => ({
-  [theme.breakpoints.up('md')]:{}
+  [theme.breakpoints.up("md")]: {},
 }));
 
 const StyledEventAndCalendarLayout = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
-  [theme.breakpoints.up('md')]:{}
+  [theme.breakpoints.up("md")]: {},
 }));
 // const StyledFeatureLayout = styled(Box)(({ theme }) => ({
 //   background: "#000",
@@ -48,7 +48,7 @@ function EventList({ events }: { events: IEvent[] }) {
       events={currentItems}
       page={page}
       count={Math.ceil(Object.values(events).length / itemsPerPage)}
-      handleChange={()=>handleChange}
+      handleChange={() => handleChange}
     />
   );
 }
@@ -95,7 +95,16 @@ function EventTemplate({ events, loading }: IEventTemplate) {
             }
           />
         </StyledFeatureLayout> */}
-        {componentWithLoading<{events:IEvent[]}>(EventList)({loading, events})}
+        {events.length > 0 ? (
+          <>
+            {componentWithLoading<{ events: IEvent[] }>(EventList)({
+              loading,
+              events,
+            })}
+          </>
+        ) : (
+          <Typography variant="h2">There is No Events</Typography>
+        )}
       </StyledEventAndCalendarLayout>
     </StyledEventsLayout>
   );

@@ -93,7 +93,7 @@ export const routes: IRoute[] = [
     path: "/inbox",
     title: "Messages",
     component: ChatAndNetwork,
-    type: "protected",
+    type: "unproteted",
     menu: {},
     isStandalone: true,
   },

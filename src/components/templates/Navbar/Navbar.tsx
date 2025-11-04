@@ -62,6 +62,7 @@ const MobileTemplate = () => {
           name: "",
           company: "",
           position: "",
+          _id: ''
         }}
       >
         <UserInfo.Name />

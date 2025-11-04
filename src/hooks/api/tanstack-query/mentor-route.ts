@@ -6,5 +6,6 @@ export const getMentorsProfileById = async (id: string) => {
   const { data, success } = await apiRequest<{ data: IMentor; success: boolean }>({
     url: `${API_ENDPOINTS.mentors.getProfileById(id)}`,
   });
+  
   return success ? data : [];
 };

@@ -1,10 +1,8 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
 
-// const baseURL = "https://event-2-h3bg.onrender.com/api";
-const devBaseURL = "https://event-2-h3bg.onrender.com/api";
 export const createApiClient = (): AxiosInstance => {
   const client = axios.create({
-    baseURL: devBaseURL,
+    baseURL: `${import.meta.env.VITE_BASE_URL}/api`,
     headers: {
       "Content-Type": "application/json",
     },

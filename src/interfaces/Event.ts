@@ -14,3 +14,17 @@ export interface IEvent {
   id?: string;
   attendees?: string[];
 }
+
+export interface IEventAPIAcceptor {
+  title: string;
+  description: string;
+  date: Date;
+  location: string;
+  organizerId: string;
+  status: "draft" | "upcoming" | "completed" | "cancelled";
+  image?: string;
+  capacity: number;
+  isPublic: boolean;
+  price: number;
+  tags:string[]
+}

@@ -61,6 +61,7 @@ const LoginFormTemplate = ({
 );
 
 const Body = () => {
+  const registerModal = useRegisterModal();
   const navigate = useNavigate();
   const { login } = useSession() as ISessionContextPros;
   const loginToDB = useLogin();
@@ -69,11 +70,14 @@ const Body = () => {
     const res = await loginToDB(formData);
   
     login(res.data);
+
+    
     if (!res.data.isMfaActive) {
       navigate("/settings");
     } else {
       navigate("/");
     }
+    registerModal.onClose();
   }
   
   return (

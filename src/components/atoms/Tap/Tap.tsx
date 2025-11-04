@@ -32,21 +32,44 @@ function a11yProps(index: number) {
   };
 }
 
-export default function MUITabs(props: Record<string, React.ReactNode>) {
+export default function MUITabs({
+  props,
+  isVertical,
+}: {
+  props: Record<string, React.ReactNode>;
+  isVertical?: boolean;
+}) {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
     console.log(event);
   };
-
   return (
-    <Box sx={{ width: "100%" }}>
-      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+    <Box
+      sx={{
+        width: "100%",
+        ...(isVertical && {
+          display: 'flex'
+        })
+      }}
+    >
+      <Box
+        sx={{
+          borderBottom: 1,
+          borderColor: "divider",
+          ...(isVertical && {
+          display: "flex",
+          flexDirection: "column",
+        }),
+        }}
+      >
         <Tabs
           value={value}
           onChange={handleChange}
           aria-label="basic tabs example"
+          orientation={isVertical ? "vertical" : "horizontal"}
+          variant="scrollable"
         >
           {Object.keys({ ...props }).map((label, idx) => (
             <Tab
@@ -59,6 +82,9 @@ export default function MUITabs(props: Record<string, React.ReactNode>) {
                 fontSize: "15px",
                 fontWeight: "500",
                 color: "#333",
+                ...(isVertical && {
+                  alignItems:'flex-start',
+                }),
               }}
             />
           ))}

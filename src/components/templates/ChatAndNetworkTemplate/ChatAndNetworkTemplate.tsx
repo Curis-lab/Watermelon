@@ -1,15 +1,12 @@
 import {
   Avatar,
   Box,
-  Button,
   styled,
-  TextField,
   Typography,
 } from "@mui/material";
 import UserList from "../../organisms/ChatAndNetwork/UserList";
-import { SendAndArchiveTwoTone } from "@mui/icons-material";
-import React from "react";
-import FormHandler from "../../common/FormHandler";
+import { useEffect, useState } from "react";
+import { socket } from "../../../server";
 
 export const LayoutWrapper = styled("div")(({ theme }) => ({
   [theme.breakpoints.up("md")]: {
@@ -37,9 +34,6 @@ export const ChatWrapper = styled("div")(({ theme }) => ({
   },
 }));
 
-function ChatBox({ render }: { render: () => React.ReactNode }) {
-  return render();
-}
 
 const MessageDisplay = () => (
   <Box
@@ -75,7 +69,18 @@ const MessageDisplay = () => (
     </Box>
   </Box>
 );
+
 function ChatAndNetworkTemplate() {
+  const [message, setMessage] = useState("");
+  const [chat] = useState([]);
+  useEffect(() => {
+    socket.on("hello", (data) => {
+      console.log("data", data);
+    });
+    
+  }, []);
+console.log('this is data')
+  const sendMessage = () => {};
   return (
     <LayoutWrapper>
       <ListOfUserWrapper>
@@ -105,8 +110,13 @@ function ChatAndNetworkTemplate() {
           {Array.from({ length: 99 }).map((_, idx) => (
             <MessageDisplay key={idx} />
           ))}
+          {chat.map((msg, idx) => (
+            <p key={idx}>{msg}</p>
+          ))}
+          <input value={message} onChange={(e) => setMessage(e.target.value)} />
+          <button onClick={sendMessage}>Send</button>
         </Box>
-        <FormHandler<{ message: string }>
+        {/* <FormHandler<{ message: string }>
           initial={{
             message: "",
           }}
@@ -140,8 +150,8 @@ function ChatAndNetworkTemplate() {
               </Button>
             </form>
           )}
-        />
-        <ChatBox
+        /> */}
+        {/* <ChatBox
           render={() => (
             <Box
               sx={{
@@ -168,7 +178,7 @@ function ChatAndNetworkTemplate() {
               </Button>
             </Box>
           )}
-        />
+        /> */}
       </ChatWrapper>
     </LayoutWrapper>
   );
