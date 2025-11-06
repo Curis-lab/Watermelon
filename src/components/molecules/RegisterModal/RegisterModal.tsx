@@ -73,10 +73,11 @@ const Body = () => {
 
     
     if (!res.data.isMfaActive) {
-      navigate("/settings");
+      navigate("/profile");
     } else {
       navigate("/");
     }
+    
     registerModal.onClose();
   }
   

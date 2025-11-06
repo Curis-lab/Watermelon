@@ -1,5 +1,11 @@
 import React from "react";
-import { Box, TextField, Button, Typography, Autocomplete } from "@mui/material";
+import {
+  Box,
+  TextField,
+  Button,
+  Typography,
+  Autocomplete,
+} from "@mui/material";
 import { IEventAPIAcceptor } from "../../../../interfaces/Event";
 import LimitTags from "../../../atoms/AutocompleteLimitTags/AutocompleteLimitTags";
 
@@ -43,7 +49,9 @@ function EventDetails({
 }: {
   formData: IEventAPIAcceptor;
   inputHandler: (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>|React.SyntheticEvent<Element, Event>
+    e:
+      | React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+      | React.SyntheticEvent<Element, Event>
   ) => void;
 }) {
   return (
@@ -77,7 +85,7 @@ function EventDetails({
             value={formData.description}
             onChange={inputHandler}
           />
-          <LimitTags tagsValue={formData.tags} inputHandler={inputHandler}/>
+          <LimitTags tagsValue={formData.tags} inputHandler={inputHandler} />
         </>
       </ContentWrapper>
       <ContentWrapper title="Timing & Schedule">
@@ -86,33 +94,30 @@ function EventDetails({
             fullWidth
             type="datetime-local"
             label="Start Date & Time"
+            value={formData.date}
+            onChange={inputHandler}
           />
-          <TextField fullWidth type="datetime-local" label="End Date & Time" />
           <TextField
             fullWidth
-            label="Timezone"
-            placeholder="Optional for global events"
+            type="datetime-local"
+            label="End Date & Time"
+            value={formData.date}
+            onChange={inputHandler}
           />
         </>
       </ContentWrapper>
       <ContentWrapper title="Location Details">
         <>
-          {/* <TextField
-            select
-            fullWidth
-            label="Location Type"
-            SelectProps={{
-              native: true,
-            }}
-            defaultValue="online"
-          >
-            <option value="physical">Physical Location</option>
-            <option value="online">Online</option>
-          </TextField> */}
-          <Autocomplete value={formData.location} onChange={inputHandler} options={["Physical Location","Online"]} defaultValue={"Online"} renderInput={(params)=>(
-            <TextField {...params}/>
-          )}/>
+          <Autocomplete
+            value={formData.location || "Online"}
+            onChange={inputHandler}
+            options={["Physical Location", "Online"]}
+            defaultValue={"Online"}
+            renderInput={(params) => <TextField {...params} />}
+          />
           <TextField
+            value={formData.address}
+            onChange={inputHandler}
             fullWidth
             label="Location Details"
             placeholder="Enter venue address or online meeting link"

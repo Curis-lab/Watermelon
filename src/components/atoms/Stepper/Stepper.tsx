@@ -42,8 +42,6 @@ export default function HorizontalLinearStepper() {
 
   const handleSkip = () => {
     if (!isStepOptional(activeStep)) {
-      // You probably want to guard against something like this,
-      // it should never occur unless someone's actively trying to break something.
       throw new Error("You can't skip a step that isn't optional.");
     }
 
@@ -66,6 +64,7 @@ export default function HorizontalLinearStepper() {
         description: "",
         date: new Date(),
         location: "",
+        address: "",
         organizerId: "",
         status: "draft",
         image: "",
@@ -127,7 +126,7 @@ export default function HorizontalLinearStepper() {
                   {activeStep + 1 === 1 && (
                     <EventDetails
                       formData={formData}
-                      inputHandler={inputHandler as ()=>void}
+                      inputHandler={inputHandler as () => void}
                     />
                   )}
                   {activeStep + 1 === 2 && <TicketsAndRegistration />}

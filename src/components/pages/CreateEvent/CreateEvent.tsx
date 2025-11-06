@@ -12,9 +12,6 @@ import { OpenInNew } from "@mui/icons-material";
 import { useApi } from "../../../hooks/api";
 import { createFormData } from "../../../utils/formUtils";
 import HorizontalLinearStepper from "../../atoms/Stepper/Stepper";
-// import EventDetails from "../../templates/CreateEventTemplates/EventDetails/EventDetails";
-// import TicketsAndRegistration from "../../templates/CreateEventTemplates/TicketsAndRegistration/TicketsAndRegistration";
-// import SettingAndPublish from "../../templates/CreateEventTemplates/SettingAndPublish/SettingAndPublish";
 
 const StyledForm = styled("form")({
   display: "flex",
@@ -29,15 +26,18 @@ const StyledCreateEventWrapper = styled("div")(({ theme }) => ({
   paddingInlined: "10px",
   alignItems: "center",
 }));
+
 const StyledFormWrapper = styled("div")({
   display: "flex",
   flexDirection: "column",
   width: "100%",
   gap: "10px",
 });
+
 const StyledLinkWrapper = styled("div")({
   display: "flex",
 });
+
 const StyledPaper = styled(Paper)({
   display: "flex",
   flexDirection: "column",

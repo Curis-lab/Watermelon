@@ -18,14 +18,6 @@ const StyledEventAndCalendarLayout = styled("div")(({ theme }) => ({
   alignItems: "center",
   [theme.breakpoints.up("md")]: {},
 }));
-// const StyledFeatureLayout = styled(Box)(({ theme }) => ({
-//   background: "#000",
-//   height: "400px",
-//   width: "100%",
-//   [theme.breakpoints.down('sm')]:{
-//     width:'452.62px'
-//   }
-// }));
 
 interface IEventTemplate {
   /** search props */
@@ -55,7 +47,6 @@ function EventList({ events }: { events: IEvent[] }) {
 
 function EventTemplate({ events, loading }: IEventTemplate) {
   const { user } = useAuthInfo();
-  // const [selected, setSelected] = useState<{ from?: Date; to?: Date }>();
 
   return (
     <StyledEventsLayout>

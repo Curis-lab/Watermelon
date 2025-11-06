@@ -8,6 +8,7 @@ export const useEvents = () => {
     data: events,
     isLoading,
     error,
+    refetch
   } = useQuery({
     queryKey: ["event"],
     queryFn: () => fetcher(),
@@ -17,6 +18,7 @@ export const useEvents = () => {
     events: events,
     loading: isLoading,
     error,
+    refresh:refetch
   };
 };
 
@@ -24,6 +26,5 @@ async function fetcher(): Promise<IEvent[]> {
   const response = await apiRequest<{ body: IEvent[] }>({
     url: `${API_ENDPOINTS.events.getAll}?page=1&limit=10`,
   });
-
   return response.body;
 }

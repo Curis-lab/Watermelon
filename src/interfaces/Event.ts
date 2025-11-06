@@ -19,7 +19,9 @@ export interface IEventAPIAcceptor {
   title: string;
   description: string;
   date: Date;
+  endDate?: Date;
   location: string;
+  address:string;
   organizerId: string;
   status: "draft" | "upcoming" | "completed" | "cancelled";
   image?: string;
