@@ -175,30 +175,31 @@ function ProfileTemplate() {
           marginLeft: { sx: "10px", md: "70px" },
           marginTop: "-20px",
           display: "flex",
+          flexDirection: { xs: "column", md: "row" },
           justifyContent: "space-between",
         }}
       >
         <ProfileBanner
           {...{
             profilePic: "",
-            name: "Joohn",
-            hostBadge: "name",
-            tagline: "12",
+            name: "Jhon Smit",
+            hostBadge: "Top Mentor",
+            tagline: "Helping developers grow every day 🚀",
             verified: true,
-            memberSatisfication: "very satified",
+            memberSatisfication: "Very satisfied",
           }}
         >
+          <ProfileBanner.Tagline />
           <ProfileBanner.HostBadge />
-          <ProfileBanner.Verified/>
-          <ProfileBanner.MemberSatisfaction/>
-          <ProfileBanner.Tagline/>
+          <ProfileBanner.MemberSatisfaction />
+          <ProfileBanner.Verified />
         </ProfileBanner>
 
         <Box
           sx={{
             padding: "15px",
             display: "flex",
-            alignItems: "start",
+            alignItems: "end",
             gap: "10px",
           }}
         >

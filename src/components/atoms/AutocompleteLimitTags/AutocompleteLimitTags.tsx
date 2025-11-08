@@ -12,6 +12,7 @@ export default function LimitTags({
     flag?: string
   ) => void;
 }) {
+  
   return (
     <Autocomplete
       multiple
@@ -19,7 +20,7 @@ export default function LimitTags({
       id="multiple-limit-tags"
       options={tags}
       getOptionLabel={(option) => option}
-      defaultValue={[tags[13], tags[12], tags[11]]}
+      defaultValue={[tags[3], tags[2], tags[1]]}
       renderInput={(params) => (
         <TextField
           name="tags"

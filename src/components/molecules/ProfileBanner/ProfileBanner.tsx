@@ -1,6 +1,7 @@
 import React, { createContext, useContext } from "react";
-import { Box, Typography } from "@mui/material";
+import { Box, Chip, Typography } from "@mui/material";
 import ProfileAvatar from "../../atoms/avatars";
+import { VerifiedRounded } from "@mui/icons-material";
 
 type ProfileBannerContent = {
   profile: IProfileBanner;
@@ -74,6 +75,7 @@ function ProfileBanner(props: IProfileBanner & { children: React.ReactNode }) {
           sx={{
             display: "flex",
             flexDirection: "column",
+            alignItems: 'start',
             paddingBlock: "10px",
             gap: "10px",
           }}
@@ -118,6 +120,7 @@ const EngagementLevel = () => {
   const { engagementLevel } = useProfileCardContext() as IMemberProfileHeader;
   return <div>{engagementLevel}</div>;
 };
+
 const LookingFor = () => {
   const { lookingFor } = useProfileCardContext() as IMemberProfileHeader;
   return <div>{lookingFor}</div>;
@@ -128,18 +131,33 @@ const LookingFor = () => {
 /** start of organizer */
 const HostBadge = () => {
   const { hostBadge } = useProfileCardContext() as IOrganizerProfileHeader;
-  return <div>{hostBadge}</div>;
+  return <Chip label={hostBadge} variant="outlined" size="small"/>;
 };
 
 const Verified = () => {
   const { verified } = useProfileCardContext() as IOrganizerProfileHeader;
-  return <div>{verified}</div>;
+  return verified ? (
+    <Box
+      sx={{
+        color: "#2c793bdb",
+        display: 'flex',
+        justifyContent: 'center',
+        gap:'5px',
+        fontWeight: 'semibold'
+      }}
+    >
+      <VerifiedRounded /> Verified
+    </Box>
+  ) : (
+    <div>None none verifed</div>
+  );
 };
 const MemberSatisfaction = () => {
   const { memberSatisfication } =
     useProfileCardContext() as IOrganizerProfileHeader;
-  return <div>{memberSatisfication}</div>;
+  return <Typography variant="caption" color="text.secondary" >member satisfication: {memberSatisfication}</Typography>;
 };
+
 /** end of organizer */
 
 ProfileBanner.Headline = Headline;

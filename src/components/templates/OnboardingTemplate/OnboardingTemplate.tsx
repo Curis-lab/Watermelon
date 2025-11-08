@@ -28,6 +28,14 @@ export interface IBaseFormRegister {
   expertise: string;
 }
 
+
+const allOptions = [
+  { value: "web-development", label: "Web Development" },
+  { value: "data-science", label: "Data Science" },
+  { value: "design", label: "Design" },
+  { value: "marketing", label: "Marketing" },
+  { value: "business", label: "Business" },
+];
 const RegisterFormTemplate = ({
   submitHandler,
   inputHandler,
@@ -118,13 +126,7 @@ const RegisterFormTemplate = ({
         onChange: inputHandler,
         helperText: "Select your expertise",
       }}
-      values={[
-        { value: "web-development", label: "Web Development" },
-        { value: "data-science", label: "Data Science" },
-        { value: "design", label: "Design" },
-        { value: "marketing", label: "Marketing" },
-        { value: "business", label: "Business" },
-      ]}
+      values={[...allOptions]}
       render={({
         val,
         idx,
@@ -164,7 +166,11 @@ const RegisterFormTemplate = ({
   </StyledForm>
 );
 
-function OnboardingTemplate({processHandler} :{processHandler:(data:IBaseFormRegister)=>void}) {
+function OnboardingTemplate({
+  processHandler,
+}: {
+  processHandler: (data: IBaseFormRegister) => void;
+}) {
   return (
     <StyledContainer>
       <StyledContent>

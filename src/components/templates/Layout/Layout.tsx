@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import Navbar from "../Navbar";
-import RegisterModal from "../../molecules/RegisterModal";
+import LoginModal from "../../molecules/LoginModal";
 import Footer from "../Footer/Footer";
 import { Box, styled } from "@mui/material";
 
@@ -41,7 +41,7 @@ const LandingPage = ({ children }: Props) => (
 const MainLayout = ({ children }: Props) => {
   return (
     <div>
-      <RegisterModal />
+      <LoginModal />
       <LandingPage>{children}</LandingPage>
     </div>
   );

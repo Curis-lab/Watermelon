@@ -38,7 +38,6 @@ const StyledShowProfileContainer = styled("div")(({ theme }) => ({
   gap: "10px",
   alignItems: "center",
   [theme?.breakpoints?.down("sm")]: {
-    // Added optional chaining
     display: "none",
   },
 }));

@@ -110,13 +110,7 @@ const CreateEvent = () => {
                 size="small"
               />
               <Typography variant="h4">Date and time</Typography>
-              {/* <input
-          type="date"
-          value={collectData.date}
-          onChange={(e) => handleInputChange(e, "date")}
-        /> */}
               <Typography variant="h4">Featured photo</Typography>
-              {/* start file */}
               <Box
                 sx={{
                   border: "2px dashed #ccc",
