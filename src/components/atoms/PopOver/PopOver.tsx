@@ -66,24 +66,29 @@ export const ProfilePopup = () => {
         }}
         transformOrigin={{
           vertical: "top",
-          horizontal: "center",
+          horizontal: "right",
         }}
         PaperProps={{
           sx: {
             padding: "15px",
             marginTop: "5px",
+            minWidth: "220px",
           },
         }}
       >
         <LinkWithIcon Icon={Person} label="Profile" href="profile" />
         <LinkWithIcon Icon={Settings} label="Settings" href="settings" />
 
-        <Divider />
+        <Divider
+          sx={{
+            marginBlock: "5px",
+          }}
+        />
         <Box
           sx={{
             display: "flex",
             gap: "8px",
-            marginBlock: "5px",
+            marginTop: "5px",
           }}
         >
           <Logout />

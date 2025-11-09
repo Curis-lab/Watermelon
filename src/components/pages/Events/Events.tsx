@@ -2,15 +2,13 @@ import EventTemplate from "../../templates/EventTemplate/EventTemplate";
 import { useEvents } from "../../../hooks/api/getters/useEvents/useEvents";
 
 const Events = () => {
-  const { events, loading, refresh, error } = useEvents();
+  const { events, loading, refresh } = useEvents();
 
-  console.log(error);
-  if (error) {
+  if (loading) {
     return (
       <div style={{
         marginTop: '300px'
       }}>
-        hello
         <button onClick={() => refresh}>Refresh</button>
       </div>
     );

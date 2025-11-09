@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import ProfileBanner from "../../molecules/ProfileBanner/ProfileBanner";
 import { TRoles } from "../../../types/role";
 
@@ -69,8 +69,26 @@ function MentorProfileHeader(props: IMentorProfileHeaderProps) {
           <ProfileBanner.MemberSatisfaction />
         </ProfileBanner>
       )}
+
+      {/* ["message", "share", "save "] : this is not accepsible for guess*/}
+      {props.role === "mentor" &&
+        (props.userInfo as IMentorProfileHeader).quickActions && (
+          <Box
+            sx={{
+              display: "flex",
+              gap: "10px",
+              alignItems: "flex-end",
+            }}
+          >
+            {(props.userInfo as IMentorProfileHeader).quickActions.map(
+              (label: string) => (
+                <Button key={label}>{label}</Button>
+              )
+            )}
+          </Box>
+        )}
     </Box>
-  ) 
+  );
 }
 
 export default MentorProfileHeader;

@@ -1,7 +1,12 @@
 import { useState, DragEvent, ChangeEvent } from 'react';
 import { Box, Typography, Button } from '@mui/material';
 
-const ImageUpload = () => {
+
+/**
+ * 
+ * @returns Have no button instance of it, show progress bar.
+ */
+const ImageUploaderWithProgressBar = () => {
   const [files, setFiles] = useState<File[]>([]);
   const [isDragActive, setIsDragActive] = useState(false);
 
@@ -73,4 +78,4 @@ const ImageUpload = () => {
   );
 };
 
-export default ImageUpload;
+export default ImageUploaderWithProgressBar;

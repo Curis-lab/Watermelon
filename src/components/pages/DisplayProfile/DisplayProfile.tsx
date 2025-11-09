@@ -12,7 +12,7 @@ import {
 } from "./DisplayProfile.style";
 import MUITabs from "../../atoms/Tap/Tap";
 import ReviewCard from "../../organisms/ReviewCard/ReviewCard";
-import { Box, Typography } from "@mui/material";
+import { Box, Chip, Typography } from "@mui/material";
 import ContentHeader from "../../molecules/ContentHeader/ContentHeader";
 
 //Proxy Pattern
@@ -55,13 +55,18 @@ interface IOrganizerProfileHeader {
   verified: boolean;
   memberSatisfication: string;
 }
+/**
+ * about,
+ * review
+ */
 const MentorProfileContent = {
   headerSection: {
-    profilePic: "Profile Picture",
+    profilePic:
+      "https://www.perfocal.com/blog/content/images/2021/01/Perfocal_17-11-2019_TYWFAQ_100_standard-3.jpg",
     name: "Alex Johnson",
     headline: "Senior Product Designer at Netflix | UX Mentor",
     starRating: "4.9 ★★★★☆ (X reviews)", // ADD review count
-    sessionInfo: "X+ Sessions | Responds in < 24 hrs",
+    sessionInfo: "4+ Sessions | Responds in < 24 hrs",
     ctaButton: "Book a Session",
     quickActions: ["Message", "Save", "Share"],
   } as {
@@ -74,34 +79,64 @@ const MentorProfileContent = {
     quickActions: string[];
   },
   mainBody: {
-    howICanHelp: <div>How Can I help you</div>,
-    areasOfExpertise: <div>["Expertise 1", "Expertise 2", "Expertise 3"]</div>,
-    sessionTypes: (
-      <div>
-        {[
-          { type: "Type 1", duration: "60 minutes", price: "$100" },
-          { type: "Type 2", duration: "30 minutes", price: "$50" },
-        ].map((session, idx) => (
-          <Box
-            key={idx}
-            sx={{
-              padding: "10px",
-            }}
-          >
-            <Typography variant="h3">{session.type}</Typography>
-            <Typography>{session.duration}</Typography>
-            <Typography>prices: {session.price}</Typography>
+    about: (
+      <Box
+        sx={{
+          display: "grid",
+          gridTemplateColumns: {
+            sm: "1fr",
+            md: "2fr 1fr",
+          },
+          gap:'15px'
+        }}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "15px",
+            paddingBlock: '15px'
+          }}
+        >
+          <ContentHeader
+            title="About Me"
+            subtitle="Sure! Here’s a Lorem Ipsum text with 20 words: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+          />
+          <Box>
+            <Typography
+              variant="h3"
+              sx={{
+                marginBlock: "8px",
+              }}
+            >
+              Experties
+            </Typography>
+            {["Web Development", "UI/UX", "Computation"].map((label, idx) => (
+              <Chip label={label} key={idx} sx={{
+                marginInline: '4px'
+              }} size="small" />
+            ))}
           </Box>
-        ))}
-      </div>
-    ),
-    overview: (
-      <div>
-        <ContentHeader
-          title="About Me"
-          subtitle="Sure! Here’s a Lorem Ipsum text with 20 words: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-        />
-      </div>
+          <ContentHeader title="How can I help?" subtitle="I manage file" />
+        </Box>
+        <Box>
+          {[
+            { type: "Type 1", duration: "60 minutes", price: "$100" },
+            { type: "Type 2", duration: "30 minutes", price: "$50" },
+          ].map((session, idx) => (
+            <Box
+              key={idx}
+              sx={{
+                padding: "10px",
+              }}
+            >
+              <Typography variant="h3">{session.type}</Typography>
+              <Typography>{session.duration}</Typography>
+              <Typography>prices: {session.price}</Typography>
+            </Box>
+          ))}
+        </Box>
+      </Box>
     ),
     reviews: (
       <div>
@@ -117,7 +152,6 @@ const MentorProfileContent = {
         />
       </div>
     ),
-    myAvailability: <div>Check Availability</div>,
   },
 };
 // const MemberProfileContent = {

@@ -1,1 +1,1 @@
-export type TRoles = "mentor"|"attendee"|"organizer"|"mentee";
+export type TRoles = "mentor"|"attendee"|"organizer"|"guess";

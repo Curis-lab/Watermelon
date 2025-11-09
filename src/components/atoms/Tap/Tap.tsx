@@ -20,7 +20,7 @@ function CustomTabPanel(props: TabPanelProps) {
       aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
-      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
+      {value === index && <Box sx={{ p: 3, minHeight: '400px' }}>{children}</Box>}
     </div>
   );
 }
@@ -50,18 +50,19 @@ export default function MUITabs({
       sx={{
         width: "100%",
         ...(isVertical && {
-          display: 'flex'
-        })
+          display: "flex",
+        }),
       }}
     >
       <Box
         sx={{
           borderBottom: 1,
+          minWidth: "20%",
           borderColor: "divider",
           ...(isVertical && {
-          display: "flex",
-          flexDirection: "column",
-        }),
+            display: "flex",
+            flexDirection: "column",
+          }),
         }}
       >
         <Tabs
@@ -83,7 +84,7 @@ export default function MUITabs({
                 fontWeight: "500",
                 color: "#333",
                 ...(isVertical && {
-                  alignItems:'flex-start',
+                  alignItems: "flex-start",
                 }),
               }}
             />
@@ -91,7 +92,7 @@ export default function MUITabs({
         </Tabs>
       </Box>
       {Object.values({ ...props }).map((children, idx) => (
-        <CustomTabPanel key={idx} value={value} index={idx}>
+        <CustomTabPanel key={idx} value={value} index={idx} >
           {children}
         </CustomTabPanel>
       ))}

@@ -1,5 +1,5 @@
 import React, { createContext, useContext } from "react";
-import { Box, Chip, Typography } from "@mui/material";
+import { Box, Chip, Typography, Rating } from "@mui/material";
 import ProfileAvatar from "../../atoms/avatars";
 import { VerifiedRounded } from "@mui/icons-material";
 
@@ -75,7 +75,7 @@ function ProfileBanner(props: IProfileBanner & { children: React.ReactNode }) {
           sx={{
             display: "flex",
             flexDirection: "column",
-            alignItems: 'start',
+            alignItems: "start",
             paddingBlock: "10px",
             gap: "10px",
           }}
@@ -84,7 +84,6 @@ function ProfileBanner(props: IProfileBanner & { children: React.ReactNode }) {
           {props.children}
         </Box>
       </Box>
-      <Box>hello</Box>
     </ProfileCardContext.Provider>
   );
 }
@@ -95,9 +94,17 @@ const Headline = () => {
   return <Typography variant="body2">{headline}</Typography>;
 };
 
-const Rating = () => {
+const StarRating = () => {
   const { starRating } = useProfileCardContext() as IMentorProfileHeader;
-  return <Typography>{starRating}</Typography>;
+  
+  //reviews.length
+  //rating
+  return (
+    <Box>
+      {starRating}(5 Reviews)
+      <Rating name="half-rating" defaultValue={2.5} precision={0.5} />
+    </Box>
+  );
 };
 
 const SessionCompleted = () => {
@@ -131,7 +138,7 @@ const LookingFor = () => {
 /** start of organizer */
 const HostBadge = () => {
   const { hostBadge } = useProfileCardContext() as IOrganizerProfileHeader;
-  return <Chip label={hostBadge} variant="outlined" size="small"/>;
+  return <Chip label={hostBadge} variant="outlined" size="small" />;
 };
 
 const Verified = () => {
@@ -140,10 +147,10 @@ const Verified = () => {
     <Box
       sx={{
         color: "#2c793bdb",
-        display: 'flex',
-        justifyContent: 'center',
-        gap:'5px',
-        fontWeight: 'semibold'
+        display: "flex",
+        justifyContent: "center",
+        gap: "5px",
+        fontWeight: "semibold",
       }}
     >
       <VerifiedRounded /> Verified
@@ -155,13 +162,17 @@ const Verified = () => {
 const MemberSatisfaction = () => {
   const { memberSatisfication } =
     useProfileCardContext() as IOrganizerProfileHeader;
-  return <Typography variant="caption" color="text.secondary" >member satisfication: {memberSatisfication}</Typography>;
+  return (
+    <Typography variant="caption" color="text.secondary">
+      member satisfication: {memberSatisfication}
+    </Typography>
+  );
 };
 
 /** end of organizer */
 
 ProfileBanner.Headline = Headline;
-ProfileBanner.Rating = Rating;
+ProfileBanner.Rating = StarRating;
 ProfileBanner.SessionCompleted = SessionCompleted;
 
 /**member's */
